@@ -43,7 +43,7 @@ class TrackingAssets(models.Model):
     employee_id = fields.Many2one('hr.employee',"Employee")
     reference = fields.Char("Reference")
     value = fields.Float("Value")
-    depreciable_value = fields.Float("Depreciable Value")
+    depreciable_value = fields.Float("Not Depreciable Value")
 
 class AssetsType(models.Model):
     _name = 'asset.type'
