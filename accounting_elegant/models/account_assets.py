@@ -57,11 +57,11 @@ class InheritAccount(models.Model):
     _inherit = 'account.account'
 
     def unlink(self):
-        if self.env['account.move.line'].search([('account_id', 'in', self.ids)], limit=1):
-            raise UserError(_('You cannot perform this action on an account that contains journal items.'))
-        #Checking whether the account is set as a property to any Partner or not
-        values = ['account.account,%s' % (account_id,) for account_id in self.ids]
-        partner_prop_acc = self.env['ir.property'].sudo().search([('value_reference', 'in', values)], limit=1)
+        # if self.env['account.move.line'].search([('account_id', 'in', self.ids)], limit=1):
+        #     raise UserError(_('You cannot perform this action on an account that contains journal items.'))
+        # #Checking whether the account is set as a property to any Partner or not
+        # values = ['account.account,%s' % (account_id,) for account_id in self.ids]
+        # partner_prop_acc = self.env['ir.property'].sudo().search([('value_reference', 'in', values)], limit=1)
         # if partner_prop_acc:
         #     pass
         return super(InheritAccount, self).unlink()
