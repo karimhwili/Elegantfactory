@@ -2,6 +2,7 @@
 
 from odoo import models, fields, api, _
 from odoo.exceptions import UserError
+from odoo.addons.account.models.account_account import AccountAccount as AccountAccount
 
 
 class AccountAssetsInherit(models.Model):
@@ -64,6 +65,8 @@ class InheritAccount(models.Model):
         if partner_prop_acc:
             pass
         return super(InheritAccount, self).unlink()
+
+    AccountAccount.unlink = AccountAccount
 
 
 
