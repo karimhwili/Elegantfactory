@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from odoo import models, fields, api, _
+from odoo.exceptions import UserError
 
 
 class AccountAssetsInherit(models.Model):
@@ -50,6 +51,22 @@ class AssetsType(models.Model):
     _description = 'Assets Type'
 
     name = fields.Char("Type")
+
+class InheritAccount(models.Model):
+    _inherit = 'account.account'
+
+    def unlink(self):
+        if self.env['account.move.line'].search([('account_id', 'in', self.ids)], limit=1):
+            raise UserError(_('You cannot perform this action on an account that contains journal items.'))
+        #Checking whether the account is set as a property to any Partner or not
+        values = ['account.account,%s' % (account_id,) for account_id in self.ids]
+        partner_prop_acc = self.env['ir.property'].sudo().search([('value_reference', 'in', values)], limit=1)
+        # if partner_prop_acc:
+        #     account_name = partner_prop_acc.get_by_record().display_name
+        #     raise UserError(
+        #         _('You cannot remove/deactivate the account %s which is set on a customer or vendor.', account_name)
+        #     )
+        return super(InheritAccount, self).unlink()
 
 
 
