@@ -35,9 +35,8 @@ class HrEmpolyee(models.Model):
 
 
 class HrPayslip(models.Model):
-    '''
-    Employee Pay Slip
-    '''
+    '''Employee Pay Slip'''
+    
     _inherit = 'hr.payslip'
     _description = 'Pay Slips'
 
