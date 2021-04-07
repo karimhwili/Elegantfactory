@@ -1,11 +1,8 @@
 # -*- coding:utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
-
 from odoo import api, fields, models, _
 from odoo.exceptions import UserError
-
 from odoo import api, fields, models
-
 
 class HrEmpolyee(models.Model):
     _inherit = 'hr.employee'
@@ -30,9 +27,7 @@ class HrEmpolyee(models.Model):
 
             if employee.supporting_family:
                 tax_exc += employee.children * 25
-
             employee.tax_exemption = tax_exc
-
 
 class HrPayslip(models.Model):
     '''Employee Pay Slip'''
@@ -43,26 +38,25 @@ class HrPayslip(models.Model):
     advice_id = fields.Many2one(
         'hr.payroll.advice', string='Bank Advice', copy=False)
 
+
     def _compute_overtime(self):
         """compute the amount of the overtime done by the employee if there is.
-
         Returns:
             Float
         """
+        
         self.ensure_one()
-        overtime_hours = sum(self.env['hr.attendance'].sudo().search(
-            [
-                ('employee_id', '=', self.employee_id.id),
-                ('check_in', '>=', self.date_from),
-                ('check_in', '<=', self.date_to),
+        contract = self.contract_id
+        worked_hours = contract._get_work_hours(self.date_from, self.date_to, domain=None)
 
-            ]).mapped('worked_hours'))
+        overtime_hours = worked_hours - self.employee_id.resource_calendar_id.hours_per_day * (self.date_from - self.date_to).days
         return self.employee_id.overtime_hour_rate * overtime_hours
 
     # .المرتب الاساسي    = العقد +ساعات العمل الاضافي
     def _compute_salary_basic(self):
         self.ensure_one()
         return self.basic_wage + self._compute_overtime
+
 
     def get_details_by_rule_category(self):
         payslip_lines = self.line_ids
@@ -131,3 +125,4 @@ class HrPayslip(models.Model):
     def tadamon_deduction(self):
         self.ensure_one()
         return 0.01 * self._compute_salary_basic()
+
