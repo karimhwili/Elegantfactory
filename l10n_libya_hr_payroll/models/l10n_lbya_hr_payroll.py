@@ -50,7 +50,7 @@ class HrPayslip(models.Model):
         worked_hours = contract._get_work_hours(self.date_from, self.date_to, domain=None)
 
         overtime_hours = worked_hours - self.employee_id.resource_calendar_id.hours_per_day * (self.date_from - self.date_to).days
-        return self.employee_id.overtime_hour_rate * overtime_hours
+        return self.employee_id.overtime_hour_rate * overtime_hours if overtime_hours > 0 else 0
 
     # .المرتب الاساسي    = العقد +ساعات العمل الاضافي
     def _compute_salary_basic(self):
