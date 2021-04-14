@@ -8,7 +8,7 @@
         <field name="arch" type="xml">
             <xpath expr="//field[@name='return_location']" position="after">
                 <field name="require_limit"/>
-                <field name="limit" attrs="{'invisible': [('require_limit','=',False)]}"/>
+                <field name="limit" attrs="{'invisible': [('require_limit','=',False)],'required': [('require_limit','=', True)]}"/>
             </xpath>
         </field>
     </record>
