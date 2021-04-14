@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        
+        <!-- Inherit Form View to Modify it -->
+        <record id="hr_employee_inherit" model="ir.ui.view">
+            <field name="name">hr_employee_inherit</field>
+            <field name="model">hr.employee</field>
+            <field name="inherit_id" ref="hr.view_employee_form"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//field[@name='children']" position="before">
+                    <field name="supporting_family"/>
+                </xpath>
+                <field name="children" position="attributes">
+                    <attribute name="attrs">{'invisible': [('supporting_family', '=', False)]}</attribute>
+                </field>
+
+            </field>
+        </record>
+    
+    </data>
+</odoo>

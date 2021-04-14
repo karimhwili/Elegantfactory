@@ -6,7 +6,7 @@ from odoo import models, fields, api, _
 class HrEmployeesInherit(models.Model):
     _inherit = 'hr.employee'
 
-    tracking = fields.One2many('employee.assets','employee_id',"Tracking")
+    tracking = fields.One2many('employee.assets','employee_id',"Tracking" )
     followup_upgrade = fields.One2many('employee.upgrade','employee_id',"FollowUp")
     followup_transfer = fields.One2many('employee.transfer','employee_id',"FollowUp")
     followup_evaluation = fields.One2many('employee.evaluation','employee_id',"FollowUp")
