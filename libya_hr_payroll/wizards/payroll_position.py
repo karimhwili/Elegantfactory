@@ -26,7 +26,7 @@ class CreateWizard(models.TransientModel):
                 'position_name': position.name,
                 'basic': total_wage,
                 'total': len(exist_employee),
-                'average': total_wage / len(exist_employee)
+                'average': total_wage / len(exist_employee) if exist_employee else 0
 
             })
         return {
