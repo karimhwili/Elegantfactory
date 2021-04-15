@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+<template id="report_libya_position">
+    <t t-call="web.html_container">
+<!--        <t t-foreach="docs" t-as="o">-->
+            <t t-call="web.external_layout">
+                <div class="page">
+                    <h4 class="text-center">كشف بالمسميات الوظيفية ومتوسط الدخل</h4><br/>
+                    <h6 class="text-center"> <span t-esc="date_year"/><span>/</span>&#160;<strong t-esc="date_month"/>&#160;لشهر </h6>
+
+
+                    <table class="table table-bordered">
+                           <thead>
+                               <tr class="text-center">
+                                   <th>متوسط الدخل</th>
+                                   <th>إجمالي المرتبات</th>
+                                   <th>العدد</th>
+                                   <th>المسمى الوظيفي</th>
+                                   <th>م</th>
+                                </tr>
+                           </thead>
+                           <tbody>
+                                <tr t-foreach="payslip_ids" t-as="payslip" class="text-center">
+
+                                    <td ><span t-esc="'%.3f'% payslip['average']"/></td>
+                                    <td ><span t-esc="'%.3f'% payslip['basic']"/></td>
+                                    <td ><span t-esc=" payslip['total']"/></td>
+                                    <td ><span t-esc="payslip['position_name']"/></td>
+                                    <td><span t-esc="payslip_index + 1" /></td>
+                                </tr>
+                           </tbody>
+                       </table>
+
+
+                </div>
+            </t>
+        </t>
+<!--    </t>-->
+</template>
+</odoo>

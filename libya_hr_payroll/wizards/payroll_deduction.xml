@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="payroll_deduction_form_wizard" model="ir.ui.view">
+            <field name="name">Payroll Deduction</field>
+            <field name="model">payroll.deduction</field>
+            <field name="arch" type="xml">
+                <form string="Payroll Deduction Report">
+
+                    <group>
+                     <group>
+                            <field name="date_from" class="oe_inline"/>
+
+                     </group>
+                    <group>
+                        <field name="date_to" class="oe_inline"/>
+                    </group>
+                    </group>
+
+
+                    <footer>
+                        <button name="generate_payroll_deduction" type="object" string="Print" class="oe_highlight"/>
+                        <button  type="object" string="Cancel" special="cancel"/>
+                    </footer>
+
+                </form>
+            </field>
+        </record>
+
+        <record id="payroll_deduction_action_wizard" model="ir.actions.act_window">
+            <field name="name">كشف المرتبات والضرائب</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">payroll.deduction</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="payroll_deduction_form_wizard"/>
+            <field name="target">new</field>
+        </record>
+
+
+         <menuitem id="create_payroll_deduction" name="كشف المرتبات والضرائب"
+                  parent="hr_payroll.menu_hr_payroll_report"
+                  action="payroll_deduction_action_wizard"
+                  sequence="2"/>
+
+
+
+
+
+    </data>
+</odoo>

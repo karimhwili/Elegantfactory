@@ -159,6 +159,48 @@
         <field name="sequence" eval="100"/>
     </record>
 
+        <!--الإضافات -->
+        <record id="hr_alw1" model="hr.alw">
+            <field name="name">الإضافي</field>
+            <field name="code">ALW1</field>
+            <field name="amount">0</field>
+        </record>
+        <record id="hr_alw2" model="hr.alw">
+            <field name="name">المكأفأة</field>
+            <field name="code">ALW2</field>
+            <field name="amount">0</field>
+        </record>
+        <record id="hr_alw3" model="hr.alw">
+            <field name="name">بدل وقود</field>
+            <field name="code">ALW3</field>
+            <field name="amount">0</field>
+        </record>
+        <record id="hr_alw4" model="hr.alw">
+            <field name="name">بدل مركوب</field>
+            <field name="code">ALW4</field>
+            <field name="amount">0</field>
+        </record>
+
+        <record id="hr_alw5" model="hr.alw">
+            <field name="name">علاوة منطقة</field>
+            <field name="code">ALW5</field>
+            <field name="amount">0</field>
+        </record>
+        <record id="hr_alw6" model="hr.alw">
+            <field name="name">بدل إعاشة</field>
+            <field name="code">ALW6</field>
+            <field name="amount">0</field>
+        </record>
+        <record id="hr_alw7" model="hr.alw">
+            <field name="name">علاوة وردية</field>
+            <field name="code">ALW7</field>
+            <field name="amount">0</field>
+        </record>
+        <record id="hr_alw8" model="hr.alw">
+            <field name="name">م.هواتف</field>
+            <field name="code">ALW8</field>
+            <field name="amount">0</field>
+        </record>
 
 
     </data>

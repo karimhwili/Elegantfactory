@@ -5,3 +5,7 @@ access_hr_employee_alw_manager,hr.employee.alw.manager,libya_hr_payroll.model_hr
 access_hr_employee_alw_line_base,hr.employee.alw.line.base,libya_hr_payroll.model_hr_alw_line,base.group_user,1,1,1,1
 access_hr_employee_alw_line_user,hr.employee.alw.line.user,libya_hr_payroll.model_hr_alw_line,hr.group_hr_user,1,1,1,1
 access_hr_employee_alw_line_manager,hr.employee.alw.line.manager,libya_hr_payroll.model_hr_alw_line,hr.group_hr_manager,1,1,1,1
+access_hr_payroll_insurance,hr.employee.payroll.insurance,libya_hr_payroll.model_payroll_insurance,base.group_user,1,1,1,1
+access_hr_payroll_deduction,hr.employee.payroll.deduction,libya_hr_payroll.model_payroll_deduction,base.group_user,1,1,1,1
+access_hr_payroll_position,hr.employee.payroll.position,libya_hr_payroll.model_payroll_position,base.group_user,1,1,1,1
+access_hr_payroll_allowances,hr.employee.payroll.allowances,libya_hr_payroll.model_payroll_allowances,base.group_user,1,1,1,1

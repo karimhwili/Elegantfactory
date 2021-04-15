@@ -8,7 +8,7 @@ class HrEmpolyee(models.Model):
     _inherit = 'hr.employee'
 
     overtime_hour_rate = fields.Float(
-        'Over Time Hour Rate', digits='Product Unit of Measure' )
+        'Over Time Hour Rate', digits='Product Unit of Measure')
 
     name = fields.Char(string='Name')
     supporting_family = fields.Boolean('Supporting Family')

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+<template id="report_libya_deduction">
+    <t t-call="web.html_container">
+<!--        <t t-foreach="docs" t-as="o">-->
+            <t t-call="web.external_layout">
+                <div class="page">
+                    <h4 class="text-center">كشف المرتبات والضرائب</h4><br/>
+                    <h6 class="text-center"> <span t-esc="date_year"/><span>/</span>&#160;<strong t-esc="date_month"/>&#160;لشهر </h6>
+
+                    <table class="table table-bordered">
+                           <thead>
+                               <tr class="text-center">
+                                   <th>دمغة المرتبات</th>
+                                   <th>الدخل الصافي</th>
+                                   <th>مجموع الخصميات</th>
+                                   <th>ضريبة الدخل</th>
+                                   <th>حد الإعفاء</th>
+                                   <th>ضريبة الجهاد</th>
+                                   <th>الدخل الخاضع للضرائب</th>
+                                   <th>خصم التضامن</th>
+                                   <th>خصم الضمان</th>
+                                   <th>إجمالي المرتب</th>
+                                   <th>الاسم</th>
+                                   <th>م</th>
+                                </tr>
+                           </thead>
+                           <tbody>
+                                <tr t-foreach="payslip_ids" t-as="payslip" class="text-center">
+                                    <td ><span t-esc="'%.3f'% payslip['dm8a_tax']"/></td>
+                                    <td ><span t-esc="'%.3f'% payslip['net_salary']"/></td>
+                                    <td ><span t-esc="'%.3f'% payslip['total_taxes']"/></td>
+                                    <td ><span t-esc="'%.3f'% payslip['total_tax']"/></td>
+                                    <td ><span t-esc="'%.3f'% payslip['deduction_tax']"/></td>
+                                    <td ><span t-esc="'%.3f'% payslip['gehad_tax']"/></td>
+                                    <td ><span t-esc="'%.3f'% payslip['basic_insurance']"/></td>
+                                    <td ><span t-esc="'%.3f'% payslip['company_insurance']"/></td>
+                                    <td ><span t-esc="'%.3f'% payslip['employee_insurance']"/></td>
+                                    <td ><span t-esc="'%.3f'% payslip['basic']"/></td>
+                                    <td ><span t-esc="payslip['employee_name']"/></td>
+                                    <td><span t-esc="payslip_index + 1" /></td>
+                                </tr>
+                           </tbody>
+                    </table>
+
+                </div>
+            </t>
+        </t>
+<!--    </t>-->
+</template>
+</odoo>
