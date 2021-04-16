@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        
+        <record id="bank_branch_view_form" model="ir.ui.view">
+            <field name="name">bank_branch_view_form</field>
+            <field name="model">bank.branch</field>
+            <field name="arch" type="xml">
+                <form string="Bank Branch">
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+                            <field name="bank_id"/>
+
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="bank_branch_view_tree" model="ir.ui.view">
+            <field name="name">bank_branch_view_tree</field>
+            <field name="model">bank.branch</field>
+            <field name="arch" type="xml">
+                <tree string="Bank Branch">
+                    <field name="name"/>
+                    <field name="bank_id"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="bank_branch_action" model="ir.actions.act_window">
+            <field name="name">Bank Branch</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">bank.branch</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <!-- This Menu Item must have a parent and an action -->
+
+        <menuitem id="banks_categ"
+                  name="Banks"
+                  parent="hr.menu_human_resources_configuration"
+                  action="base.action_res_bank_form"
+                  sequence="10"/>
+
+        <menuitem id="bank_branch_categ"
+                  name="Bank Branches"
+                  parent="hr.menu_human_resources_configuration"
+                  action="bank_branch_action"
+                  sequence="10"/>
+    
+    </data>
+</odoo>

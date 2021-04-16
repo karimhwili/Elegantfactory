@@ -51,11 +51,68 @@
         <menuitem
                 action="view_action_other_alw"
                 id="menu_hr_alw"
-                parent="hr.menu_human_resources_configuration"
+                parent="hr_work_entry_contract.menu_hr_payroll_configuration"
                 sequence="100"
                 groups="hr.group_hr_manager"/>
 
     </data>
+
+    <data>
+        <record id="view_other_ded_form" model="ir.ui.view">
+            <field name="name">view.other.ded.form</field>
+            <field name="model">hr.ded</field>
+            <field name="arch" type="xml">
+                <form string="">
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+                            <field name="code"/>
+                            <field name="amount"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+
+        <record id="view_other_ded_tree" model="ir.ui.view">
+            <field name="name">view.other.ded.tree</field>
+            <field name="model">hr.ded</field>
+            <field name="arch" type="xml">
+                <tree string="">
+                    <field name="name"/>
+                    <field name="code"/>
+                    <field name="amount"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_action_other_ded" model="ir.actions.act_window">
+            <field name="name">Employee Deductions</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">hr.ded</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    <!-- Add Text Here -->
+                </p>
+                <p>
+                    <!-- More details about what a user can do with this object will be OK -->
+                </p>
+            </field>
+        </record>
+
+
+        <menuitem
+                action="view_action_other_ded"
+                id="menu_hr_ded"
+                parent="hr_work_entry_contract.menu_hr_payroll_configuration"
+                sequence="100"
+                groups="hr.group_hr_manager"/>
+
+    </data>
+
+
     <data>
         <record id="hr_contract_form_egypt_inherit" model="ir.ui.view">
             <field name="name">hr.contract.view.form.egypt.inherit</field>
@@ -66,15 +123,24 @@
 
                    <page name="salary_items" string="Salary Items" groups="hr.group_hr_manager">
                         <group>
-                            <group string="Allowances">
+                            <group string="Overtime working hours">
                                 <field name="allowances"/>
                             </group>
 
                         </group>
                         <group string="Other Allowances">
                             <field name="other_alw_ids" nolabel="1">
-                                <tree string="Ohter allowances" editable="bottom">
+                                <tree string="Other allowances" editable="bottom">
                                     <field name="alw_id" widget="selection"/>
+                                    <field name="code"/>
+                                    <field name="amount"/>
+                                </tree>
+                            </field>
+                        </group>
+                       <group string="Other Deductions">
+                            <field name="other_ded_ids" nolabel="1">
+                                <tree string="Other Deductions" editable="bottom">
+                                    <field name="ded_id" widget="selection"/>
                                     <field name="code"/>
                                     <field name="amount"/>
                                 </tree>

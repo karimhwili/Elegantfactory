@@ -42,6 +42,16 @@
                 menu="False"
         />
 
+        <report
+                id="report_payroll_expenses_pdf"
+                model="hr.payslip"
+                string="حوافظ الإرفاق للمصارف"
+                name="libya_hr_payroll.report_libya_expenses"
+                file="libya_hr_payroll.report_libya_expenses"
+                report_type="qweb-pdf"
+
+        />
+
 
         <record id="paperformat_payroll_deduction" model="report.paperformat">
             <field name="name">Payroll Deduction Report</field>

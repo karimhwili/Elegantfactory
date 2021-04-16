@@ -15,7 +15,26 @@
                 <field name="children" position="attributes">
                     <attribute name="attrs">{'invisible': [('supporting_family', '=', False)]}</attribute>
                 </field>
+                <xpath expr="//page[@name='personal_information']//group//group[7]" position="after">
+                    <group string="Bank Info">
+                        <field name="bank_account_id"/>
+                    </group>
+                </xpath>
 
+            </field>
+        </record>
+
+        <record id="inherit_partner_bank_form" model="ir.ui.view">
+            <field name="name">inherit_partner_bank_form</field>
+            <field name="model">res.partner.bank</field>
+            <field name="inherit_id" ref="base.view_partner_bank_form"/>
+            <field name="arch" type="xml">
+                <field name="bank_id" position="attributes">
+                    <attribute name="options">{'no_create_edit': True, 'no_quick_create': True,'no_open':True}</attribute>
+                </field>
+                <xpath expr="//field[@name='bank_id']" position="after">
+                    <field name="bank_branch" options="{'no_create_edit': True, 'no_quick_create': True,'no_open':True}"/>
+                </xpath>
             </field>
         </record>
     

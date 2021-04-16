@@ -1,0 +1,42 @@
+<odoo>
+    <data>
+         <template id="report_libya_expenses">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <h5 class="text-center">
+                            <strong>حوافظ الإرفاق للمصارف</strong>
+                        </h5><br/>
+                        <div class="text-center">
+                            <h4>
+                             الأخوة مصرف/   &#160;<span t-field="o.employee_id.bank_account_id.bank_id.name"/> فرع &#160; <span t-field="o.employee_id.bank_account_id.bank_branch.name"/>
+                            </h4>
+                         </div><br/>
+                        <div class="text-right">
+                            <span>نرفق لكم الصك رقم ............................... بملبغ</span>
+                            <span style="margin-right:120px;">دينار ليبي فقط بتاريخ </span>
+                            <strong t-esc="context_timestamp(datetime.datetime.now()).strftime('%d-%m-%Y')" style="margin-right:10px;"/>
+                            <t t-foreach="o.line_ids"  t-as="line">
+                                <t t-if="line.code == 'NETSALARY'">
+                                    <div style="margin-right:290px;margin-top:-21px;">
+                                        <strong t-field="line.total"/>
+                                    </div>
+                                </t>
+                            </t>
+                        </div><br/>
+                        <div class="text-right">
+                            <strong>وهو يمثل صافي المرتبات للأخوة الموظفين</strong>
+                        </div><br/>
+                        <div class="text-right">
+                            <strong t-field="o.date_from"/>&#160;&#160;&#160;<span>عن شهر</span>
+                        </div>
+
+                        
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+    </data>
+</odoo>
