@@ -29,10 +29,45 @@
                             <strong>وهو يمثل صافي المرتبات للأخوة الموظفين</strong>
                         </div><br/>
                         <div class="text-right">
-                            <strong t-field="o.date_from"/>&#160;&#160;&#160;<span>عن شهر</span>
-                        </div>
 
-                        
+                            <strong t-field="o.date_from" t-options='{"widget": "date", "format": "yyyy"}'/>&#160;&#160;&#160;<span>عن شهر</span>
+
+                            <strong t-field="o.date_from" t-options='{"widget": "date", "format": "M"}'/>&#160;&#160;&#160;<span>لسنة</span><br/>
+                            <span>:ف يرجى قيد القيمة لحساباتهم المفتوحة لديكم كالتالي</span>
+
+                        </div> <br/>
+
+                        <table class="table table-bordered">
+                           <thead>
+                               <tr class="text-center">
+                                   <th>الصافي</th>
+                                   <th>رقم الحساب</th>
+                                   <th>الموقع</th>
+                                   <th>الرقم الوطني</th>
+                                   <th>الاسم</th>
+                                </tr>
+                           </thead>
+                           <tbody>
+                                <tr class="text-center">
+
+                                    <td>
+                                        <t t-foreach="o.line_ids"  t-as="line">
+                                            <t t-if="line.code == 'NETSALARY'">
+                                                <div>
+                                                    <strong t-field="line.total"/>
+                                                </div>
+                                            </t>
+                                        </t>
+                                    </td>
+                                    <td ><span t-field="o.employee_id.bank_account_id.acc_number"/></td>
+                                    <td ><span t-field="o.employee_id.work_location"/></td>
+                                    <td ><span t-field="o.employee_id.identification_id"/></td>
+                                    <td ><span t-field="o.employee_id.name"/></td>
+                                </tr>
+                           </tbody>
+                    </table>
+
+
                     </div>
                 </t>
             </t>

@@ -117,7 +117,32 @@
         <field name="amount_select">code</field>
         <field name="amount_python_compute">result = contract.compute_tax_exemption()
         </field>
-        <field name="sequence" eval="60"/>
+        <field name="sequence" eval="51"/>
+    </record>
+
+
+         <!-- ش1 -->
+    <record id="hr_salary_tax1_deduction" model="hr.salary.rule">
+        <field name="code">TXDED1</field>
+        <field name="name"> ش1</field>
+        <field name="struct_id" ref="hr_salary_structure_ly"/>
+        <field name="category_id" ref="hr_payroll.DED"/>
+        <field name="amount_select">code</field>
+        <field name="amount_python_compute">result = contract.calculate_ly_tax1()
+        </field>
+        <field name="sequence" eval="58"/>
+    </record>
+
+         <!-- ش2 -->
+    <record id="hr_salary_tax2_deduction" model="hr.salary.rule">
+        <field name="code">TXDED2</field>
+        <field name="name">ش2</field>
+        <field name="struct_id" ref="hr_salary_structure_ly"/>
+        <field name="category_id" ref="hr_payroll.DED"/>
+        <field name="amount_select">code</field>
+        <field name="amount_python_compute">result = contract.calculate_ly_tax2()
+        </field>
+        <field name="sequence" eval="59"/>
     </record>
 
         <!-- مجموع ضرائب الدخل -->

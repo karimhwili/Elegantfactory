@@ -26,6 +26,8 @@ class CreateWizard(models.TransientModel):
                 'basic_insurance':payslip.line_ids.filtered(lambda line: line.code == 'WDED').total,
                 'gehad_tax':payslip.line_ids.filtered(lambda line: line.code == 'GDED').total,
                 'deduction_tax':payslip.line_ids.filtered(lambda line: line.code == 'ADED').total,
+                'total_tax1':payslip.line_ids.filtered(lambda line: line.code == 'TXDED1').total,
+                'total_tax2':payslip.line_ids.filtered(lambda line: line.code == 'TXDED2').total,
                 'total_tax':payslip.line_ids.filtered(lambda line: line.code == 'TXDED').total,
                 'total_taxes':payslip.line_ids.filtered(lambda line: line.code == 'RTXDED').total,
                 'net_salary':payslip.line_ids.filtered(lambda line: line.code == 'NETSALARY').total,

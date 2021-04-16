@@ -14,7 +14,9 @@
                                    <th>دمغة المرتبات</th>
                                    <th>الدخل الصافي</th>
                                    <th>مجموع الخصميات</th>
-                                   <th>ضريبة الدخل</th>
+                                   <th>مجموع ضرائب الدخل</th>
+                                   <th>ش2</th>
+                                   <th>ش1</th>
                                    <th>حد الإعفاء</th>
                                    <th>ضريبة الجهاد</th>
                                    <th>الدخل الخاضع للضرائب</th>
@@ -31,6 +33,8 @@
                                     <td ><span t-esc="'%.3f'% payslip['net_salary']"/></td>
                                     <td ><span t-esc="'%.3f'% payslip['total_taxes']"/></td>
                                     <td ><span t-esc="'%.3f'% payslip['total_tax']"/></td>
+                                    <td ><span t-esc="'%.3f'% payslip['total_tax2']"/></td>
+                                    <td ><span t-esc="'%.3f'% payslip['total_tax1']"/></td>
                                     <td ><span t-esc="'%.3f'% payslip['deduction_tax']"/></td>
                                     <td ><span t-esc="'%.3f'% payslip['gehad_tax']"/></td>
                                     <td ><span t-esc="'%.3f'% payslip['basic_insurance']"/></td>

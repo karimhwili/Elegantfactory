@@ -108,6 +108,27 @@ class HrContract(models.Model):
             total_tax = sum(tax_amounts)
         return total_tax
 
+    def calculate_ly_tax1(self):
+        salary = self.compute_salary_wdec() - self.compute_tax_exemption()
+        total_tax1 = 0
+        if salary:
+            if salary <= 1000:
+                total_tax1 += salary *0.05
+            else:
+                total_tax1 += 50
+        return total_tax1
+
+    def calculate_ly_tax2(self):
+        salary = self.compute_salary_wdec() - self.compute_tax_exemption()
+        total_tax2 = 0
+        if salary:
+            if salary > 1000:
+                total_tax2 += (salary-1000)*0.1
+            else:
+                total_tax2 = 0
+        return total_tax2
+
+
     def compute_deduction_dinar(self):
         d_dinar = 0
         if self.compute_salary_basic() > 0:
