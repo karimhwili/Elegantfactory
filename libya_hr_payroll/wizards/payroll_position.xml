@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="payroll_position_form_wizard" model="ir.ui.view">
+            <field name="name">Payroll Insurance</field>
+            <field name="model">payroll.position</field>
+            <field name="arch" type="xml">
+                <form string="Payroll Position Report">
+
+                    <group>
+                     <group>
+                            <field name="date_from" class="oe_inline"/>
+
+                     </group>
+                    <group>
+                        <field name="date_to" class="oe_inline"/>
+                    </group>
+                    </group>
+
+
+                    <footer>
+                        <button name="generate_payroll_position" type="object" string="Print" class="oe_highlight"/>
+                        <button  type="object" string="Cancel" special="cancel"/>
+                    </footer>
+
+                </form>
+            </field>
+        </record>
+
+        <record id="payroll_position_action_wizard" model="ir.actions.act_window">
+            <field name="name">كشف بالمسميات الوظيفية ومتوسط الدخل</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">payroll.position</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="payroll_position_form_wizard"/>
+            <field name="target">new</field>
+        </record>
+
+        <menuitem id="create_payroll_position" name=" كشف بالمسميات الوظيفية ومتوسط الدخل"
+                  parent="hr_payroll.menu_hr_payroll_report"
+                  action="payroll_position_action_wizard"
+                  sequence="2"/>
+
+
+
+
+
+
+    </data>
+</odoo>

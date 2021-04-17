@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+<template id="report_libya_allowances">
+    <t t-call="web.html_container">
+<!--        <t t-foreach="docs" t-as="o">-->
+            <t t-call="web.external_layout">
+                <div class="page">
+                    <h4 class="text-center">كشف بالمرتب وتفصيل الإضافات</h4><br/>
+                    <h6 class="text-center"> <span t-esc="date_year"/><span>/</span>&#160;<strong t-esc="date_month"/>&#160;لشهر </h6>
+
+                    <table class="table table-bordered">
+                           <thead>
+                               <tr class="text-center">
+
+                                   <th>الدخل الصافي</th>
+                                   <th>الخصميات</th>
+                                   <th>م.هواتف</th>
+                                   <th>علاوة وردية</th>
+                                   <th>بدل إعاشة</th>
+                                   <th>علاوة منطقة</th>
+                                   <th>بدل مركوب</th>
+                                   <th>بدل وقود</th>
+                                   <th>المكأفأة</th>
+                                   <th>الإضافي</th>
+                                   <th>إجمالي المرتب</th>
+                                   <th>الاسم</th>
+                                   <th>م</th>
+                                </tr>
+                           </thead>
+                           <tbody>
+                                <tr t-foreach="payslip_ids" t-as="payslip" class="text-center">
+                                    <td ><span t-esc="'%.3f'% payslip['net_salary']"/></td>
+                                    <td ><span t-esc="'%.3f'% payslip['total_taxes']"/></td>
+
+                                    <t t-if="payslip['ALW8']">
+                                        <td ><span t-esc="'%.3f'% payslip['ALW8']"/></td>
+                                    </t>
+                                    <t t-else="">
+                                        <td ><span>-</span></td>
+                                    </t>
+
+                                    <t t-if="payslip['ALW7']">
+                                        <td ><span t-esc="'%.3f'% payslip['ALW7']"/></td>
+                                    </t>
+                                    <t t-else="">
+                                        <td ><span>-</span></td>
+                                    </t>
+
+                                    <t t-if="payslip['ALW6']">
+                                        <td ><span t-esc="'%.3f'% payslip['ALW6']"/></td>
+                                    </t>
+                                    <t t-else="">
+                                        <td ><span>-</span></td>
+                                    </t>
+
+                                    <t t-if="payslip['ALW5']">
+                                        <td ><span t-esc="'%.3f'% payslip['ALW5']"/></td>
+                                    </t>
+                                    <t t-else="">
+                                        <td ><span>-</span></td>
+                                    </t>
+
+                                    <t t-if="payslip['ALW4']">
+                                        <td ><span t-esc="'%.3f'% payslip['ALW4']"/></td>
+                                    </t>
+                                    <t t-else="">
+                                        <td ><span>-</span></td>
+                                    </t>
+
+                                    <t t-if="payslip['ALW3']">
+                                        <td ><span t-esc="'%.3f'% payslip['ALW3']"/></td>
+                                    </t>
+                                    <t t-else="">
+                                        <td ><span>-</span></td>
+                                    </t>
+
+                                    <t t-if="payslip['ALW2']">
+                                        <td ><span t-esc="'%.3f'% payslip['ALW2']"/></td>
+                                    </t>
+                                    <t t-else="">
+                                        <td ><span>-</span></td>
+                                    </t>
+
+                                    <t t-if="payslip['ALW1']">
+                                        <td ><span t-esc="'%.3f'% payslip['ALW1']"/></td>
+                                    </t>
+                                    <t t-else="">
+                                        <td ><span>-</span></td>
+                                    </t>
+
+                                    <td ><span t-esc="'%.3f'% payslip['basic']"/></td>
+                                    <td >
+                                        <span t-esc="payslip['employee_name']"/>
+<!--                                       <br/> <span t-esc="payslip['position_name']"/>-->
+                                    </td>
+                                    <td><span t-esc="payslip_index + 1" /></td>
+                                </tr>
+                           </tbody>
+                    </table>
+
+                </div>
+            </t>
+        </t>
+<!--    </t>-->
+</template>
+</odoo>

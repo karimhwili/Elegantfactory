@@ -1,0 +1,256 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="0">
+
+
+    <record id="structure_type_libya_payroll"
+        model="hr.payroll.structure.type">
+        <field name="name">Libya Payroll</field>
+        <field name="country_id" eval="False"/>
+    </record>
+
+    <record id="hr_salary_structure_ly" model="hr.payroll.structure">
+        <field name="name">Salary Structure of Libya</field>
+        <field name="type_id" ref="structure_type_libya_payroll"/>
+        <field name="country_id" eval="False"/>
+    </record>
+
+    <record id="hr_oded" model="hr.salary.rule.category">
+        <field name="name">Other Deduction</field>
+        <field name="code">ODED</field>
+    </record>
+
+        <!-- الاساسي -->
+    <record id="hr_salary_rule_Basic" model="hr.salary.rule">
+        <field name="code">BASIC</field>
+        <field name="name">الاساسي</field>
+        <field name="struct_id" ref="hr_salary_structure_ly"/>
+        <field name="category_id" ref="hr_payroll.BASIC"/>
+        <field name="amount_select">code</field>
+            <field name="amount_python_compute">result = contract.compute_salary_basic()
+        </field>
+        <field name="sequence" eval="1"/>
+        <field name="note">Basic Salary of the Social Insurance</field>
+    </record>
+
+         <!-- الاضافي -->
+    <record id="hr_payroll_rule_allowances" model="hr.salary.rule">
+        <field name="code">ALWS</field>
+        <field name="name">ساعات العمل الاضافي</field>
+        <field name="struct_id" ref="hr_salary_structure_ly"/>
+        <field name="category_id" ref="hr_payroll.BASIC"/>
+        <field name="amount_select">code</field>
+        <field name="amount_python_compute">result = contract.allowances</field>
+        <field name="sequence" eval="2"/>
+    </record>
+
+
+        <!-- إجمالي المرتب -->
+    <record id="hr_salary_rule_basic" model="hr.salary.rule">
+        <field name="code">TOBASIC</field>
+        <field name="name">إجمالي المرتب</field>
+        <field name="struct_id" ref="hr_salary_structure_ly"/>
+        <field name="category_id" ref="hr_payroll.BASIC"/>
+        <field name="amount_select">code</field>
+            <field name="amount_python_compute">result = contract.compute_salary_basic() + ALWS
+        </field>
+        <field name="sequence" eval="3"/>
+        <field name="note">Basic Salary of the Social Insurance</field>
+    </record>
+
+
+        <!-- حصة المضمون -->
+    <record id="hr_salary_mdmoon_deduction" model="hr.salary.rule">
+        <field name="code">MDED</field>
+        <field name="name">حصة المضمون</field>
+        <field name="struct_id" ref="hr_salary_structure_ly"/>
+        <field name="category_id" ref="hr_payroll.DED"/>
+        <field name="amount_select">code</field>
+        <field name="amount_python_compute">result = (0.0375*contract.compute_salary_basic())
+        </field>
+
+        <field name="sequence" eval="50"/>
+    </record>
+
+         <!-- التضامن -->
+    <record id="hr_salary_tdmoon_deduction" model="hr.salary.rule">
+        <field name="code">TDDED</field>
+        <field name="name"> التضامن</field>
+        <field name="struct_id" ref="hr_salary_structure_ly"/>
+        <field name="category_id" ref="hr_payroll.DED"/>
+        <field name="amount_select">code</field>
+        <field name="amount_python_compute">result =  (0.01*contract.compute_salary_basic())
+        </field>
+        <field name="sequence" eval="50"/>
+    </record>
+
+        <!-- الوعاء الضريبي -->
+    <record id="hr_salary_wmoon_deduction" model="hr.salary.rule">
+        <field name="code">WDED</field>
+        <field name="name"> الوعاء الضريبي</field>
+        <field name="struct_id" ref="hr_salary_structure_ly"/>
+        <field name="category_id" ref="hr_payroll.DED"/>
+        <field name="amount_select">code</field>
+        <field name="amount_python_compute">result = contract.compute_salary_wdec()
+        </field>
+        <field name="sequence" eval="50"/>
+    </record>
+
+        <!-- ضريبة الجهاد -->
+    <record id="hr_salary_gehad_deduction" model="hr.salary.rule">
+        <field name="code">GDED</field>
+        <field name="name"> ضريبة الجهاد</field>
+        <field name="struct_id" ref="hr_salary_structure_ly"/>
+        <field name="category_id" ref="hr_payroll.DED"/>
+        <field name="amount_select">code</field>
+        <field name="amount_python_compute">result = 0.03 * WDED
+        </field>
+        <field name="sequence" eval="50"/>
+    </record>
+
+        <!-- الاعفاء القانوني -->
+    <record id="hr_salary_afaa_deduction" model="hr.salary.rule">
+        <field name="code">ADED</field>
+        <field name="name"> الإعفاء القانوني</field>
+        <field name="struct_id" ref="hr_salary_structure_ly"/>
+        <field name="category_id" ref="hr_payroll.DED"/>
+        <field name="amount_select">code</field>
+        <field name="amount_python_compute">result = contract.compute_tax_exemption()
+        </field>
+        <field name="sequence" eval="51"/>
+    </record>
+
+
+         <!-- ش1 -->
+    <record id="hr_salary_tax1_deduction" model="hr.salary.rule">
+        <field name="code">TXDED1</field>
+        <field name="name"> ش1</field>
+        <field name="struct_id" ref="hr_salary_structure_ly"/>
+        <field name="category_id" ref="hr_payroll.DED"/>
+        <field name="amount_select">code</field>
+        <field name="amount_python_compute">result = contract.calculate_ly_tax1()
+        </field>
+        <field name="sequence" eval="58"/>
+    </record>
+
+         <!-- ش2 -->
+    <record id="hr_salary_tax2_deduction" model="hr.salary.rule">
+        <field name="code">TXDED2</field>
+        <field name="name">ش2</field>
+        <field name="struct_id" ref="hr_salary_structure_ly"/>
+        <field name="category_id" ref="hr_payroll.DED"/>
+        <field name="amount_select">code</field>
+        <field name="amount_python_compute">result = contract.calculate_ly_tax2()
+        </field>
+        <field name="sequence" eval="59"/>
+    </record>
+
+        <!-- مجموع ضرائب الدخل -->
+    <record id="hr_salary_tax_deduction" model="hr.salary.rule">
+        <field name="code">TXDED</field>
+        <field name="name"> مجموع ضرائب الدخل</field>
+        <field name="struct_id" ref="hr_salary_structure_ly"/>
+        <field name="category_id" ref="hr_payroll.DED"/>
+        <field name="amount_select">code</field>
+        <field name="amount_python_compute">result = contract.calculate_ly_tax()
+        </field>
+        <field name="sequence" eval="60"/>
+    </record>
+
+        <!--الضرائب المستحقة -->
+    <record id="hr_salary_taxrequire_deduction" model="hr.salary.rule">
+        <field name="code">RTXDED</field>
+        <field name="name"> الضرائب المستحقة</field>
+        <field name="struct_id" ref="hr_salary_structure_ly"/>
+        <field name="category_id" ref="hr_payroll.DED"/>
+        <field name="amount_select">code</field>
+        <field name="amount_python_compute">result = contract.calculate_ly_tax() + GDED + TDDED
+        </field>
+        <field name="sequence" eval="70"/>
+    </record>
+
+        <!--صافى المرتب -->
+    <record id="hr_salary_net_salary" model="hr.salary.rule">
+        <field name="code">NETSALARY</field>
+        <field name="name">صافى المرتب</field>
+        <field name="struct_id" ref="hr_salary_structure_ly"/>
+        <field name="category_id" ref="hr_payroll.NET"/>
+        <field name="amount_select">code</field>
+        <field name="amount_python_compute">result = TOBASIC - RTXDED  + categories.ALW - categories.ODED
+        </field>
+        <field name="sequence" eval="71"/>
+    </record>
+
+        <!--دمغة المرتب -->
+    <record id="hr_salary_dm8a_salary" model="hr.salary.rule">
+        <field name="code">DMGHA</field>
+        <field name="name">دمغة المرتب</field>
+        <field name="struct_id" ref="hr_salary_structure_ly"/>
+        <field name="category_id" ref="hr_payroll.DED"/>
+        <field name="amount_select">code</field>
+        <field name="amount_python_compute">result = 0.005 * NETSALARY
+        </field>
+        <field name="sequence" eval="100"/>
+    </record>
+
+        <!--صندوق الزمالة -->
+    <record id="hr_salary_zmala_salary" model="hr.salary.rule">
+        <field name="code">ZAMALA</field>
+        <field name="name">صندوق المساعدة</field>
+        <field name="struct_id" ref="hr_salary_structure_ly"/>
+        <field name="category_id" ref="hr_payroll.DED"/>
+        <field name="amount_select">code</field>
+        <field name="amount_python_compute">result = 0.69 * NETSALARY
+        </field>
+        <field name="sequence" eval="100"/>
+    </record>
+
+        <!--الإضافات -->
+        <record id="hr_alw1" model="hr.alw">
+            <field name="name">الإضافي</field>
+            <field name="code">ALW1</field>
+            <field name="amount">0</field>
+        </record>
+        <record id="hr_alw2" model="hr.alw">
+            <field name="name">المكأفأة</field>
+            <field name="code">ALW2</field>
+            <field name="amount">0</field>
+        </record>
+        <record id="hr_alw3" model="hr.alw">
+            <field name="name">بدل وقود</field>
+            <field name="code">ALW3</field>
+            <field name="amount">0</field>
+        </record>
+        <record id="hr_alw4" model="hr.alw">
+            <field name="name">بدل مركوب</field>
+            <field name="code">ALW4</field>
+            <field name="amount">0</field>
+        </record>
+
+        <record id="hr_alw5" model="hr.alw">
+            <field name="name">علاوة منطقة</field>
+            <field name="code">ALW5</field>
+            <field name="amount">0</field>
+        </record>
+        <record id="hr_alw6" model="hr.alw">
+            <field name="name">بدل إعاشة</field>
+            <field name="code">ALW6</field>
+            <field name="amount">0</field>
+        </record>
+        <record id="hr_alw7" model="hr.alw">
+            <field name="name">علاوة وردية</field>
+            <field name="code">ALW7</field>
+            <field name="amount">0</field>
+        </record>
+        <record id="hr_alw8" model="hr.alw">
+            <field name="name">م.هواتف</field>
+            <field name="code">ALW8</field>
+            <field name="amount">0</field>
+        </record>
+
+
+    </data>
+
+
+
+</odoo>
