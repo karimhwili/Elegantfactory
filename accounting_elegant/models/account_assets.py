@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from odoo import models, fields, api, _
-
+from odoo.exceptions import UserError
 
 class AccountAssetsInherit(models.Model):
     _inherit = 'account.asset'
@@ -35,15 +35,29 @@ class AccountAssetsInherit(models.Model):
         self.salvage_value = d_value
 
 
+
+class AssetsTrackingLocation(models.Model):
+    _name = 'assets.tracking.location'
+    _description = 'New Description'
+    name = fields.Char(string='Name')
+
+
 class TrackingAssets(models.Model):
     _name = 'assets.tracking'
     _description = 'Tracking Assets'
 
     asset_id = fields.Many2one('account.asset')
     employee_id = fields.Many2one('hr.employee',"Employee")
-    reference = fields.Char("Reference")
+    reference = fields.Char("Reference", required=True)
     value = fields.Float("Value")
     depreciable_value = fields.Float("Not Depreciable Value")
+    location_id = fields.Many2one('assets.tracking.location', string='Location')
+    
+    @api.constrains("employee_id", "location_id")
+    def _check_field(self):
+        for s in self:
+            if not (s.location_id or s.employee_id):
+                raise UserError(_("Please select either an employee or a location in the tracking!"))
 
 class AssetsType(models.Model):
     _name = 'asset.type'
