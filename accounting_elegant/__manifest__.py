@@ -4,7 +4,7 @@
 
     'author': "M.Shorbagy (Sahara)",
 
-    'depends': ['base','account_asset','hr'],
+    'depends': ['base','account_asset','hr', 'stock'],
 
     # always loaded
     'data': [
@@ -13,6 +13,7 @@
         'groups/groups.xml',
         'views/account_assets.xml',
         'views/journal_entry.xml',
+        'views/stock_picking.xml',
 
 
     ],
