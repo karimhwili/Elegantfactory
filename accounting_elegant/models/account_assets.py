@@ -6,7 +6,7 @@ from odoo import models, fields, api, _
 class AccountAssetsInherit(models.Model):
     _inherit = 'account.asset'
 
-    tracking = fields.One2many('assets.tracking','asset_id',"Tracking")
+    tracking = fields.One2many('assets.tracking','asset_id',"Tracking" )
     original_value = fields.Float(compute="_get_original_value", store=True)
     salvage_value = fields.Float(compute="_get_original_value", store=True,readonly=False)
     asset_types = fields.Many2one('asset.type',"Asset Type")

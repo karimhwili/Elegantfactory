@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        
+        <!-- Inherit Form View to Modify it -->
+        <record id="hr_employee_inherit" model="ir.ui.view">
+            <field name="name">hr_employee_inherit</field>
+            <field name="model">hr.employee</field>
+            <field name="inherit_id" ref="hr.view_employee_form"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//field[@name='children']" position="before">
+                    <field name="supporting_family"/>
+                </xpath>
+                <field name="children" position="attributes">
+                    <attribute name="attrs">{'invisible': [('supporting_family', '=', False)]}</attribute>
+                </field>
+                <xpath expr="//page[@name='personal_information']//group//group[7]" position="after">
+                    <group string="Bank Info">
+                        <field name="bank_account_id"/>
+                    </group>
+                </xpath>
+
+            </field>
+        </record>
+
+        <record id="inherit_partner_bank_form" model="ir.ui.view">
+            <field name="name">inherit_partner_bank_form</field>
+            <field name="model">res.partner.bank</field>
+            <field name="inherit_id" ref="base.view_partner_bank_form"/>
+            <field name="arch" type="xml">
+                <field name="bank_id" position="attributes">
+                    <attribute name="options">{'no_create_edit': True, 'no_quick_create': True,'no_open':True}</attribute>
+                </field>
+                <xpath expr="//field[@name='bank_id']" position="after">
+                    <field name="bank_branch" options="{'no_create_edit': True, 'no_quick_create': True,'no_open':True}"/>
+                </xpath>
+            </field>
+        </record>
+    
+    </data>
+</odoo>

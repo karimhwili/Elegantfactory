@@ -1,0 +1,16 @@
+<odoo>
+
+    <!-- Inherited stock location form view -->
+    <record id="stock_location_view_form_extend" model="ir.ui.view">
+        <field name="name">stock.location.view.form.extend</field>
+        <field name="model">stock.location</field>
+        <field name="inherit_id" ref="stock.view_location_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='return_location']" position="after">
+                <field name="require_limit"/>
+                <field name="limit" attrs="{'invisible': [('require_limit','=',False)],'required': [('require_limit','=', True)]}"/>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

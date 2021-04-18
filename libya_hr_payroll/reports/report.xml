@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+
+        <report
+                id="report_payroll_libya_insurance_pdf"
+                model="hr.payslip"
+                string="كشف اشتراكات الضمان الاجتماعي"
+                name="libya_hr_payroll.report_libya_insurance"
+                file="libya_hr_payroll.report_libya_insurance"
+                report_type="qweb-pdf"
+                menu="False"
+        />
+
+        <report
+                id="report_payroll_libya_deduction_pdf"
+                model="hr.payslip"
+                string="كشف المرتبات والضرائب"
+                name="libya_hr_payroll.report_libya_deduction"
+                file="libya_hr_payroll.report_libya_deduction"
+                report_type="qweb-pdf"
+                menu="False"
+        />
+
+        <report
+                id="report_payroll_libya_position_pdf"
+                model="hr.payslip"
+                string="كشف بالمسميات الوظيفية ومتوسط الدخل"
+                name="libya_hr_payroll.report_libya_position"
+                file="libya_hr_payroll.report_libya_position"
+                report_type="qweb-pdf"
+                menu="False"
+        />
+
+        <report
+                id="report_payroll_libya_allowances_pdf"
+                model="hr.payslip"
+                string="كشف بالمرتب وتفصيل الإضافات"
+                name="libya_hr_payroll.report_libya_allowances"
+                file="libya_hr_payroll.report_libya_allowances"
+                report_type="qweb-pdf"
+                menu="False"
+        />
+
+        <report
+                id="report_payroll_expenses_pdf"
+                model="hr.payslip"
+                string="حوافظ الإرفاق للمصارف"
+                name="libya_hr_payroll.report_libya_expenses"
+                file="libya_hr_payroll.report_libya_expenses"
+                report_type="qweb-pdf"
+
+        />
+
+
+        <record id="paperformat_payroll_deduction" model="report.paperformat">
+            <field name="name">Payroll Deduction Report</field>
+            <field name="default" eval="True"/>
+            <field name="format">custom</field>
+            <field name="page_height">297</field>
+            <field name="page_width">220</field>
+            <field name="orientation">Landscape</field>
+            <field name="margin_top">20</field>
+            <field name="margin_bottom">20</field>
+            <field name="margin_left">5</field>
+            <field name="margin_right">5</field>
+            <field name="header_line" eval="False"/>
+            <field name="header_spacing">10</field>
+            <field name="dpi">90</field>
+
+        </record>
+
+        <record id="libya_hr_payroll.report_payroll_libya_deduction_pdf" model="ir.actions.report">
+            <field name="paperformat_id" ref="libya_hr_payroll.paperformat_payroll_deduction"/>
+        </record>
+
+        <record id="libya_hr_payroll.report_payroll_libya_allowances_pdf" model="ir.actions.report">
+            <field name="paperformat_id" ref="libya_hr_payroll.paperformat_payroll_deduction"/>
+        </record>
+
+
+
+
+    </data>
+</odoo>
