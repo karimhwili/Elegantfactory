@@ -4,7 +4,7 @@
     <t t-call="web.html_container">
 <!--        <t t-foreach="docs" t-as="o">-->
             <t t-call="web.external_layout">
-                <div class="page">
+                <div class="page"><br/><b/><br/><br/>
                     <h4 class="text-center">كشف بالمرتب وتفصيل الإضافات</h4><br/>
                     <h6 class="text-center"> <span t-esc="date_year"/><span>/</span>&#160;<strong t-esc="date_month"/>&#160;لشهر </h6>
 
@@ -14,15 +14,18 @@
 
                                    <th>الدخل الصافي</th>
                                    <th>الخصميات</th>
-                                   <th>م.هواتف</th>
-                                   <th>علاوة وردية</th>
-                                   <th>بدل إعاشة</th>
-                                   <th>علاوة منطقة</th>
-                                   <th>بدل مركوب</th>
+                                   <th>مكافأة استثنائية</th>
+                                   <th>علاوة خطر</th>
+                                   <th>علاوة مسؤولية</th>
+                                   <th>بدل سكن</th>
+                                   <th>بدل اكل</th>
                                    <th>بدل وقود</th>
-                                   <th>المكأفأة</th>
-                                   <th>الإضافي</th>
+                                   <th>علاوة وردية ليلية</th>
+                                   <th>بدل مواصلات</th>
+                                   <th>بدل اتصال</th>
                                    <th>إجمالي المرتب</th>
+                                   <th>الشريحة</th>
+                                   <th>الفئة</th>
                                    <th>الاسم</th>
                                    <th>م</th>
                                 </tr>
@@ -31,6 +34,13 @@
                                 <tr t-foreach="payslip_ids" t-as="payslip" class="text-center">
                                     <td ><span t-esc="'%.3f'% payslip['net_salary']"/></td>
                                     <td ><span t-esc="'%.3f'% payslip['total_taxes']"/></td>
+
+                                    <t t-if="payslip['ALW9']">
+                                        <td ><span t-esc="'%.3f'% payslip['ALW9']"/></td>
+                                    </t>
+                                    <t t-else="">
+                                        <td ><span>-</span></td>
+                                    </t>
 
                                     <t t-if="payslip['ALW8']">
                                         <td ><span t-esc="'%.3f'% payslip['ALW8']"/></td>
@@ -88,10 +98,15 @@
                                         <td ><span>-</span></td>
                                     </t>
 
-                                    <td ><span t-esc="'%.3f'% payslip['basic']"/></td>
-                                    <td >
+                                    <td><span t-esc="'%.3f'% payslip['basic']"/></td>
+                                    <td>
+                                        <span t-esc="payslip['employee_class']"/>
+                                    </td>
+                                    <td>
+                                        <span t-esc="payslip['employee_category']"/>
+                                    </td>
+                                    <td>
                                         <span t-esc="payslip['employee_name']"/>
-<!--                                       <br/> <span t-esc="payslip['position_name']"/>-->
                                     </td>
                                     <td><span t-esc="payslip_index + 1" /></td>
                                 </tr>

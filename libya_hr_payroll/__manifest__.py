@@ -20,7 +20,8 @@
         'wizards/payroll_allowances.xml',
         'views/payrol_allowances_report.xml',
         'views/bank_branch.xml',
-        'views/payroll_expenses_report.xml'
+        'views/payroll_expenses_report.xml',
+
 
     ],
 }

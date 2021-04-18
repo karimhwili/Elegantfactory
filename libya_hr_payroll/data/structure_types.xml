@@ -21,28 +21,28 @@
     </record>
 
         <!-- الاساسي -->
-    <record id="hr_salary_rule_Basic" model="hr.salary.rule">
-        <field name="code">BASIC</field>
-        <field name="name">الاساسي</field>
-        <field name="struct_id" ref="hr_salary_structure_ly"/>
-        <field name="category_id" ref="hr_payroll.BASIC"/>
-        <field name="amount_select">code</field>
-            <field name="amount_python_compute">result = contract.compute_salary_basic()
-        </field>
-        <field name="sequence" eval="1"/>
-        <field name="note">Basic Salary of the Social Insurance</field>
-    </record>
+<!--    <record id="hr_salary_rule_Basic" model="hr.salary.rule">-->
+<!--        <field name="code">BASIC</field>-->
+<!--        <field name="name">الاساسي</field>-->
+<!--        <field name="struct_id" ref="hr_salary_structure_ly"/>-->
+<!--        <field name="category_id" ref="hr_payroll.BASIC"/>-->
+<!--        <field name="amount_select">code</field>-->
+<!--            <field name="amount_python_compute">result = contract.compute_salary_basic()-->
+<!--        </field>-->
+<!--        <field name="sequence" eval="1"/>-->
+<!--        <field name="note">Basic Salary of the Social Insurance</field>-->
+<!--    </record>-->
 
-         <!-- الاضافي -->
-    <record id="hr_payroll_rule_allowances" model="hr.salary.rule">
-        <field name="code">ALWS</field>
-        <field name="name">ساعات العمل الاضافي</field>
-        <field name="struct_id" ref="hr_salary_structure_ly"/>
-        <field name="category_id" ref="hr_payroll.BASIC"/>
-        <field name="amount_select">code</field>
-        <field name="amount_python_compute">result = contract.allowances</field>
-        <field name="sequence" eval="2"/>
-    </record>
+<!--         &lt;!&ndash; الاضافي &ndash;&gt;-->
+<!--    <record id="hr_payroll_rule_allowances" model="hr.salary.rule">-->
+<!--        <field name="code">ALWS</field>-->
+<!--        <field name="name">ساعات العمل الاضافي</field>-->
+<!--        <field name="struct_id" ref="hr_salary_structure_ly"/>-->
+<!--        <field name="category_id" ref="hr_payroll.BASIC"/>-->
+<!--        <field name="amount_select">code</field>-->
+<!--        <field name="amount_python_compute">result = contract.allowances</field>-->
+<!--        <field name="sequence" eval="2"/>-->
+<!--    </record>-->
 
 
         <!-- إجمالي المرتب -->
@@ -52,7 +52,7 @@
         <field name="struct_id" ref="hr_salary_structure_ly"/>
         <field name="category_id" ref="hr_payroll.BASIC"/>
         <field name="amount_select">code</field>
-            <field name="amount_python_compute">result = contract.compute_salary_basic() + ALWS
+            <field name="amount_python_compute">result = contract.compute_salary_basic()
         </field>
         <field name="sequence" eval="3"/>
         <field name="note">Basic Salary of the Social Insurance</field>
@@ -148,7 +148,7 @@
         <!-- مجموع ضرائب الدخل -->
     <record id="hr_salary_tax_deduction" model="hr.salary.rule">
         <field name="code">TXDED</field>
-        <field name="name"> مجموع ضرائب الدخل</field>
+        <field name="name"> ضريبة الدخل</field>
         <field name="struct_id" ref="hr_salary_structure_ly"/>
         <field name="category_id" ref="hr_payroll.DED"/>
         <field name="amount_select">code</field>
@@ -193,58 +193,63 @@
         <field name="sequence" eval="100"/>
     </record>
 
-        <!--صندوق الزمالة -->
-    <record id="hr_salary_zmala_salary" model="hr.salary.rule">
-        <field name="code">ZAMALA</field>
-        <field name="name">صندوق المساعدة</field>
-        <field name="struct_id" ref="hr_salary_structure_ly"/>
-        <field name="category_id" ref="hr_payroll.DED"/>
-        <field name="amount_select">code</field>
-        <field name="amount_python_compute">result = 0.69 * NETSALARY
-        </field>
-        <field name="sequence" eval="100"/>
-    </record>
+<!--        &lt;!&ndash;صندوق الزمالة &ndash;&gt;-->
+<!--    <record id="hr_salary_zmala_salary" model="hr.salary.rule">-->
+<!--        <field name="code">ZAMALA</field>-->
+<!--        <field name="name">صندوق المساعدة</field>-->
+<!--        <field name="struct_id" ref="hr_salary_structure_ly"/>-->
+<!--        <field name="category_id" ref="hr_payroll.DED"/>-->
+<!--        <field name="amount_select">code</field>-->
+<!--        <field name="amount_python_compute">result = 0.69 * NETSALARY-->
+<!--        </field>-->
+<!--        <field name="sequence" eval="100"/>-->
+<!--    </record>-->
 
         <!--الإضافات -->
         <record id="hr_alw1" model="hr.alw">
-            <field name="name">الإضافي</field>
+            <field name="name">بدل اتصال</field>
             <field name="code">ALW1</field>
             <field name="amount">0</field>
         </record>
         <record id="hr_alw2" model="hr.alw">
-            <field name="name">المكأفأة</field>
+            <field name="name">بدل مواصلات</field>
             <field name="code">ALW2</field>
             <field name="amount">0</field>
         </record>
         <record id="hr_alw3" model="hr.alw">
-            <field name="name">بدل وقود</field>
+            <field name="name">علاوة وردية ليلية</field>
             <field name="code">ALW3</field>
             <field name="amount">0</field>
         </record>
         <record id="hr_alw4" model="hr.alw">
-            <field name="name">بدل مركوب</field>
+            <field name="name">بدل وقود</field>
             <field name="code">ALW4</field>
             <field name="amount">0</field>
         </record>
 
         <record id="hr_alw5" model="hr.alw">
-            <field name="name">علاوة منطقة</field>
+            <field name="name">بدل اكل</field>
             <field name="code">ALW5</field>
             <field name="amount">0</field>
         </record>
         <record id="hr_alw6" model="hr.alw">
-            <field name="name">بدل إعاشة</field>
+            <field name="name">بدل سكن</field>
             <field name="code">ALW6</field>
             <field name="amount">0</field>
         </record>
         <record id="hr_alw7" model="hr.alw">
-            <field name="name">علاوة وردية</field>
+            <field name="name">علاوة مسؤولية</field>
             <field name="code">ALW7</field>
             <field name="amount">0</field>
         </record>
         <record id="hr_alw8" model="hr.alw">
-            <field name="name">م.هواتف</field>
+            <field name="name">علاوة خطر</field>
             <field name="code">ALW8</field>
+            <field name="amount">0</field>
+        </record>
+        <record id="hr_alw9" model="hr.alw">
+            <field name="name">مكافأة استثنائية</field>
+            <field name="code">ALW9</field>
             <field name="amount">0</field>
         </record>
 

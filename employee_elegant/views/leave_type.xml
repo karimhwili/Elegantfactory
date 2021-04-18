@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        
+        <!-- Inherit Form View to Modify it -->
+        <record id="hr_leave_tpe_inherit" model="ir.ui.view">
+            <field name="name">hr_leave_tpe_inherit</field>
+            <field name="model">hr.leave.type</field>
+            <field name="inherit_id" ref="hr_holidays.edit_holiday_status_form"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//field[@name='request_unit']" position="before">
+                    <field name="custom_leave"/>
+                </xpath>
+
+            </field>
+        </record>
+    
+    </data>
+</odoo>
