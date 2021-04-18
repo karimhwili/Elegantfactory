@@ -26,11 +26,13 @@
                     <field name="mother_name"/>
                     <field name="place_of_birth" groups="hr.group_hr_user"/>
                     <field name="country_of_birth" groups="hr.group_hr_user"/>
+                    <field name="legal_leave_monthly_allocation" invisible="1"/>
                   </group>
                   <group string="Live info">
                       <field name="direct_date"/>
                       <field name="first_cont_date"/>
                       <field name="home_localization"/>
+
                   </group>
                   <group string="Foreigner info">
                       <field name="foreign_date"/>
@@ -103,9 +105,29 @@
                         </field>
                   </group>
                 </page>
+                  <page string="TimeOff details">
+                      <group>
+                         <field name="check_contract" invisible="1"/>
+                        <field name="basic_balance" attrs="{'invisible': [('check_contract', '=', False)]}"/>
+                        <field name="consumed_balance" attrs="{'invisible': [('check_contract', '=', False)]}"/>
+                        <field name="remaining_balance" attrs="{'invisible': [('check_contract', '=', False)]}"/>
+                      </group>
+                  </page>
               </xpath>
 
           </field>
       </record>
+
+      <record id="res_partner_form_inherit" model="ir.ui.view">
+        <field name="name">res.partner_form_inherit</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="arch" type="xml">
+             <xpath expr="//field[@name='category_id']" position="after">
+                 <field name="municipality" placeholder="Municipality"/>
+            </xpath>
+
+        </field>
+    </record>
   </data>
 </odoo>

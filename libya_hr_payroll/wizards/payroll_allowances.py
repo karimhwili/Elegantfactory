@@ -20,6 +20,8 @@ class CreateWizard(models.TransientModel):
         for payslip in exist_payslip:
             payslip_ids.append({
                 'employee_name': payslip.employee_id.name,
+                'employee_category': payslip.employee_id.contract_id.employee_category,
+                'employee_class': payslip.employee_id.contract_id.employee_class,
                 'position_name': payslip.employee_id.job_id.name,
                 'basic':payslip.line_ids.filtered(lambda line: line.code == 'TOBASIC').total,
                 'ALW1':payslip.line_ids.filtered(lambda line: line.code == 'ALW1').total,
@@ -30,6 +32,7 @@ class CreateWizard(models.TransientModel):
                 'ALW6':payslip.line_ids.filtered(lambda line: line.code == 'ALW6').total,
                 'ALW7':payslip.line_ids.filtered(lambda line: line.code == 'ALW7').total,
                 'ALW8':payslip.line_ids.filtered(lambda line: line.code == 'ALW8').total,
+                'ALW9':payslip.line_ids.filtered(lambda line: line.code == 'ALW9').total,
                 'total_taxes': payslip.line_ids.filtered(lambda line: line.code == 'RTXDED').total,
                 'net_salary': payslip.line_ids.filtered(lambda line: line.code == 'NETSALARY').total,
 

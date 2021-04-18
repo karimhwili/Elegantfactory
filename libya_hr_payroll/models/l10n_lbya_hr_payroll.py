@@ -30,6 +30,20 @@ class HrContract(models.Model):
                                     inverse_name="contract_id",
                                     string="Other Deduction")
 
+    employee_category = fields.Selection([('cat1','Category1'),
+                                          ('cat2','Category2'),
+                                          ('cat3','Category3')],"Category")
+    employee_class = fields.Selection([('a','A'),
+                                       ('b','B')],"Class")
+
+    trial_period = fields.Date("Trial period")
+
+    minimum_salary = fields.Monetary("Minimum Salary")
+    maximum_salary = fields.Monetary("Maximum Salary")
+
+
+
+
     payslip_date_from = fields.Date()
     payslip_date_to = fields.Date()
     hours_per_day = fields.Float()
@@ -44,7 +58,6 @@ class HrContract(models.Model):
 
     def get_payslip_date_from(self):
         Payslip = self.env['hr.payslip'].search([('employee_id','=',self.employee_id.id)],limit=1)
-        print("",Payslip)
         for rec in Payslip:
             self.payslip_date_from = rec.date_from
 
@@ -52,7 +65,6 @@ class HrContract(models.Model):
 
     def get_payslip_date_to(self):
         Payslip = self.env['hr.payslip'].search([('employee_id','=',self.employee_id.id)],limit=1)
-        print("",Payslip)
         for rec in Payslip:
             self.payslip_date_to = rec.date_to
         return
@@ -155,6 +167,7 @@ class HrAlows(models.Model):
     _name = "hr.alw"
     name = fields.Char(string="name", required=True, translate=True)
     code = fields.Char(string="Code", required=True)
+    description = fields.Char(string="Description")
     amount = fields.Float(string="Amount")
 
     @api.model
@@ -196,6 +209,7 @@ class HrDeductLine(models.Model):
     ded_id = fields.Many2one(comodel_name="hr.ded", string="name",
                              required=True)
     code = fields.Char(string="Code", required=True)
+    description = fields.Char(string="Description")
     amount = fields.Float(string="Amount", required=True)
     contract_id = fields.Many2one(comodel_name="hr.contract", string="Contract")
 
@@ -208,6 +222,7 @@ class HrDeduction(models.Model):
     _name = "hr.ded"
     name = fields.Char(string="name", required=True, translate=True)
     code = fields.Char(string="Code", required=True)
+    description = fields.Char(string="Description")
     amount = fields.Float(string="Amount")
 
     @api.model

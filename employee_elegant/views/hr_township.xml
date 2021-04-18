@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+
+        
+        <record id="hr_township_view_form" model="ir.ui.view">
+            <field name="name">hr_township_view_form</field>
+            <field name="model">hr.partner.township</field>
+            <field name="arch" type="xml">
+                <form string="municipality">
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="hr_township_view_tree" model="ir.ui.view">
+            <field name="name">hr_township_view_tree</field>
+            <field name="model">hr.partner.township</field>
+            <field name="arch" type="xml">
+                <tree string="municipality">
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="hr_township_action" model="ir.actions.act_window">
+            <field name="name">municipality</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">hr.partner.township</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+
+<!--        <record id="inherit_action_country_state" model="ir.actions.act_window">-->
+<!--            <field name="name">Fed. States</field>-->
+<!--            <field name="type">ir.actions.act_window</field>-->
+<!--            <field name="res_model">res.country.state</field>-->
+<!--            <field name="view_id" ref="base.view_country_state_tree"/>-->
+<!--            <field name="help">You can manage the different federal states you are working on from here. Each state is attached to one country.</field>-->
+<!--        </record>-->
+
+        <!-- This Menu Item must have a parent and an action -->
+        <menuitem id="hr_partner_township_categ"
+                  name="municipality"
+                  parent="hr.menu_human_resources_configuration"
+                  action="hr_township_action"
+                  sequence="10"/>
+
+<!--        <menuitem id="hr_partner_state_categ"-->
+<!--                  name="States"-->
+<!--                  parent="hr.menu_human_resources_configuration"-->
+<!--                  action="inherit_action_country_state"-->
+<!--                  sequence="10"/>-->
+
+    </data>
+</odoo>
