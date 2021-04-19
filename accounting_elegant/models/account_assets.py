@@ -3,12 +3,10 @@
 from odoo import models, fields, api, _
 from odoo.exceptions import UserError
 
-
-
 class AccountAssetsInherit(models.Model):
     _inherit = 'account.asset'
 
-    tracking = fields.One2many('assets.tracking','asset_id',"Tracking")
+    tracking = fields.One2many('assets.tracking','asset_id',"Tracking" )
     original_value = fields.Float(compute="_get_original_value", store=True)
     salvage_value = fields.Float(compute="_get_original_value", store=True,readonly=False)
     asset_types = fields.Many2one('asset.type',"Asset Type")
@@ -37,36 +35,35 @@ class AccountAssetsInherit(models.Model):
         self.salvage_value = d_value
 
 
+
+class AssetsTrackingLocation(models.Model):
+    _name = 'assets.tracking.location'
+    _description = 'New Description'
+    name = fields.Char(string='Name')
+
+
 class TrackingAssets(models.Model):
     _name = 'assets.tracking'
     _description = 'Tracking Assets'
 
     asset_id = fields.Many2one('account.asset')
     employee_id = fields.Many2one('hr.employee',"Employee")
-    reference = fields.Char("Reference")
+    reference = fields.Char("Reference", required=True)
     value = fields.Float("Value")
     depreciable_value = fields.Float("Not Depreciable Value")
+    location_id = fields.Many2one('assets.tracking.location', string='Location')
+    
+    @api.constrains("employee_id", "location_id")
+    def _check_field(self):
+        for s in self:
+            if not (s.location_id or s.employee_id):
+                raise UserError(_("Please select either an employee or a location in the tracking!"))
 
 class AssetsType(models.Model):
     _name = 'asset.type'
     _description = 'Assets Type'
 
     name = fields.Char("Type")
-
-class InheritAccount(models.Model):
-    _inherit = 'account.account'
-
-    def unlink(self):
-        # if self.env['account.move.line'].search([('account_id', 'in', self.ids)], limit=1):
-        #     raise UserError(_('You cannot perform this action on an account that contains journal items.'))
-        # #Checking whether the account is set as a property to any Partner or not
-        # values = ['account.account,%s' % (account_id,) for account_id in self.ids]
-        # partner_prop_acc = self.env['ir.property'].sudo().search([('value_reference', 'in', values)], limit=1)
-        # if partner_prop_acc:
-        #     pass
-        return super(InheritAccount, self).unlink()
-
-
 
 
 
