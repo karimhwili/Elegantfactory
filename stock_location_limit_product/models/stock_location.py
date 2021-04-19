@@ -29,9 +29,17 @@ class StockPicking(models.Model):
         products_without_lots = self.env['product.product']
 
         if self.location_dest_id.require_limit == True:
-            if self.location_dest_id.quant_ids.quantity + self.move_ids_without_package.product_uom_qty > self.location_dest_id.limit:
-                raise ValidationError(_('You can not transfer bigger than limit %s for location %s' %
-                                        (self.location_dest_id.limit,self.location_dest_id.name)))
+            for quantity in self.location_dest_id.quant_ids:
+                if quantity.quantity + self.move_ids_without_package.product_uom_qty > self.location_dest_id.limit:
+                    raise ValidationError(_('You can not transfer bigger than limit %s for location %s' %
+                                            (self.location_dest_id.limit,self.location_dest_id.name)))
+
+        for rule in self.location_dest_id.putaway_rule_ids:
+            if rule.location_out_id.require_limit == True:
+                for quantity in rule.location_out_id.quant_ids:
+                    if quantity.quantity + self.move_ids_without_package.product_uom_qty > rule.location_out_id.limit:
+                        raise ValidationError(_('You can not transfer bigger than limit %s for location %s' %
+                                                (rule.location_out_id.limit, rule.location_out_id.name)))
 
         for picking in self:
             if not picking.move_lines and not picking.move_line_ids:

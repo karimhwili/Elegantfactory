@@ -176,9 +176,22 @@
         <field name="struct_id" ref="hr_salary_structure_ly"/>
         <field name="category_id" ref="hr_payroll.NET"/>
         <field name="amount_select">code</field>
-        <field name="amount_python_compute">result = TOBASIC - RTXDED  + categories.ALW - categories.ODED
+        <field name="amount_python_compute">result = TOBASIC - RTXDED  + categories.ALW - categories.ODED - MDED
         </field>
         <field name="sequence" eval="71"/>
+    </record>
+
+
+         <!--حصة الشركة -->
+    <record id="hr_salary_comded_salary" model="hr.salary.rule">
+        <field name="code">COMDED</field>
+        <field name="name">اشتراك جهة العمل</field>
+        <field name="struct_id" ref="hr_salary_structure_ly"/>
+        <field name="category_id" ref="hr_payroll.DED"/>
+        <field name="amount_select">code</field>
+        <field name="amount_python_compute">result = 0.105 * NETSALARY
+        </field>
+        <field name="sequence" eval="100"/>
     </record>
 
         <!--دمغة المرتب -->
@@ -190,7 +203,7 @@
         <field name="amount_select">code</field>
         <field name="amount_python_compute">result = 0.005 * NETSALARY
         </field>
-        <field name="sequence" eval="100"/>
+        <field name="sequence" eval="101"/>
     </record>
 
 <!--        &lt;!&ndash;صندوق الزمالة &ndash;&gt;-->
