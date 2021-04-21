@@ -14,6 +14,6 @@ class ProductLimits(models.Model):
 
     product_id = fields.Many2one('product.template')
     customer_id = fields.Many2one('res.partner',"Customer")
-    limit = fields.Integer("Limit")
+    limit = fields.Integer("Limit amount")
 
 

@@ -149,6 +149,12 @@ class HrContract(models.Model):
             d_dinar += 0
         return d_dinar
 
+    def compute_remaining_hours(self):
+        remaining_hours = 0
+        if self.state in ('close','cancel'):
+            remaining_hours += self.employee_id.remaining_balance * (self.wage/30)
+        return remaining_hours
+
 
 class HrAlwsLine(models.Model):
     _name = "hr.alw.line"
