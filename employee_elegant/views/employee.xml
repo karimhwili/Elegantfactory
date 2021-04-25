@@ -32,6 +32,7 @@
                       <field name="direct_date"/>
                       <field name="first_cont_date"/>
                       <field name="home_localization"/>
+
                   </group>
                   <group string="Foreigner info">
                       <field name="foreign_date"/>

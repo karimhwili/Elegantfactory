@@ -3,7 +3,7 @@
 {
     'name': 'Libya Payroll',
     'category': 'Human Resources/Payroll',
-    'depends': ['hr_payroll', 'hr_attendance'],
+    'depends': ['hr','hr_payroll', 'hr_attendance','employee_elegant'],
 
     'data': [
         'reports/report.xml',
