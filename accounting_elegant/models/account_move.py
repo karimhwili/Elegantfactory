@@ -28,10 +28,4 @@ class AccountMove(models.Model):
 
 
 
-class AccountJournal(models.Model):
-    _inherit = 'account.journal'
-
-    next_link_synchronization = fields.Char("Force Automation")
-    account_online_account_id = fields.Char("Force Automation")
-    account_online_link_state = fields.Char("Force Automation")
 
