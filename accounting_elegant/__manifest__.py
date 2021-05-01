@@ -15,6 +15,8 @@
         'views/journal_entry.xml',
         'views/stock_picking.xml',
         'views/product_category.xml',
+        'views/account_account.xml',
+        'wizards/invoice_reason_wizard.py.xml'
 
 
     ],
