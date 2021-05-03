@@ -11,11 +11,11 @@ class ResPartner(models.Model):
         search_partner_mode = self.env.context.get('res_partner_search_mode')
         if search_partner_mode == 'customer':
             if vals.get('sequence', _('New')) == _('New'):
-                vals['sequence'] = self.env['ir.sequence'].next_by_code(
+                vals['sequence'] = "10" + self.env['ir.sequence'].next_by_code(
                     'res.customer.seq') or _('New')
         elif search_partner_mode == 'supplier':
             if vals.get('sequence', _('New')) == _('New'):
-                vals['sequence'] = self.env['ir.sequence'].next_by_code(
+                vals['sequence'] = "11" + self.env['ir.sequence'].next_by_code(
                     'res.vendor.seq') or _('New')
 
         res = super(ResPartner, self).create(vals)
