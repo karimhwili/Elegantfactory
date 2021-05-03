@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 {
-    'name': "Employee Product",
+    'name': "Product Elegant",
 
     'author': "M.Shorbagy (Sahara)",
 
@@ -9,8 +9,11 @@
     # always loaded
     'data': [
         'security/ir.model.access.csv',
+        'data/sequence.xml',
         'views/product_product.xml',
-        'views/purchase_order.xml'
+        'views/purchase_order.xml',
+        'views/product_category.xml',
+        'views/res_partner.xml'
     ],
 
 }
