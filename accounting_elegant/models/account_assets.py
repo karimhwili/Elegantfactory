@@ -3,6 +3,8 @@
 from odoo import models, fields, api, _
 from odoo.exceptions import UserError
 
+
+
 class AccountAssetsInherit(models.Model):
     _inherit = 'account.asset'
 

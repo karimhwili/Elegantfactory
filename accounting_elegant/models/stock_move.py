@@ -1,4 +1,6 @@
 from odoo import api, fields, models
+from odoo.tools import float_round, float_compare
+
 
 class StockMove(models.Model):
     _inherit = 'stock.move'
@@ -15,9 +17,18 @@ class StockMove(models.Model):
         debit_value = self.company_id.currency_id.round(cost)
         credit_value = debit_value
         if self.picking_id.account_id:
-            if self.picking_id.picking_type_id.code == 'outgoing':
-                debit_account_id =  self.picking_id.account_id.id
+            if self.picking_id.picking_type_id.code == 'outgoing' or self.picking_id.picking_type_id.code == 'internal':
+                debit_account_id = self.picking_id.account_id.id
+        elif self.picking_id.account_id_adding:
+            if self.picking_id.picking_type_id.code == 'internal':
+                debit_account_id = self.picking_id.account_id_adding.id
+        else:
+            if self.scrapped and self.product_id.categ_id.property_scrap_account_id:
+                debit_account_id = self.product_id.categ_id.property_scrap_account_id.id
         valuation_partner_id = self._get_partner_id_for_valuation_lines()
-        res = [(0, 0, line_vals) for line_vals in self._generate_valuation_lines_data(valuation_partner_id, qty, debit_value, credit_value, debit_account_id, credit_account_id, description).values()]
+        res = [(0, 0, line_vals) for line_vals in self._generate_valuation_lines_data(valuation_partner_id,
+                                                                                      qty, debit_value, credit_value, debit_account_id, credit_account_id, description).values()]
 
         return res
+
+
