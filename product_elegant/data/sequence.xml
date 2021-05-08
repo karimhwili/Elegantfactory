@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        
+        <record id="seq_product_internal_reference1" model="ir.sequence">
+            <field name="name">Internal Reference1</field>
+            <field name="code">product.template.internal1</field>
+            <field name="padding">6</field>
+            <field name="number_next_actual">1</field>
+            <field name="company_id" eval="False"/>
+
+        </record>
+        <record id="seq_product_internal_reference2" model="ir.sequence">
+            <field name="name">Internal Reference2</field>
+            <field name="code">product.template.internal2</field>
+            <field name="padding">6</field>
+            <field name="number_next_actual">1</field>
+            <field name="company_id" eval="False"/>
+
+        </record>
+        <record id="seq_product_internal_reference3" model="ir.sequence">
+            <field name="name">Internal Reference3</field>
+            <field name="code">product.template.internal3</field>
+            <field name="padding">6</field>
+            <field name="number_next_actual">1</field>
+            <field name="company_id" eval="False"/>
+
+        </record>
+        <record id="seq_product_internal_reference4" model="ir.sequence">
+            <field name="name">Internal Reference4</field>
+            <field name="code">product.template.internal4</field>
+            <field name="padding">6</field>
+            <field name="number_next_actual">1</field>
+            <field name="company_id" eval="False"/>
+
+        </record>
+        <record id="seq_product_internal_reference5" model="ir.sequence">
+            <field name="name">Internal Reference5</field>
+            <field name="code">product.template.internal5</field>
+            <field name="padding">6</field>
+            <field name="number_next_actual">1</field>
+            <field name="company_id" eval="False"/>
+
+        </record>
+        <record id="seq_product_internal_reference6" model="ir.sequence">
+            <field name="name">Internal Reference6</field>
+            <field name="code">product.template.internal6</field>
+            <field name="padding">6</field>
+            <field name="number_next_actual">1</field>
+            <field name="company_id" eval="False"/>
+
+        </record>
+        <record id="seq_product_internal_reference7" model="ir.sequence">
+            <field name="name">Internal Reference7</field>
+            <field name="code">product.template.internal7</field>
+            <field name="padding">6</field>
+            <field name="number_next_actual">1</field>
+            <field name="company_id" eval="False"/>
+
+        </record>
+        <record id="seq_product_internal_reference8" model="ir.sequence">
+            <field name="name">Internal Reference8</field>
+            <field name="code">product.template.internal8</field>
+            <field name="padding">6</field>
+            <field name="number_next_actual">1</field>
+            <field name="company_id" eval="False"/>
+
+        </record>
+        <record id="seq_res_customer" model="ir.sequence">
+            <field name="name">Customer Sequence</field>
+            <field name="code">res.customer.seq</field>
+            <field name="padding">6</field>
+            <field name="number_next_actual">1</field>
+            <field name="company_id" eval="False"/>
+
+        </record>
+        <record id="seq_res_vendor" model="ir.sequence">
+            <field name="name">Vendor Sequence</field>
+            <field name="code">res.vendor.seq</field>
+            <field name="padding">6</field>
+            <field name="number_next_actual">1</field>
+            <field name="company_id" eval="False"/>
+
+        </record>
+
+    
+    </data>
+</odoo>

@@ -9,8 +9,27 @@
         <field name="arch" type="xml">
             <xpath expr="//field[@name='partner_id']" position="after">
                 <!-- Add your fields here -->
-                <field name="account_id"/>
-            </xpath>            
+                <field name="account_type" widget="radio"/>
+                <field name="account_id" attrs="{'invisible': [('account_type', '!=', 'expense')]}"/>
+                <field name="account_id_adding" attrs="{'invisible': [('account_type', '!=', 'adding')]}"/>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- Inherit Form View to Modify it -->
+    <record id="product_template_inherit" model="ir.ui.view">
+        <field name="name">product_template_inherit</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="stock.product_template_form_view_procurement_button"/>
+        <field name="arch" type="xml">
+
+            <xpath expr="//button[@name='action_update_quantity_on_hand']" position="replace">
+                <button string="Update Quantity" type="object"
+                            groups="accounting_elegant.update_quantity_employee"
+                            name="action_update_quantity_on_hand"
+                            attrs="{'invisible': [('type', '!=', 'product')]}"/>
+            </xpath>
+
         </field>
     </record>
 

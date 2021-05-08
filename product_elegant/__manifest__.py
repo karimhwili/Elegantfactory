@@ -1,15 +1,19 @@
 # -*- coding: utf-8 -*-
 {
-    'name': "Employee Product",
+    'name': "Product Elegant",
 
     'author': "M.Shorbagy (Sahara)",
 
-    'depends': ['base','stock','sale'],
+    'depends': ['base','stock','sale','purchase_stock','quality','quality_control'],
 
     # always loaded
     'data': [
         'security/ir.model.access.csv',
-        'views/product_product.xml'
+        'data/sequence.xml',
+        'views/product_product.xml',
+        'views/purchase_order.xml',
+        'views/product_category.xml',
+        'views/res_partner.xml'
     ],
 
 }
