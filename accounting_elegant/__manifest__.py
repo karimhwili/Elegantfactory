@@ -9,6 +9,7 @@
     # always loaded
     'data': [
         'security/ir.model.access.csv',
+        'security/groups.xml',
         'data/sequence.xml',
         'groups/groups.xml',
         'views/account_assets.xml',
@@ -16,7 +17,9 @@
         'views/stock_picking.xml',
         'views/product_category.xml',
         'views/account_account.xml',
-        'wizards/invoice_reason_wizard.py.xml'
+        'wizards/invoice_reason_wizard.py.xml',
+
+
 
 
     ],

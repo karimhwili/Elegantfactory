@@ -10,8 +10,24 @@
             <field name="arch" type="xml">
                 <xpath expr="//h1" position="after">
                     <br/>
-                    <h4><field name="sequence" readonly="1" force-save="1"/></h4>
+                        <h5>
+                        <label for="sequence" style="font-size:20px;">ID</label>
+                        <field name="sequence" readonly="1" force-save="1"/></h5>
                 </xpath>
+            </field>
+        </record>
+
+        <!-- Inherit Form View to Modify it -->
+        <record id="res_partner_search" model="ir.ui.view">
+            <field name="name">res_partner_search</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_res_partner_filter"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//field[@name='name']" position="after">
+                    <field name="sequence" filter_domain="[ ('sequence', 'ilike', self)]"/>
+                </xpath>
+
             </field>
         </record>
 

@@ -4,3 +4,4 @@ access_type_assets,accounting.type.assets,model_asset_type,base.group_user,1,1,1
 access_type_assets_location,accounting.type.assets.location,model_assets_tracking_location,base.group_user,1,1,1,1
 access_reason_invoice,reason.invoice,model_reason_invoice,base.group_user,1,1,1,1
 
+

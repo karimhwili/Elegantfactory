@@ -76,7 +76,6 @@ class AccountPayment(models.Model):
 
         # balance = self.currency_id._convert(counterpart_amount, self.company_id.currency_id, self.company_id, self.date)
         balance = counterpart_amount / self.currency_rate
-        print("self.currency_rate",self.currency_rate)
         counterpart_amount_currency = counterpart_amount
         write_off_balance = self.currency_id._convert(write_off_amount, self.company_id.currency_id, self.company_id, self.date)
         write_off_amount_currency = write_off_amount
