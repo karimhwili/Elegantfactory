@@ -4,6 +4,8 @@
 
     'author': "M.Shorbagy (Sahara)",
 
+    'version': '0.1.1',
+
     'depends': ['base', 'account_asset', 'hr', 'stock'],
 
     # always loaded
