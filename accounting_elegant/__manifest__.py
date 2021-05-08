@@ -4,7 +4,7 @@
 
     'author': "M.Shorbagy (Sahara)",
 
-    'version': '0.1.1',
+    'version': '0.1.2',
 
     'depends': ['base', 'account_asset', 'hr', 'stock'],
 
