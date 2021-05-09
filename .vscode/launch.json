@@ -1,0 +1,31 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [{
+            "name": "Python: Current File",
+            "type": "python",
+            "request": "launch",
+            "program": "${file}",
+            "console": "integratedTerminal"
+        },
+        {
+            "name": "Python: Odoo14",
+            "type": "python",
+            "request": "launch",
+            "program": "/odoo/odoo14/odoo-server/odoo-14.0/odoo-bin",
+            "args": [
+                "--addons-path=/odoo/odoo14/odoo-server/odoo-14.0/addons,/odoo/odoo14/odoo-server/odoo-14.0/enterprise-14.0,/home/hassan/ETERep/eastmarket,/home/hassan/almactabgroup,/home/hassan/Dar-dawlia,/home/hassan/ETERep/Elegantfactory",
+                "--dev=xml",
+                "-d  almaktab-001",
+                "-p 8071",
+                "-u all"
+            ],
+            "env": {},
+
+
+        }
+    ]
+
+}
