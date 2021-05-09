@@ -5,8 +5,8 @@ class InheritProduct(models.Model):
     _inherit = 'product.template'
 
     tag_lot = fields.Char("Tag Lot")
-    product_limits = fields.One2many(
-        'product.limits', 'product_id', "Product Limits")
+
+    limits_groups = fields.Many2one('group.limit',"Group Limit")
 
     def generate_internal_number(self):
         for rec in self:
@@ -38,13 +38,21 @@ class InheritProduct(models.Model):
 
 
 
+class GroupLimit(models.Model):
+    _name = 'group.limit'
+    _description = "Group Limit"
+    _rec_name = 'name'
 
+    name = fields.Char("Group Limit")
+    group_limits = fields.One2many(
+        'product.limits', 'group_id', "Customer Limits")
 
 class ProductLimits(models.Model):
     _name = 'product.limits'
     _description = 'Product Limits'
+    _rec_name = 'customer_id'
 
-    product_id = fields.Many2one('product.template')
+    group_id = fields.Many2one('group.limit')
 
     customer_id = fields.Many2one('res.partner', "Customer")
     limit = fields.Integer("Limit amount")

@@ -9,6 +9,7 @@
         <field name="arch" type="xml">
             <xpath expr="//field[@name='property_account_expense_categ_id']" position="after">
                 <field name="property_scrap_account_id"/>                
+                <field name="income_add_stock_account_id"/>                
             </xpath>            
         </field>
     </record>

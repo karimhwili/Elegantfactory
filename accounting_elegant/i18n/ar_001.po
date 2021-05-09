@@ -1,0 +1,414 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* accounting_elegant
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 14.0+e-20210420\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-05-08 22:52+0000\n"
+"PO-Revision-Date: 2021-05-08 22:52+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: accounting_elegant
+#: model:ir.model,name:accounting_elegant.model_account_account
+msgid "Account"
+msgstr "حساب"
+
+#. module: accounting_elegant
+#: model:ir.model.fields,field_description:accounting_elegant.field_account_bank_statement_import_journal_creation__account_online_account_id
+#: model:ir.model.fields,field_description:accounting_elegant.field_account_journal__account_online_account_id
+msgid "Account Online Account"
+msgstr ""
+
+#. module: accounting_elegant
+#: model:ir.model.fields,field_description:accounting_elegant.field_account_bank_statement_import_journal_creation__account_online_link_state
+#: model:ir.model.fields,field_description:accounting_elegant.field_account_journal__account_online_link_state
+msgid "Account Online Link State"
+msgstr ""
+
+#. module: accounting_elegant
+#: model:ir.model.fields,field_description:accounting_elegant.field_product_category__income_add_stock_account_id
+msgid "Add Account"
+msgstr ""
+
+#. module: accounting_elegant
+#: model:ir.model.fields,field_description:accounting_elegant.field_assets_tracking__asset_id
+msgid "Asset"
+msgstr ""
+
+#. module: accounting_elegant
+#: model:ir.model.fields,field_description:accounting_elegant.field_account_asset__asset_types
+msgid "Asset Type"
+msgstr ""
+
+#. module: accounting_elegant
+#: model:ir.model,name:accounting_elegant.model_account_asset
+msgid "Asset/Revenue Recognition"
+msgstr "إثبات الأصل/الربح"
+
+#. module: accounting_elegant
+#: model:ir.model,name:accounting_elegant.model_asset_type
+msgid "Assets Type"
+msgstr ""
+
+#. module: accounting_elegant
+#: model:ir.model.fields,field_description:accounting_elegant.field_asset_type__create_uid
+#: model:ir.model.fields,field_description:accounting_elegant.field_assets_tracking__create_uid
+#: model:ir.model.fields,field_description:accounting_elegant.field_assets_tracking_location__create_uid
+#: model:ir.model.fields,field_description:accounting_elegant.field_reason_invoice__create_uid
+msgid "Created by"
+msgstr ""
+
+#. module: accounting_elegant
+#: model:ir.model.fields,field_description:accounting_elegant.field_asset_type__create_date
+#: model:ir.model.fields,field_description:accounting_elegant.field_assets_tracking__create_date
+#: model:ir.model.fields,field_description:accounting_elegant.field_assets_tracking_location__create_date
+#: model:ir.model.fields,field_description:accounting_elegant.field_reason_invoice__create_date
+msgid "Created on"
+msgstr ""
+
+#. module: accounting_elegant
+#: model:ir.model.fields,field_description:accounting_elegant.field_account_payment__currency_rate
+msgid "Currency Rate"
+msgstr ""
+
+#. module: accounting_elegant
+#: model:ir.model.fields.selection,name:accounting_elegant.selection__account_payment__partner_type__customer
+msgid "Customer"
+msgstr "العميل"
+
+#. module: accounting_elegant
+#: code:addons/accounting_elegant/models/account_payment.py:0
+#, python-format
+msgid "Customer Payment"
+msgstr ""
+
+#. module: accounting_elegant
+#: code:addons/accounting_elegant/models/account_payment.py:0
+#, python-format
+msgid "Customer Reimbursement"
+msgstr ""
+
+#. module: accounting_elegant
+#: model:ir.model,name:accounting_elegant.model_reason_invoice
+msgid "Description"
+msgstr ""
+
+#. module: accounting_elegant
+#: model:ir.model.fields,field_description:accounting_elegant.field_account_payment__destination_account_id
+msgid "Destination Account"
+msgstr "حساب الوجهة"
+
+#. module: accounting_elegant
+#: model:ir.model.fields,field_description:accounting_elegant.field_account_account__display_name
+#: model:ir.model.fields,field_description:accounting_elegant.field_account_asset__display_name
+#: model:ir.model.fields,field_description:accounting_elegant.field_account_journal__display_name
+#: model:ir.model.fields,field_description:accounting_elegant.field_account_move__display_name
+#: model:ir.model.fields,field_description:accounting_elegant.field_account_payment__display_name
+#: model:ir.model.fields,field_description:accounting_elegant.field_asset_type__display_name
+#: model:ir.model.fields,field_description:accounting_elegant.field_assets_tracking__display_name
+#: model:ir.model.fields,field_description:accounting_elegant.field_assets_tracking_location__display_name
+#: model:ir.model.fields,field_description:accounting_elegant.field_product_category__display_name
+#: model:ir.model.fields,field_description:accounting_elegant.field_reason_invoice__display_name
+#: model:ir.model.fields,field_description:accounting_elegant.field_stock_move__display_name
+#: model:ir.model.fields,field_description:accounting_elegant.field_stock_picking__display_name
+msgid "Display Name"
+msgstr "الاسم المعروض"
+
+#. module: accounting_elegant
+#: model_terms:ir.ui.view,arch_db:accounting_elegant.pause_reason_wizard_view_form
+msgid "Done"
+msgstr ""
+
+#. module: accounting_elegant
+#: model:ir.model.fields,field_description:accounting_elegant.field_assets_tracking__employee_id
+msgid "Employee"
+msgstr ""
+
+#. module: accounting_elegant
+#: model:ir.model.fields,field_description:accounting_elegant.field_stock_picking__account_id
+msgid "Expense Account"
+msgstr ""
+
+#. module: accounting_elegant
+#: model:ir.model.fields,field_description:accounting_elegant.field_account_account__force_auto
+msgid "Force Automation"
+msgstr ""
+
+#. module: accounting_elegant
+#: model:ir.model.fields,field_description:accounting_elegant.field_account_account__id
+#: model:ir.model.fields,field_description:accounting_elegant.field_account_asset__id
+#: model:ir.model.fields,field_description:accounting_elegant.field_account_journal__id
+#: model:ir.model.fields,field_description:accounting_elegant.field_account_move__id
+#: model:ir.model.fields,field_description:accounting_elegant.field_account_payment__id
+#: model:ir.model.fields,field_description:accounting_elegant.field_asset_type__id
+#: model:ir.model.fields,field_description:accounting_elegant.field_assets_tracking__id
+#: model:ir.model.fields,field_description:accounting_elegant.field_assets_tracking_location__id
+#: model:ir.model.fields,field_description:accounting_elegant.field_product_category__id
+#: model:ir.model.fields,field_description:accounting_elegant.field_reason_invoice__id
+#: model:ir.model.fields,field_description:accounting_elegant.field_stock_move__id
+#: model:ir.model.fields,field_description:accounting_elegant.field_stock_picking__id
+msgid "ID"
+msgstr "المُعرف"
+
+#. module: accounting_elegant
+#: code:addons/accounting_elegant/models/account_payment.py:0
+#, python-format
+msgid "Internal Transfer"
+msgstr ""
+
+#. module: accounting_elegant
+#: model:ir.model.fields,field_description:accounting_elegant.field_account_bank_statement_line__is_reason
+#: model:ir.model.fields,field_description:accounting_elegant.field_account_move__is_reason
+#: model:ir.model.fields,field_description:accounting_elegant.field_account_payment__is_reason
+msgid "Is Reason"
+msgstr ""
+
+#. module: accounting_elegant
+#: model:ir.model,name:accounting_elegant.model_account_journal
+msgid "Journal"
+msgstr "دفتر اليومية"
+
+#. module: accounting_elegant
+#: model:ir.model,name:accounting_elegant.model_account_move
+msgid "Journal Entry"
+msgstr "قيد اليومية"
+
+#. module: accounting_elegant
+#: model:res.groups,name:accounting_elegant.journal_entry_category
+msgid "Journal Entry (readonly)"
+msgstr ""
+
+#. module: accounting_elegant
+#: model:ir.model.fields,field_description:accounting_elegant.field_account_account____last_update
+#: model:ir.model.fields,field_description:accounting_elegant.field_account_asset____last_update
+#: model:ir.model.fields,field_description:accounting_elegant.field_account_journal____last_update
+#: model:ir.model.fields,field_description:accounting_elegant.field_account_move____last_update
+#: model:ir.model.fields,field_description:accounting_elegant.field_account_payment____last_update
+#: model:ir.model.fields,field_description:accounting_elegant.field_asset_type____last_update
+#: model:ir.model.fields,field_description:accounting_elegant.field_assets_tracking____last_update
+#: model:ir.model.fields,field_description:accounting_elegant.field_assets_tracking_location____last_update
+#: model:ir.model.fields,field_description:accounting_elegant.field_product_category____last_update
+#: model:ir.model.fields,field_description:accounting_elegant.field_reason_invoice____last_update
+#: model:ir.model.fields,field_description:accounting_elegant.field_stock_move____last_update
+#: model:ir.model.fields,field_description:accounting_elegant.field_stock_picking____last_update
+msgid "Last Modified on"
+msgstr "آخر تعديل في"
+
+#. module: accounting_elegant
+#: model:ir.model.fields,field_description:accounting_elegant.field_asset_type__write_uid
+#: model:ir.model.fields,field_description:accounting_elegant.field_assets_tracking__write_uid
+#: model:ir.model.fields,field_description:accounting_elegant.field_assets_tracking_location__write_uid
+#: model:ir.model.fields,field_description:accounting_elegant.field_reason_invoice__write_uid
+msgid "Last Updated by"
+msgstr ""
+
+#. module: accounting_elegant
+#: model:ir.model.fields,field_description:accounting_elegant.field_asset_type__write_date
+#: model:ir.model.fields,field_description:accounting_elegant.field_assets_tracking__write_date
+#: model:ir.model.fields,field_description:accounting_elegant.field_assets_tracking_location__write_date
+#: model:ir.model.fields,field_description:accounting_elegant.field_reason_invoice__write_date
+msgid "Last Updated on"
+msgstr ""
+
+#. module: accounting_elegant
+#: model:ir.model.fields,field_description:accounting_elegant.field_assets_tracking__location_id
+msgid "Location"
+msgstr ""
+
+#. module: accounting_elegant
+#: model:ir.model.fields,field_description:accounting_elegant.field_assets_tracking_location__name
+msgid "Name"
+msgstr ""
+
+#. module: accounting_elegant
+#: code:addons/accounting_elegant/models/account_assets.py:0
+#: code:addons/accounting_elegant/models/account_assets.py:0
+#: code:addons/accounting_elegant/models/account_assets.py:0
+#, python-format
+msgid "New"
+msgstr ""
+
+#. module: accounting_elegant
+#: model:ir.model,name:accounting_elegant.model_assets_tracking_location
+msgid "New Description"
+msgstr ""
+
+#. module: accounting_elegant
+#: model:ir.model.fields,field_description:accounting_elegant.field_account_bank_statement_import_journal_creation__next_link_synchronization
+#: model:ir.model.fields,field_description:accounting_elegant.field_account_journal__next_link_synchronization
+msgid "Next Link Synchronization"
+msgstr ""
+
+#. module: accounting_elegant
+#: model:ir.model.fields,field_description:accounting_elegant.field_assets_tracking__depreciable_value
+msgid "Not Depreciable Value"
+msgstr ""
+
+#. module: accounting_elegant
+#: model:ir.model.fields,field_description:accounting_elegant.field_account_asset__original_value
+msgid "Original Value"
+msgstr ""
+
+#. module: accounting_elegant
+#: model:ir.model.fields.selection,name:accounting_elegant.selection__account_payment__partner_type__other_expenses
+msgid "Other Expenses"
+msgstr "مصاريف أخرى"
+
+#. module: accounting_elegant
+#: model:ir.model.fields.selection,name:accounting_elegant.selection__account_payment__partner_type__other_payments
+msgid "Other Payments"
+msgstr "مدفوعات أخرى"
+
+#. module: accounting_elegant
+#: model:ir.model.fields.selection,name:accounting_elegant.selection__account_payment__partner_type__other_receipts
+msgid "Other Receipts"
+msgstr "مقبوضات أخرى"
+
+#. module: accounting_elegant
+#: model:ir.model.fields,field_description:accounting_elegant.field_account_payment__partner_type
+msgid "Partner Type"
+msgstr "نوع الشريك"
+
+#. module: accounting_elegant
+#: model:ir.model,name:accounting_elegant.model_account_payment
+msgid "Payments"
+msgstr "المدفوعات"
+
+#. module: accounting_elegant
+#: code:addons/accounting_elegant/models/account_assets.py:0
+#, python-format
+msgid "Please select either an employee or a location in the tracking!"
+msgstr ""
+
+#. module: accounting_elegant
+#: model:ir.model,name:accounting_elegant.model_product_category
+msgid "Product Category"
+msgstr "فئة المنتج"
+
+#. module: accounting_elegant
+#: model:ir.model.fields,field_description:accounting_elegant.field_reason_invoice__reason
+#: model_terms:ir.ui.view,arch_db:accounting_elegant.pause_reason_wizard_view_form
+msgid "Reason"
+msgstr ""
+
+#. module: accounting_elegant
+#: model:ir.model.fields,field_description:accounting_elegant.field_account_bank_statement_line__reason
+#: model:ir.model.fields,field_description:accounting_elegant.field_account_move__reason
+#: model:ir.model.fields,field_description:accounting_elegant.field_account_payment__reason
+msgid "Reason for Cancel"
+msgstr ""
+
+#. module: accounting_elegant
+#: model:ir.model.fields,field_description:accounting_elegant.field_assets_tracking__reference
+msgid "Reference"
+msgstr ""
+
+#. module: accounting_elegant
+#: model:ir.model.fields.selection,name:accounting_elegant.selection__account_payment__partner_type__salaries
+msgid "Salaries"
+msgstr "مرتبات"
+
+#. module: accounting_elegant
+#: model:ir.model.fields,field_description:accounting_elegant.field_account_asset__salvage_value
+msgid "Salvage Value"
+msgstr ""
+
+#. module: accounting_elegant
+#: model:ir.model.fields,field_description:accounting_elegant.field_product_category__property_scrap_account_id
+msgid "Scrap Account"
+msgstr ""
+
+#. module: accounting_elegant
+#: model:ir.model.fields,field_description:accounting_elegant.field_account_asset__seq
+msgid "Sequence"
+msgstr ""
+
+#. module: accounting_elegant
+#: model:ir.model,name:accounting_elegant.model_stock_move
+msgid "Stock Move"
+msgstr "حركة المخزون"
+
+#. module: accounting_elegant
+#: model:ir.model.fields,field_description:accounting_elegant.field_account_asset__tracking
+#: model_terms:ir.ui.view,arch_db:accounting_elegant.Inherit_account_assets_form
+msgid "Tracking"
+msgstr ""
+
+#. module: accounting_elegant
+#: model:ir.model,name:accounting_elegant.model_assets_tracking
+msgid "Tracking Assets"
+msgstr ""
+
+#. module: accounting_elegant
+#: model:ir.model,name:accounting_elegant.model_stock_picking
+msgid "Transfer"
+msgstr "الشحنة"
+
+#. module: accounting_elegant
+#: code:addons/accounting_elegant/models/account_payment.py:0
+#, python-format
+msgid "Transfer from %s"
+msgstr ""
+
+#. module: accounting_elegant
+#: code:addons/accounting_elegant/models/account_payment.py:0
+#, python-format
+msgid "Transfer to %s"
+msgstr ""
+
+#. module: accounting_elegant
+#: model:ir.model.fields,field_description:accounting_elegant.field_asset_type__name
+msgid "Type"
+msgstr ""
+
+#. module: accounting_elegant
+#: model_terms:ir.ui.view,arch_db:accounting_elegant.product_template_inherit
+msgid "Update Quantity"
+msgstr ""
+
+#. module: accounting_elegant
+#: model:res.groups,name:accounting_elegant.update_quantity_employee
+msgid "Update Quantity on Hand"
+msgstr ""
+
+#. module: accounting_elegant
+#: model:ir.model.fields,field_description:accounting_elegant.field_assets_tracking__value
+msgid "Value"
+msgstr ""
+
+#. module: accounting_elegant
+#: model:ir.model.fields.selection,name:accounting_elegant.selection__account_payment__partner_type__supplier
+msgid "Vendor"
+msgstr "المورد"
+
+#. module: accounting_elegant
+#: code:addons/accounting_elegant/models/account_payment.py:0
+#, python-format
+msgid "Vendor Payment"
+msgstr ""
+
+#. module: accounting_elegant
+#: code:addons/accounting_elegant/models/account_payment.py:0
+#, python-format
+msgid "Vendor Reimbursement"
+msgstr ""
+
+#. module: accounting_elegant
+#: model:ir.model.fields.selection,name:accounting_elegant.selection__account_payment__partner_type__withdrawals
+msgid "Withdrawals"
+msgstr "مسحوبات"
+
+#. module: accounting_elegant
+#: code:addons/accounting_elegant/models/account_payment.py:0
+#, python-format
+msgid ""
+"You can't create a new payment without an outstanding payments/receipts "
+"account set on the %s journal."
+msgstr ""

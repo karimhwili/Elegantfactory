@@ -14,19 +14,6 @@
                         <field name="tag_lot" placeholder="Tag Lot"/>
                     </div>
                 </xpath>
-                <xpath expr="//page[@name='inventory']" position="after">
-                    <page string="Product Limits">
-                        <group>
-                            <field name="product_limits" nolabel="1">
-                                <tree editable="bottom">
-                                    <field name="customer_id"/>
-                                    <field name="limit"/>
-                                </tree>
-                            </field>
-                        </group>
-                    </page>
-                </xpath>
-
 
 
             </field>
@@ -47,6 +34,9 @@
                                 groups="stock.group_stock_user"/>
                     </div>
                 </field>
+                <xpath expr="//field[@name='categ_id']" position="after">
+                    <field name="limits_groups"/>
+                </xpath>
 
             </field>
         </record>

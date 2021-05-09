@@ -9,10 +9,11 @@ class PurchaseOrder(models.Model):
     @api.depends('picking_ids.state','picking_ids.quality_check_fail')
     def _get_check_quality(self):
         for rec in self:
-            if rec.picking_ids.state == 'done' and rec.picking_ids.quality_check_fail == False:
-                rec.check_quality = True
-            else:
-                rec.check_quality = False
+            for picking in self.picking_ids:
+                if picking.state == 'done' and picking.quality_check_fail == False:
+                    rec.check_quality = True
+                else:
+                    rec.check_quality = False
 
 
 

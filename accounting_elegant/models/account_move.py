@@ -5,6 +5,10 @@ class AccountAccount(models.Model):
     _inherit = 'account.account'
 
     force_auto = fields.Boolean("Force Automation")
+    transfer_type = fields.Selection([('cash_to_bank', 'Cash to Bank'),
+                                      ('cash_to_cash', 'Cash to Cash'),
+                                      ('bank_to_bank', 'Bank to Bank'),
+                                      ('not_required', 'Not Required'),],default='not_required' ,string="Transfer Type")
 
 class AccountMove(models.Model):
     _inherit = 'account.move'
@@ -27,3 +31,9 @@ class AccountMove(models.Model):
         self.write({'auto_post': False, 'state': 'cancel','is_reason':True})
 
 
+class aaaaaa(models.Model):
+    _inherit = 'account.journal'
+
+    next_link_synchronization  =fields.Char()
+    account_online_account_id  =fields.Char()
+    account_online_link_state  =fields.Char()
