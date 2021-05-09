@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- product.category.scrap.account inherit form view -->
+    <record id="view_id" model="ir.ui.view">
+        <field name="name">product.category.scrap.account.inherit.view.form</field>
+        <field name="model">product.category</field>
+        <field name="inherit_id" ref="account.view_category_property_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='property_account_expense_categ_id']" position="after">
+                <field name="property_scrap_account_id"/>                
+                <field name="income_add_stock_account_id"/>                
+            </xpath>            
+        </field>
+    </record>
+
+</odoo>
