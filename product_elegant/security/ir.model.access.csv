@@ -1,4 +1,0 @@
-id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-
-access_product_limits,product.limits,model_product_limits,base.group_user,1,1,1,1
-access_group_limits,group.limits,model_group_limit,base.group_user,1,1,1,1
