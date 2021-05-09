@@ -31,9 +31,3 @@ class AccountMove(models.Model):
         self.write({'auto_post': False, 'state': 'cancel','is_reason':True})
 
 
-class aaaaaa(models.Model):
-    _inherit = 'account.journal'
-
-    next_link_synchronization  =fields.Char()
-    account_online_account_id  =fields.Char()
-    account_online_link_state  =fields.Char()
