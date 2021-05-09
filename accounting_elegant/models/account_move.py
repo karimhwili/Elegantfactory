@@ -29,5 +29,3 @@ class AccountMove(models.Model):
 
     def cancel_invoice(self):
         self.write({'auto_post': False, 'state': 'cancel','is_reason':True})
-
-

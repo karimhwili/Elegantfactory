@@ -34,7 +34,7 @@ class HrEmployeesInherit(models.Model):
                       index=True, default='New')
 
     legal_leave_monthly_allocation = fields.Float(string="Legal Leave Monthly Allocation",
-                                                  compute='_compute_legal_leave_monthly_allocation', stored=True)
+                                                  compute='_compute_legal_leave_monthly_allocation', store=True)
 
     leave_name = fields.Many2one('hr.leave.type', string="Leave Name")
     check_contract = fields.Boolean(compute='_get_check_contract',store=True)
