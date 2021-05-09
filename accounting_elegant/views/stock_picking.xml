@@ -9,9 +9,9 @@
         <field name="arch" type="xml">
             <xpath expr="//field[@name='partner_id']" position="after">
                 <!-- Add your fields here -->
-                <field name="account_type" widget="radio"/>
-                <field name="account_id" attrs="{'invisible': [('account_type', '!=', 'expense')]}"/>
-                <field name="account_id_adding" attrs="{'invisible': [('account_type', '!=', 'adding')]}"/>
+
+                <field name="account_id"/>
+
             </xpath>
         </field>
     </record>

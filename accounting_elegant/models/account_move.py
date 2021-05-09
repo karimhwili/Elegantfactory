@@ -5,6 +5,10 @@ class AccountAccount(models.Model):
     _inherit = 'account.account'
 
     force_auto = fields.Boolean("Force Automation")
+    transfer_type = fields.Selection([('cash_to_bank', 'Cash to Bank'),
+                                      ('cash_to_cash', 'Cash to Cash'),
+                                      ('bank_to_bank', 'Bank to Bank'),
+                                      ('not_required', 'Not Required'),],default='not_required' ,string="Transfer Type")
 
 class AccountMove(models.Model):
     _inherit = 'account.move'
@@ -25,5 +29,3 @@ class AccountMove(models.Model):
 
     def cancel_invoice(self):
         self.write({'auto_post': False, 'state': 'cancel','is_reason':True})
-
-

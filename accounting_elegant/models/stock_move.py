@@ -19,9 +19,6 @@ class StockMove(models.Model):
         if self.picking_id.account_id:
             if self.picking_id.picking_type_id.code == 'outgoing' or self.picking_id.picking_type_id.code == 'internal':
                 debit_account_id = self.picking_id.account_id.id
-        elif self.picking_id.account_id_adding:
-            if self.picking_id.picking_type_id.code == 'internal':
-                debit_account_id = self.picking_id.account_id_adding.id
         else:
             if self.scrapped and self.product_id.categ_id.property_scrap_account_id:
                 debit_account_id = self.product_id.categ_id.property_scrap_account_id.id

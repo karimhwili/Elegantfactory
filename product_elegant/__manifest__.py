@@ -13,7 +13,8 @@
         'views/product_product.xml',
         'views/purchase_order.xml',
         'views/product_category.xml',
-        'views/res_partner.xml'
+        'views/res_partner.xml',
+        'views/group_limits.xml'
     ],
 
 }

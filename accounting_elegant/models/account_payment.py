@@ -7,8 +7,19 @@ class AccountPayment(models.Model):
 
     partner_type = fields.Selection([
         ('customer', 'Customer'),
-        ('supplier', 'Vendor'),('other', 'Other'),
-    ], default='customer', tracking=True, required=True)
+        ('supplier', 'Vendor'),('salaries', 'Salaries'),
+        ('other_expenses', 'Other Expenses'),('withdrawals', 'Withdrawals'),
+        ('other_payments', 'Other Payments'),('other_receipts', 'Other Receipts'),
+    ], default=False, tracking=True, required=True)
+
+    transfer_type = fields.Selection([('cash_to_bank','Cash to Bank'),
+                                      ('cash_to_cash','Cash to Cash'),
+                                      ('bank_to_bank','Bank to Bank'),],"Transfer Type",default='cash_to_bank')
+
+    is_internal_transfer = fields.Boolean(string="Is Internal Transfer",
+                                          readonly=False,
+                                          compute=False)
+
 
     destination_account_id = fields.Many2one(
         comodel_name='account.account',
@@ -25,23 +36,96 @@ class AccountPayment(models.Model):
         for rec in self:
             rec.currency_rate = rec.currency_id.rate
 
-
-    @api.onchange('partner_type')
+    @api.onchange('partner_type','transfer_type','is_internal_transfer')
     def _get_destination_domain(self):
         if self.partner_type in ('customer','supplier'):
+            if self.is_internal_transfer == True:
+                if self.transfer_type == 'cash_to_bank':
+                    return {
+                        'domain': {
+                            'destination_account_id': [('transfer_type', '=', 'cash_to_bank'),
+                                                       ]
+                        }
+                    }
+                elif self.transfer_type == 'cash_to_cash':
+                    return {
+                        'domain': {
+                            'destination_account_id': [('transfer_type', '=', 'cash_to_cash'),
+                                                       ]
+                        }
+                    }
+                elif self.transfer_type == 'bank_to_bank':
+                    return {
+                        'domain': {
+                            'destination_account_id': [('transfer_type', '=', 'bank_to_bank'),
+                                                       ]
+                        }
+                    }
+            else:
+
+                return {
+                    'domain': {
+                        'destination_account_id': [('user_type_id.type', 'in', ('receivable', 'payable')),
+                                                   ]
+                    }
+                }
+        elif self.partner_type in ('salaries','other_payments'):
             return {
                 'domain': {
-                    'destination_account_id': [('user_type_id.type', 'in', ('receivable', 'payable'))]
+                    'destination_account_id': [('user_type_id.internal_group', '=', 'liability')]
                 }
             }
-        else:
+        elif self.partner_type in ('other_expenses','withdrawals'):
             return {
                 'domain': {
-                    'destination_account_id': [('user_type_id.type', 'in', ('receivable', 'payable','liquidity','other'))]
+                    'destination_account_id': [('user_type_id.internal_group', '=', 'expense')]
+                }
+            }
+        elif self.partner_type == 'other_receipts':
+            return {
+                'domain': {
+                    'destination_account_id': [('user_type_id.internal_group', '=', 'asset')]
                 }
             }
 
 
+    @api.depends('journal_id', 'partner_id', 'partner_type', 'is_internal_transfer','transfer_type')
+    def _compute_destination_account_id(self):
+        self.destination_account_id = False
+        for pay in self:
+            if pay.is_internal_transfer:
+                if pay.transfer_type == 'cash_to_bank':
+                    pay.destination_account_id = self.env['account.account'].search([
+                        ('transfer_type', '=', 'cash_to_bank'),
+                    ], limit=1)
+                elif pay.transfer_type == 'cash_to_cash':
+                    pay.destination_account_id = self.env['account.account'].search([
+                        ('transfer_type', '=', 'cash_to_cash'),
+                    ], limit=1)
+                elif pay.transfer_type == 'bank_to_bank':
+                    pay.destination_account_id = self.env['account.account'].search([
+                        ('transfer_type', '=', 'bank_to_bank'),
+                    ], limit=1)
+            elif pay.partner_type == 'customer':
+
+                # Receive money from invoice or send money to refund it.
+                if pay.partner_id:
+                    pay.destination_account_id = pay.partner_id.with_company(
+                        pay.company_id).property_account_receivable_id
+                else:
+                    pay.destination_account_id = self.env['account.account'].search([
+                        ('company_id', '=', pay.company_id.id),
+                        ('internal_type', '=', 'receivable'),
+                    ], limit=1)
+            elif pay.partner_type == 'supplier':
+                # Send money to pay a bill or receive money to refund it.
+                if pay.partner_id:
+                    pay.destination_account_id = pay.partner_id.with_company(pay.company_id).property_account_payable_id
+                else:
+                    pay.destination_account_id = self.env['account.account'].search([
+                        ('company_id', '=', pay.company_id.id),
+                        ('internal_type', '=', 'payable'),
+                    ], limit=1)
 
     def _prepare_move_line_default_vals(self, write_off_line_vals=None):
         ''' Prepare the dictionary to create the default account.move.lines for the current payment.

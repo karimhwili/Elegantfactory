@@ -15,13 +15,13 @@ class SaleOrderInherit(models.Model):
 
         for inv in inv_rec:
             for line in inv.invoice_line_ids:
-                for partner in line.product_id.product_limits:
+                for partner in line.product_id.limits_groups.group_limits:
                     if inv.partner_id == partner.customer_id:
                         inv_credit += line.price_subtotal
 
         for order in self:
             for line in order.order_line:
-                for partner in line.product_id.product_limits:
+                for partner in line.product_id.limits_groups.group_limits:
                     if order.partner_id == partner.customer_id:
                         credit_product += line.price_subtotal
                     total_sales = inv_credit + credit_product

@@ -11,6 +11,7 @@
 
                 <xpath expr="//field[@name='allowed_journal_ids']" position="after">
                     <field name="force_auto"/>
+                    <field name="transfer_type" widget="radio"/>
                 </xpath>
            </field>
         </record>
@@ -44,6 +45,15 @@
             <xpath expr="//div[@name='amount_div']" position="after">
                 <field name="currency_rate" force_save="1"/>
             </xpath>
+            <xpath expr="//field[@name='is_internal_transfer']" position="after">
+                <field name="transfer_type" widget="radio" attrs="{'invisible': [ ('is_internal_transfer','=',False)]}"/>
+            </xpath>
+            <xpath expr="//field[@name='destination_account_id']" position="replace">
+                <field name="destination_account_id"
+                                       options="{'no_create': True}" required="1"
+                                       attrs="{'readonly': [ ('state', '!=', 'draft')]}"/>
+            </xpath>
+
 
         </field>
     </record>
