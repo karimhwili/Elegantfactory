@@ -1,0 +1,8 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_employee_assets,employee_assets,model_employee_assets,base.group_user,1,1,1,1
+access_employee_followup_upgrade,employee_followup_upgrade,model_employee_upgrade,base.group_user,1,1,1,1
+access_employee_followup_transfer,employee_followup_transfer,model_employee_transfer,base.group_user,1,1,1,1
+access_employee_followup_evaluation,employee_followup_evaluation,model_employee_evaluation,base.group_user,1,1,1,1
+access_employee_followup_warning,employee_followup_warning,model_employee_warning,base.group_user,1,1,1,1
+
+access_hr_partner_township,hr.partner.township,model_hr_partner_township,base.group_user,1,1,1,1

@@ -1,0 +1,133 @@
+<odoo>
+  <data>
+      <record id="Inherit_hr_employee_form" model="ir.ui.view">
+          <field name="name">Inherit_hr_employee_form</field>
+          <field name="model">hr.employee</field>
+          <field name="inherit_id" ref="hr.view_employee_form"/>
+          <field name="arch" type="xml">
+              <field name="job_title" position="before">
+                  <div>
+                      <label for="seq" string="Employee ID"/>
+                    <field name="seq"/>
+                  </div>
+              </field>
+
+              <xpath expr="//notebook/page[@name='personal_information']//group[2]" position="replace">
+                  <group string="Personal info">
+                    <field name="country_id" options='{"no_open": True, "no_create": True}'/>
+                    <field name="identification_id" groups="hr.group_hr_user"/>
+                    <field name="passport_id" groups="hr.group_hr_user"/>
+                    <field name="social_security" groups="hr.group_hr_user"/>
+                    <field name="gender"/>
+                    <field name="birthday"/>
+                    <field name="city_birth"/>
+                    <field name="current_city"/>
+                    <field name="current_address"/>
+                    <field name="mother_name"/>
+                    <field name="place_of_birth" groups="hr.group_hr_user"/>
+                    <field name="country_of_birth" groups="hr.group_hr_user"/>
+                    <field name="legal_leave_monthly_allocation" invisible="1"/>
+                  </group>
+                  <group string="Live info">
+                      <field name="direct_date"/>
+                      <field name="first_cont_date"/>
+                      <field name="home_localization"/>
+
+                  </group>
+                  <group string="Foreigner info">
+                      <field name="foreign_date"/>
+                  </group>
+
+              </xpath>
+
+
+              <xpath expr="//notebook/page[@name='hr_settings']" position="after">
+
+                  <page  string="Health">
+                      <group colspan="4">
+                          <group>
+                            <field name="certificate_id"/>
+                            <field name="certificate_date_issue"/>
+                            <field name="certificate_date_ex"/>
+                            <field name="certificate_pdf" widget="many2many_binary"/>
+                          </group>
+                      </group>
+                    </page>
+                  <page  string="Job History">
+                      <group string="Upgrade Data">
+                            <field name="followup_upgrade"  nolabel="1">
+                                <tree editable="bottom">
+                                    <field name="upgrade_fun_date"/>
+                                    <field name="upgrade_fun_name"/>
+                                    <field name="responsible_upgrade"/>
+                                </tree>
+                            </field>
+                      </group>
+                      <group string="Transfer Data">
+                            <field name="followup_transfer"  nolabel="1">
+                                <tree editable="bottom">
+                                    <field name="job_transfer_date"/>
+                                    <field name="old_depart"/>
+                                    <field name="new_depart"/>
+                                    <field name="responsible_transfer"/>
+                                </tree>
+                            </field>
+                      </group>
+                      <group string="Evaluation Data">
+                            <field name="followup_evaluation"  nolabel="1">
+                                <tree editable="bottom">
+                                    <field name="evaluation_date"/>
+                                    <field name="evaluation_result"/>
+                                    <field name="responsible_evaluation"/>
+                                </tree>
+                            </field>
+                      </group>
+                      <group string="Warning Data">
+                            <field name="followup_warning"  nolabel="1">
+                                <tree editable="bottom">
+                                    <field name="warning_date"/>
+                                    <field name="warning_reason"/>
+                                    <field name="responsible_warning"/>
+                                </tree>
+                            </field>
+                      </group>
+                    </page>
+                  <page  string="Assets">
+                  <group string="Tracking">
+                        <field name="tracking"  nolabel="1">
+                            <tree editable="bottom">
+                                <field name="asset_id"/>
+                                <field name="date"/>
+                                <field name="reference"/>
+                                <field name="asset_type"/>
+                                <field name="value"/>
+                            </tree>
+                        </field>
+                  </group>
+                </page>
+                  <page string="TimeOff details">
+                      <group>
+                         <field name="check_contract" invisible="1"/>
+                        <field name="basic_balance" attrs="{'invisible': [('check_contract', '=', False)]}"/>
+                        <field name="consumed_balance" attrs="{'invisible': [('check_contract', '=', False)]}"/>
+                        <field name="remaining_balance" attrs="{'invisible': [('check_contract', '=', False)]}"/>
+                      </group>
+                  </page>
+              </xpath>
+
+          </field>
+      </record>
+
+      <record id="res_partner_form_inherit" model="ir.ui.view">
+        <field name="name">res.partner_form_inherit</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="arch" type="xml">
+             <xpath expr="//field[@name='category_id']" position="after">
+                 <field name="municipality" placeholder="Municipality"/>
+            </xpath>
+
+        </field>
+    </record>
+  </data>
+</odoo>
