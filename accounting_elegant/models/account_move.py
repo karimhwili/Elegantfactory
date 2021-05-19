@@ -8,6 +8,10 @@ class AccountAccount(models.Model):
     transfer_type = fields.Selection([('cash_to_bank', 'Cash to Bank'),
                                       ('cash_to_cash', 'Cash to Cash'),
                                       ('bank_to_bank', 'Bank to Bank'),
+                                      ('salaries', 'Salaries'),
+                                      ('other_payments', 'Other Payments'),
+                                      ('other_receipts', 'Other Receipts'),
+                                      ('loans', 'Loans'),
                                       ('not_required', 'Not Required'),],default='not_required' ,string="Transfer Type")
 
 class AccountMove(models.Model):
@@ -29,3 +33,10 @@ class AccountMove(models.Model):
 
     def cancel_invoice(self):
         self.write({'auto_post': False, 'state': 'cancel','is_reason':True})
+
+# class Account(models.Model):
+#     _inherit = 'account.journal'
+#
+#     next_link_synchronization = fields.Char()
+#     account_online_account_id = fields.Char()
+#     account_online_link_state = fields.Char()

@@ -9,12 +9,13 @@ class AccountPayment(models.Model):
         ('customer', 'Customer'),
         ('supplier', 'Vendor'),('salaries', 'Salaries'),
         ('other_expenses', 'Other Expenses'),('withdrawals', 'Withdrawals'),
-        ('other_payments', 'Other Payments'),('other_receipts', 'Other Receipts'),
+        ('other_payments', 'Other Payments'),('other_receipts', 'Other Receipts'),('loans', 'Loans'),
     ], default=False, tracking=True, required=True)
 
     transfer_type = fields.Selection([('cash_to_bank','Cash to Bank'),
                                       ('cash_to_cash','Cash to Cash'),
-                                      ('bank_to_bank','Bank to Bank'),],"Transfer Type",default='cash_to_bank')
+                                      ('bank_to_bank','Bank to Bank'),
+                                      ],"Transfer Type",default='cash_to_bank')
 
     is_internal_transfer = fields.Boolean(string="Is Internal Transfer",
                                           readonly=False,
@@ -69,13 +70,19 @@ class AccountPayment(models.Model):
                                                    ]
                     }
                 }
-        elif self.partner_type in ('salaries','other_payments'):
+        elif self.partner_type == 'salaries':
             return {
                 'domain': {
-                    'destination_account_id': [('user_type_id.internal_group', '=', 'liability')]
+                    'destination_account_id': [('transfer_type', '=', 'salaries')]
                 }
             }
-        elif self.partner_type in ('other_expenses','withdrawals'):
+        elif self.partner_type == 'other_payments':
+            return {
+                'domain': {
+                    'destination_account_id': [('transfer_type', '=', 'other_payments')]
+                }
+            }
+        elif self.partner_type == 'other_expenses':
             return {
                 'domain': {
                     'destination_account_id': [('user_type_id.internal_group', '=', 'expense')]
@@ -84,7 +91,19 @@ class AccountPayment(models.Model):
         elif self.partner_type == 'other_receipts':
             return {
                 'domain': {
+                    'destination_account_id': [('transfer_type', '=', 'other_receipts')]
+                }
+            }
+        elif self.partner_type == 'withdrawals':
+            return {
+                'domain': {
                     'destination_account_id': [('user_type_id.internal_group', '=', 'asset')]
+                }
+            }
+        elif self.partner_type == 'loans':
+            return {
+                'domain': {
+                    'destination_account_id': [('transfer_type', '=', 'loans')]
                 }
             }
 
@@ -127,6 +146,25 @@ class AccountPayment(models.Model):
                         ('internal_type', '=', 'payable'),
                     ], limit=1)
 
+            elif pay.partner_type == 'salaries':
+                pay.destination_account_id = self.env['account.account'].search([
+                    ('transfer_type', '=', 'salaries'),
+                ], limit=1)
+
+            elif pay.partner_type == 'other_payments':
+                pay.destination_account_id = self.env['account.account'].search([
+                    ('transfer_type', '=', 'other_payments'),
+                ], limit=1)
+
+            elif pay.partner_type == 'other_receipts':
+                pay.destination_account_id = self.env['account.account'].search([
+                    ('transfer_type', '=', 'other_receipts'),
+                ], limit=1)
+
+            elif pay.partner_type == 'loans':
+                pay.destination_account_id = self.env['account.account'].search([
+                    ('transfer_type', '=', 'loans'),
+                ], limit=1)
     def _prepare_move_line_default_vals(self, write_off_line_vals=None):
         ''' Prepare the dictionary to create the default account.move.lines for the current payment.
         :param write_off_line_vals: Optional dictionary to create a write-off account.move.line easily containing:

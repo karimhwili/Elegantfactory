@@ -20,6 +20,7 @@
         'views/product_category.xml',
         'views/account_account.xml',
         'wizards/invoice_reason_wizard.py.xml',
+        'views/res_users.xml',
 
 
 
