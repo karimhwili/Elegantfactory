@@ -34,9 +34,9 @@ class AccountMove(models.Model):
     def cancel_invoice(self):
         self.write({'auto_post': False, 'state': 'cancel','is_reason':True})
 
-# class Account(models.Model):
-#     _inherit = 'account.journal'
-#
-#     next_link_synchronization = fields.Char()
-#     account_online_account_id = fields.Char()
-#     account_online_link_state = fields.Char()
+class Account(models.Model):
+    _inherit = 'account.journal'
+
+    next_link_synchronization = fields.Char()
+    account_online_account_id = fields.Char()
+    account_online_link_state = fields.Char()

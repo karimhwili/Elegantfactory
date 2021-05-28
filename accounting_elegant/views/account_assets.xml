@@ -16,6 +16,9 @@
                       <field name="seq"/>
                   </div>
               </xpath>
+              <field name="original_move_line_ids" position="attributes">
+                <attribute name="domain"></attribute>
+            </field>
 
               <xpath expr="//group" position="after">
                   <group string="Tracking">

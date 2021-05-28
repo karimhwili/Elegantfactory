@@ -218,6 +218,18 @@ class AccountPayment(models.Model):
             'inbound-customer': _("Customer Payment"),
             'outbound-supplier': _("Vendor Payment"),
             'inbound-supplier': _("Vendor Reimbursement"),
+            'outbound-salaries': _("Salaries Payment"),
+            'inbound-salaries': _("Salaries Reimbursement"),
+            'outbound-other_expenses': _("Other Expenses Payment"),
+            'inbound-other_expenses': _("Other Expenses Reimbursement"),
+            'outbound-withdrawals': _("Withdrawals Payment"),
+            'inbound-withdrawals': _("Withdrawals Reimbursement"),
+            'outbound-other_payments': _("Other Payments Payment"),
+            'inbound-other_payments': _("Other Payments Reimbursement"),
+            'outbound-other_receipts': _("Other receipts Payment"),
+            'inbound-other_receipts': _("Other receipts Reimbursement"),
+            'outbound-loans': _("Loans Payment"),
+            'inbound-loans': _("Loans Reimbursement"),
         }
 
         default_line_name = self.env['account.move.line']._get_default_line_name(

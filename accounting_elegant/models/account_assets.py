@@ -2,6 +2,7 @@
 
 from odoo import models, fields, api, _
 from odoo.exceptions import UserError
+import numpy as np
 
 
 
@@ -15,6 +16,21 @@ class AccountAssetsInherit(models.Model):
     seq = fields.Char(string="Sequence",  required=True, copy=False, readonly=True,
                            index=True, default='New')
 
+
+    # def _get_account_move_line(self):
+    #     for rec in self:
+    #         move_lines_ids = self.env['account.move.line'].search([('credit','=',0),('move_id.state','=','posted')])
+    #         current_move_lines_ids = self.search([]).mapped('original_move_line_ids')
+    #
+    #         filtered_moves = move_lines_ids - current_move_lines_ids
+    #
+    #         return [('id', 'in', filtered_moves.ids)]
+    #
+    #
+    #
+    # original_move_line_ids = fields.Many2many('account.move.line', 'asset_move_line_rel', 'asset_id', 'line_id',
+    #                                           string='Journal Items', readonly=True,
+    #                                           states={'draft': [('readonly', False)]}, copy=False,domain=_get_account_move_line)
     @api.model
     def create(self, vals):
         if vals.get('seq', _('New')) == _('New'):

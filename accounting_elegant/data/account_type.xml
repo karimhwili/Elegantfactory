@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+
+        <record model="account.account.type" id="data_account_type_inventory">
+          <field name="name">Inventory</field>
+          <field name="type">other</field>
+          <field name="internal_group">asset</field>
+          <field name="include_initial_balance" eval="True"/>
+        </record>
+
+        <record id="account_financial_report_inventory_view0" model="account.financial.html.report.line">
+            <field name="name">Inventory</field>
+            <field name="code">IN</field>
+            <field name="parent_id" ref='account_reports.account_financial_report_current_assets_view0'/>
+            <field name="domain" eval="[('account_id.user_type_id', '=', ref('accounting_elegant.data_account_type_inventory'))]" />
+            <field name="groupby">account_id</field>
+            <field name="formulas">sum</field>
+            <field name="sequence" eval="4"/>
+            <field name="level" eval="2" />
+        </record>
+
+        <record model="account.account.type" id="data_account_type_other_others">
+          <field name="name">Others</field>
+          <field name="type">other</field>
+          <field name="internal_group">income</field>
+        </record>
+
+        <record id="account_financial_report_others0" model="account.financial.html.report.line">
+            <field name="name">Others</field>
+            <field name="code">OTH</field>
+            <field name="formulas">-sum</field>
+            <field name="parent_id" ref='account_reports.account_financial_report_totalincome0'/>
+            <field name="domain" eval="[('account_id.user_type_id', '=', ref('accounting_elegant.data_account_type_other_others'))]" />
+            <field name="groupby">account_id</field>
+            <field name="sequence" eval="2"/>
+            <field name="level" eval="2" />
+        </record>
+
+        <record model="account.account.type" id="data_account_type_salaries_marketing">
+          <field name="name">Salaries and Marketing Expenses</field>
+          <field name="type">other</field>
+          <field name="internal_group">expense</field>
+        </record>
+
+        <record id="account_financial_report_salaries_marketing0" model="account.financial.html.report.line">
+            <field name="name">Salaries and Marketing Expenses</field>
+            <field name="code">SAM</field>
+            <field name="formulas">sum</field>
+            <field name="parent_id" ref='account_reports.account_financial_report_less_expenses0'/>
+            <field name="domain" eval="[('account_id.user_type_id', '=', ref('accounting_elegant.data_account_type_salaries_marketing'))]" />
+            <field name="groupby">account_id</field>
+            <field name="sequence" eval="1"/>
+            <field name="green_on_positive" eval="False"/>
+            <field name="level" eval="2" />
+        </record>
+
+        <record model="account.account.type" id="data_account_type_salaries">
+          <field name="name">Salaries</field>
+          <field name="type">other</field>
+          <field name="internal_group">expense</field>
+        </record>
+
+        <record id="account_financial_report_salaries0" model="account.financial.html.report.line">
+            <field name="name">Salaries</field>
+            <field name="code">SAL</field>
+            <field name="formulas">sum</field>
+            <field name="parent_id" ref='account_reports.account_financial_report_less_expenses0'/>
+            <field name="domain" eval="[('account_id.user_type_id', '=', ref('accounting_elegant.data_account_type_salaries'))]" />
+            <field name="groupby">account_id</field>
+            <field name="sequence" eval="1"/>
+            <field name="green_on_positive" eval="False"/>
+            <field name="level" eval="2" />
+        </record>
+
+        <record model="account.account.type" id="data_account_type_others">
+          <field name="name">Others</field>
+          <field name="type">other</field>
+          <field name="internal_group">expense</field>
+        </record>
+
+        <record id="account_financial_report_o_others0" model="account.financial.html.report.line">
+            <field name="name">Others</field>
+            <field name="code">OTHE</field>
+            <field name="formulas">sum</field>
+            <field name="parent_id" ref='account_reports.account_financial_report_less_expenses0'/>
+            <field name="domain" eval="[('account_id.user_type_id', '=', ref('accounting_elegant.data_account_type_others'))]" />
+            <field name="groupby">account_id</field>
+            <field name="sequence" eval="1"/>
+            <field name="green_on_positive" eval="False"/>
+            <field name="level" eval="2" />
+        </record>
+
+    </data>
+</odoo>

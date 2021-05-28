@@ -21,6 +21,7 @@
         'views/account_account.xml',
         'wizards/invoice_reason_wizard.py.xml',
         'views/res_users.xml',
+        'data/account_type.xml'
 
 
 
