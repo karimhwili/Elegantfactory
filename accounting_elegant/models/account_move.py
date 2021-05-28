@@ -40,3 +40,4 @@ class AccountMove(models.Model):
 #     next_link_synchronization = fields.Char()
 #     account_online_account_id = fields.Char()
 #     account_online_link_state = fields.Char()
+#     bank_statement_creation_groupby = fields.Char()

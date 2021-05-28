@@ -43,7 +43,7 @@
         <field name="arch" type="xml">
 
             <xpath expr="//div[@name='amount_div']" position="after">
-                <field name="currency_rate" force_save="1"/>
+                <field name="currency_rate" force_save="1" attrs="{'readonly': [ ('state','=','posted')]}"/>
             </xpath>
             <xpath expr="//field[@name='is_internal_transfer']" position="after">
                 <field name="transfer_type" widget="radio" attrs="{'invisible': [ ('is_internal_transfer','=',False)]}"/>
