@@ -9,6 +9,7 @@
 
               <field name="acquisition_date" position="after">
                   <field name="asset_types"/>
+                  <field name="asset_quantity"/>
               </field>
 
               <xpath expr="//div/label[@name='name_label']" position="before">

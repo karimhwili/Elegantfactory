@@ -15,6 +15,7 @@ class AccountAssetsInherit(models.Model):
     asset_types = fields.Many2one('asset.type',"Asset Type")
     seq = fields.Char(string="Sequence",  required=True, copy=False, readonly=True,
                            index=True, default='New')
+    asset_quantity = fields.Integer("Asset Quantity")
 
 
     # def _get_account_move_line(self):

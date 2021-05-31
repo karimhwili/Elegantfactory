@@ -1,5 +1,5 @@
 from odoo import fields, models, api
-
+from odoo.addons.account.models.account_move import AccountMove as AccountMove1
 
 class AccountAccount(models.Model):
     _inherit = 'account.account'
@@ -20,6 +20,16 @@ class AccountMove(models.Model):
     reason = fields.Char("Reason for Cancel")
     is_reason = fields.Boolean()
 
+
+    def unlink(self):
+        for move in self:
+            if move.posted_before and not self._context.get('force_delete'):
+                # raise UserError(_("You cannot delete an entry which has been posted once."))
+                continue
+        self.line_ids.unlink()
+        # return super(AccountMove, self).unlink()
+
+    AccountMove1.unlink = unlink
     def button_cancel(self):
         return {
             'type': 'ir.actions.act_window',
