@@ -30,7 +30,7 @@ class HrEmployeesInherit(models.Model):
     first_cont_date = fields.Date("Date of first contract")
     direct_date = fields.Date("Date of Direct")
 
-    seq = fields.Char(string="Sequence", required=True, copy=False, readonly=True,
+    seq = fields.Char(string="Sequence", required=True, copy=False, readonly=False,
                       index=True, default='New')
 
     legal_leave_monthly_allocation = fields.Float(string="Legal Leave Monthly Allocation",

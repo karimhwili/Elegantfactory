@@ -10,7 +10,7 @@ class AccountAssetsInherit(models.Model):
     _inherit = 'account.asset'
 
     tracking = fields.One2many('assets.tracking','asset_id',"Tracking" )
-    original_value = fields.Float(compute="_get_original_value", store=True)
+
     salvage_value = fields.Float(compute="_get_original_value", store=True,readonly=False)
     asset_types = fields.Many2one('asset.type',"Asset Type")
     seq = fields.Char(string="Sequence",  required=True, copy=False, readonly=True,
@@ -43,16 +43,52 @@ class AccountAssetsInherit(models.Model):
 
 
 
-    @api.depends('tracking.value', 'tracking.depreciable_value')
+    @api.depends('tracking.depreciable_value')
     def _get_original_value(self):
-        o_value = 0
         d_value = 0
         for rec in self.tracking:
-            o_value += rec.value
             d_value += rec.depreciable_value
-        self.original_value = o_value
         self.salvage_value = d_value
 
+    @api.depends('original_move_line_ids', 'original_move_line_ids.account_id', 'asset_type','tracking.value')
+    def _compute_value(self):
+        o_value = 0
+        for record in self:
+            misc_journal_id = self.env['account.journal'].search(
+                [('type', '=', 'general'), ('company_id', '=', record.company_id.id)], limit=1)
+            if not record.original_move_line_ids:
+                record.account_asset_id = record.account_asset_id or False
+                if not record.account_asset_id and (
+                        record.state == 'model' or not record.account_asset_id or record.asset_type != 'purchase'):
+                    record.account_asset_id = record.account_depreciation_id if record.asset_type in (
+                    'purchase', 'expense') else record.account_depreciation_expense_id
+                record.original_value = record.original_value or False
+                record.display_model_choice = record.state == 'draft' and self.env['account.asset'].search(
+                    [('state', '=', 'model'), ('asset_type', '=', record.asset_type)])
+                record.display_account_asset_id = True
+                continue
+            if any(line.move_id.state == 'draft' for line in record.original_move_line_ids):
+                raise UserError(_("All the lines should be posted"))
+            if any(account != record.original_move_line_ids[0].account_id for account in
+                   record.original_move_line_ids.mapped('account_id')):
+                raise UserError(_("All the lines should be from the same account"))
+            record.account_asset_id = record.original_move_line_ids[0].account_id
+            record.display_model_choice = record.state == 'draft' and self.env['account.asset'].search_count(
+                [('state', '=', 'model'), ('account_asset_id.user_type_id', '=', record.user_type_id.id)])
+            record.display_account_asset_id = False
+            if not record.journal_id:
+                record.journal_id = misc_journal_id
+            total_credit = sum(line.credit for line in record.original_move_line_ids)
+            total_debit = sum(line.debit for line in record.original_move_line_ids)
+            for rec in record.tracking:
+                if rec:
+                    o_value += rec.value
+                else:
+                    o_value = 0
+            record.original_value = total_credit + total_debit + o_value
+            if (total_credit and total_debit) or record.original_value == 0:
+                raise UserError(
+                    _("You cannot create an asset from lines containing credit and debit on the account or with a null amount"))
 
 
 class AssetsTrackingLocation(models.Model):
