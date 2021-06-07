@@ -5,15 +5,11 @@ from odoo.exceptions import UserError
 class AccountPayment(models.Model):
     _inherit = 'account.payment'
 
-
-
-    partner_id = fields.Many2one('res.partner',required=True)
-
     partner_type = fields.Selection([
         ('customer', 'Customer'),
         ('supplier', 'Vendor'),('salaries', 'Salaries'),
         ('other_expenses', 'Other Expenses'),('withdrawals', 'Withdrawals'),
-        ('other_payments', 'Other Payments'),('other_receipts', 'Other Receipts'),('loans', 'Loans'),
+        ('other_payments', 'Other Payments'),('other_receipts', 'Other Receipts'),('loans', 'Loans'),('liability_receipts', 'Liability Receipts'),
     ], default=False, tracking=True, required=True)
 
     transfer_type = fields.Selection([('cash_to_bank','Cash to Bank'),
@@ -110,6 +106,12 @@ class AccountPayment(models.Model):
                     'destination_account_id': [('transfer_type', '=', 'loans')]
                 }
             }
+        elif self.partner_type == 'liability_receipts':
+            return {
+                'domain': {
+                    'destination_account_id': [('user_type_id.name', 'in', ('Current Liabilities','Non-current Liabilities'))]
+                }
+            }
 
 
     @api.depends('journal_id', 'partner_id', 'partner_type', 'is_internal_transfer','transfer_type')
@@ -168,6 +170,10 @@ class AccountPayment(models.Model):
             elif pay.partner_type == 'loans':
                 pay.destination_account_id = self.env['account.account'].search([
                     ('transfer_type', '=', 'loans'),
+                ], limit=1)
+            elif pay.partner_type == 'liability_receipts':
+                pay.destination_account_id = self.env['account.account'].search([
+                    ('user_type_id.name', 'in', ('Current Liabilities','Non-current Liabilities')),
                 ], limit=1)
 
     def _prepare_move_line_default_vals(self, write_off_line_vals=None):
@@ -235,6 +241,8 @@ class AccountPayment(models.Model):
             'inbound-other_receipts': _("Other receipts Reimbursement"),
             'outbound-loans': _("Loans Payment"),
             'inbound-loans': _("Loans Reimbursement"),
+            'outbound-liability_receipts': _("Liability Receipts Payment"),
+            'inbound-liability_receipts': _("Liability Receipts Reimbursement"),
         }
 
         default_line_name = self.env['account.move.line']._get_default_line_name(

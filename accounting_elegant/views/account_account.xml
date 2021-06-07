@@ -54,6 +54,10 @@
                                        attrs="{'readonly': [ ('state', '!=', 'draft')]}"/>
             </xpath>
 
+            <xpath expr="//field[@name='partner_id']" position="attributes">
+                <attribute name="attrs">{'required': [('partner_type', 'in', ['customer','supplier'])]}</attribute>
+            </xpath>
+
 
         </field>
     </record>
