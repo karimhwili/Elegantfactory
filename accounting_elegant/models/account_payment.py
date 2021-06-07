@@ -5,6 +5,10 @@ from odoo.exceptions import UserError
 class AccountPayment(models.Model):
     _inherit = 'account.payment'
 
+
+
+    partner_id = fields.Many2one('res.partner',required=True)
+
     partner_type = fields.Selection([
         ('customer', 'Customer'),
         ('supplier', 'Vendor'),('salaries', 'Salaries'),
