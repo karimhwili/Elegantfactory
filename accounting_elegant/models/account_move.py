@@ -29,10 +29,10 @@ class AccountMove(models.Model):
     #
     #     landed_costs = self.env['stock.landed.cost'].create({
     #         'vendor_bill_id': self.id,
+    #         'account_journal_id': self.journal_id.id,
     #         'cost_lines': [(0, 0, {
     #             'product_id': l.product_id.id,
     #             'name': l.product_id.name,
-    #             'account_journal_id': self.journal_id.id,
     #             'account_id': l.product_id.product_tmpl_id.get_product_accounts()['stock_input'].id,
     #             'price_unit': l.currency_id._convert(l.price_subtotal, l.company_currency_id, l.company_id, l.move_id.date),
     #             'split_method': 'equal',

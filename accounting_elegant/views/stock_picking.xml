@@ -10,7 +10,7 @@
             <xpath expr="//field[@name='partner_id']" position="after">
                 <!-- Add your fields here -->
 
-                <field name="account_id"/>
+                <field name="account_id" groups="accounting_elegant.expense_account_employee"/>
 
             </xpath>
         </field>

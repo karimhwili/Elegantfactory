@@ -51,6 +51,20 @@
                 records.generate_internal_number()
             </field>
         </record>
+
+        <!-- Inherit Form View to Modify it -->
+        <record id="product_product_uom_inherit" model="ir.ui.view">
+            <field name="name">product_product_uom_inherit</field>
+            <field name="model">product.product</field>
+            <field name="inherit_id" ref="product.product_normal_form_view"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//field[@name='uom_id']" position="after">
+                    <field name="default_uom"/>
+                </xpath>
+
+            </field>
+        </record>
     
     </data>
 </odoo>

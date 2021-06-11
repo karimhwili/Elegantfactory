@@ -1,5 +1,9 @@
 from odoo import fields, models, api
 
+class ProductProduct(models.Model):
+    _inherit = 'product.product'
+
+    default_uom = fields.Many2one('uom.uom', string='Default Unit of measure')
 
 class InheritProduct(models.Model):
     _inherit = 'product.template'
