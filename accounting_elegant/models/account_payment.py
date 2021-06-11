@@ -15,7 +15,7 @@ class AccountPayment(models.Model):
     transfer_type = fields.Selection([('cash_to_bank','Cash to Bank'),
                                       ('cash_to_cash','Cash to Cash'),
                                       ('bank_to_bank','Bank to Bank'),
-                                      ],"Transfer Type",default='cash_to_bank')
+                                      ],"Transfer Type",default='cash_to_bank' )
 
     is_internal_transfer = fields.Boolean(string="Is Internal Transfer",
                                           readonly=False,
