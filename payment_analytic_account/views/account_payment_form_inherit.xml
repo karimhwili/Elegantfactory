@@ -11,7 +11,7 @@
                 <xpath expr="//group[2]/field[@name='payment_transaction_id']" position="after">
                     <field name="add_analytic_acc_tag"/>
                     <field name="analytic_account_id" attrs="{'invisible': [('add_analytic_acc_tag', '!=', True)], 'required': [('add_analytic_acc_tag', '=', True)]}"/>
-                    <field name="analytic_tag_ids" widget="many2many_tags" attrs="{'invisible': [('add_analytic_acc_tag', '!=', True)], 'required': [('add_analytic_acc_tag', '=', True)]}"/>
+<!--                    <field name="analytic_tag_ids" widget="many2many_tags" attrs="{'invisible': [('add_analytic_acc_tag', '!=', True)], 'required': [('add_analytic_acc_tag', '=', True)]}"/>-->
                 </xpath>
             </field>
         </record>
