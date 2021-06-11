@@ -1,0 +1,25 @@
+<odoo>
+  <data>
+    <!-- Inherit Form View to Modify it -->
+    <record id="res_company_brand" model="ir.ui.view">
+        <field name="name">res_company_brand</field>
+        <field name="model">res.company</field>
+        <field name="inherit_id" ref="account.view_company_form"/>
+        <field name="arch" type="xml">
+
+            <xpath expr="//page[@name='general_info']" position="after">
+                 <page string="Brand Images">
+                     <group>
+                         <field name="brand">
+                             <tree editable="bottom">
+                                 <field name="brand" widget="image" class="oe_avatar"/>
+                             </tree>
+                         </field>
+                     </group>
+                 </page>
+            </xpath>
+
+        </field>
+    </record>
+  </data>
+</odoo>
