@@ -1,3 +1,5 @@
+import math
+
 from odoo.tools import float_is_zero
 from odoo.exceptions import UserError
 from odoo import fields, models, api, _
@@ -63,13 +65,16 @@ class AccountMove(models.Model):
     #     return res
 
     @api.depends(
-        'line_ids.debit',
-        'line_ids.credit',
-        'line_ids.currency_id',
-        'line_ids.amount_currency',
-        'line_ids.amount_residual',
-        'line_ids.amount_residual_currency',
-        'line_ids.payment_id.state')
+        'invoice_line_ids.debit',
+        'invoice_line_ids.credit',
+        'invoice_line_ids.currency_id',
+        'invoice_line_ids.amount_currency',
+        'invoice_line_ids.amount_residual',
+        'invoice_line_ids.amount_residual_currency',
+        'invoice_line_ids.payment_id.state',
+        'invoice_line_ids.product_id',
+        # 'line_ids.partner_id',
+        'partner_id','invoice_line_ids.product_id')
     def _compute_amount(self):
         invoice_ids = [move.id for move in self if move.id and move.is_invoice(include_receipts=True)]
         self.env['account.payment'].flush(['state'])
@@ -143,17 +148,25 @@ class AccountMove(models.Model):
 
             # Round off amoount updates
             if move.round_active and move.amount_total:
-                amount_total = round((move.amount_total))
-                amount_round_off = amount_total - move.amount_total
-                move.round_off_value = amount_round_off
-                move.round_off_amount = amount_round_off
-                move.rounded_total = amount_total
-                move.amount_total = amount_total
-                move.amount_total_signed = abs(total) if move.move_type == 'entry' else -total
-            else:
-                move.round_off_value = 0.00
-                move.round_off_amount = 0.00
-                move.rounded_total =0.00
+                val = move.amount_total
+                if (float(val) % 1) >= 0.5:
+                    amount_total = math.ceil(val)
+                elif (float(val) % 1) < 0.5 and (float(val) % 1) > 0:
+                    amount_total = round(val) + 0.5
+                else:
+                    amount_total = 0
+                if move.amount_total and amount_total:
+                    print("amount",amount_total)
+                    amount_round_off = amount_total - move.amount_total
+                    move.round_off_value = amount_round_off
+                    move.round_off_amount = amount_round_off
+                    move.rounded_total = amount_round_off
+                    move.amount_total = amount_total
+                    move.amount_total_signed = abs(total) if move.move_type == 'entry' else -total
+                else:
+                    move.round_off_value = 0.00
+                    move.round_off_amount = 0.00
+                    move.rounded_total = 0.00
             currency = len(currencies) == 1 and currencies.pop() or move.company_id.currency_id
             is_paid = currency and currency.is_zero(move.amount_residual) or not move.amount_residual
             # Compute 'invoice_payment_state'.
