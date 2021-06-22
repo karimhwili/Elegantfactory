@@ -25,8 +25,8 @@
                     </header>
                 </xpath>
                 <xpath expr="//field[@name='loan_amount']" position="after">
-                    <field name="treasury_account_id"  attrs="{'invisible':[('state', '=','draft')],'readonly':[('state','in',('approve', 'refuse'))]}"/>
-                    <field name="employee_account_id"  attrs="{'invisible':[('state', '=','draft')],'readonly':[('state','in',('approve', 'refuse'))]}"/>
+                    <field name="treasury_account_id"  attrs="{'invisible':[('state', '=','draft')],'readonly':[('state','in',('approve', 'refuse'))]}" options="{'no_create': True, 'no_edit': True, 'no_open': True}"/>
+                    <field name="employee_account_id"  attrs="{'invisible':[('state', '=','draft')],'readonly':[('state','in',('approve', 'refuse'))]}" options="{'no_create': True, 'no_edit': True, 'no_open': True}"/>
                     <field name="journal_id"  attrs="{'invisible':[('state', '=','draft')],'readonly':[('state','in',('approve', 'refuse'))]}"/>
                     <field name="loan_entry_id"  attrs="{'invisible':[('state', '=','draft')],'readonly':[('state','in',('approve', 'refuse'))]}" readonly="1" force_save="1"/>
                 </xpath>

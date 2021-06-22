@@ -30,7 +30,7 @@ class AccountPayment(models.Model):
         domain=False,
         check_company=True)
 
-    currency_rate = fields.Float("Currency Rate",digits=(6, 2),compute='_get_currency_rate',store=True,readonly=False)
+    currency_rate = fields.Float("Currency Rate",digits=(6, 3),compute='_get_currency_rate',store=True,readonly=False)
 
     @api.depends('currency_id.rate')
     def _get_currency_rate(self):

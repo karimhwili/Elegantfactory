@@ -108,7 +108,7 @@ class HrLoan(models.Model):
                 for i in range(1, loan.installment + 1):
                     self.env['hr.loan.line'].create({
                         'date': date_start,
-                        'amount': amount,
+                        'amount': round(amount),
                         'employee_id': loan.employee_id.id,
                         'loan_id': loan.id})
                     date_start = date_start + relativedelta(months=1)
@@ -123,7 +123,7 @@ class HrLoan(models.Model):
                         amount = mod_amount
                     self.env['hr.loan.line'].create({
                         'date': date_start,
-                        'amount': amount,
+                        'amount': round(amount),
                         'employee_id': loan.employee_id.id,
                         'loan_id': loan.id})
                     date_start = date_start + relativedelta(months=1)

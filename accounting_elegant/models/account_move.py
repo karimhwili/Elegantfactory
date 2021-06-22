@@ -12,6 +12,7 @@ class AccountAccount(models.Model):
                                       ('other_payments', 'Other Payments'),
                                       ('other_receipts', 'Other Receipts'),
                                       ('loans', 'Loans'),
+                                      ('treasury', 'Treasury'),
                                       ('not_required', 'Not Required'),],default='not_required' ,string="Transfer Type")
 
 class AccountMove(models.Model):
