@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <template id="report_payment_receipt_document_inherit1" inherit_id="account.report_payment_receipt_document">
+        <xpath expr="//div[hasclass('page')]/table" position="after">
+            <div class="last-page" style="position:relative;top:500px;font-size:12px;margin-top:0;direction:rtl;">
+                <div class="row">
+                    <h5 style="margin-left:515px;margin-right:30px;">
+                         الإسم:
+                    </h5>
+                    <h5>
+                         التوقيع:
+                    </h5>
+                </div><br/>
+                <div class="row">
+                    <h5 style="margin-left:350px;margin-right:30px;">
+                         ------------------------------
+                    </h5>
+                    <h5>
+                         ------------------------------
+                    </h5>
+                </div>
+            </div>
+        </xpath>
+    </template>
+</odoo>

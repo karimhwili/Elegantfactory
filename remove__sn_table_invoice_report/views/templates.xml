@@ -1,0 +1,6 @@
+<odoo>
+    <template id="sale_stock_report_invoice_document_inherit" inherit_id="sale_stock.sale_stock_report_invoice_document">
+        <xpath expr="//table[@name='invoice_snln_table']" position="replace">
+        </xpath>
+    </template>
+</odoo>
