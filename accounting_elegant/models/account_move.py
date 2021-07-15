@@ -1,5 +1,7 @@
-from odoo import fields, models, api
+from odoo import fields, models, api, _
 from odoo.addons.account.models.account_move import AccountMove as AccountMove1
+from odoo.exceptions import UserError
+
 
 class AccountAccount(models.Model):
     _inherit = 'account.account'
@@ -13,6 +15,7 @@ class AccountAccount(models.Model):
                                       ('other_receipts', 'Other Receipts'),
                                       ('loans', 'Loans'),
                                       ('treasury', 'Treasury'),
+                                      ('statement', 'Statement'),
                                       ('not_required', 'Not Required'),],default='not_required' ,string="Transfer Type")
 
 class AccountMove(models.Model):
@@ -20,27 +23,13 @@ class AccountMove(models.Model):
 
     reason = fields.Char("Reason for Cancel")
     is_reason = fields.Boolean()
+    entry_type = fields.Selection([('entry','Journal Entry'),
+                             ('statement','Statement Entry')],default='entry',string="Entry Type")
 
-    # def button_create_landed_costs(self):
-    #     """Create a `stock.landed.cost` record associated to the account move of `self`, each
-    #     `stock.landed.costs` lines mirroring the current `account.move.line` of self.
-    #     """
-    #     self.ensure_one()
-    #     landed_costs_lines = self.line_ids.filtered(lambda line: line.is_landed_costs_line)
-    #
-    #     landed_costs = self.env['stock.landed.cost'].create({
-    #         'vendor_bill_id': self.id,
-    #         'account_journal_id': self.journal_id.id,
-    #         'cost_lines': [(0, 0, {
-    #             'product_id': l.product_id.id,
-    #             'name': l.product_id.name,
-    #             'account_id': l.product_id.product_tmpl_id.get_product_accounts()['stock_input'].id,
-    #             'price_unit': l.currency_id._convert(l.price_subtotal, l.company_currency_id, l.company_id, l.move_id.date),
-    #             'split_method': 'equal',
-    #         }) for l in landed_costs_lines],
-    #     })
-    #     action = self.env["ir.actions.actions"]._for_xml_id("stock_landed_costs.action_stock_landed_cost")
-    #     return dict(action, view_mode='form', res_id=landed_costs.id, views=[(False, 'form')])
+
+
+
+
 
     def unlink(self):
         for move in self:
@@ -64,7 +53,38 @@ class AccountMove(models.Model):
 
     def cancel_invoice(self):
         self.write({'auto_post': False, 'state': 'cancel','is_reason':True})
-#
+
+class AccountMoveLine(models.Model):
+    _inherit = 'account.move.line'
+
+    entry_type = fields.Selection([('entry', 'Journal Entry'),
+                             ('statement', 'Statement Entry')], string="Entry Type")
+
+    @api.onchange('entry_type')
+    def account_type(self):
+        if self.entry_type == 'statement':
+            return {
+                'domain': {
+                    'account_id': [('transfer_type', '=', 'statement'),
+                                               ]
+                }
+            }
+        else:
+            return {
+                'domain': {
+                    'account_id': [('transfer_type', '!=', 'statement'),
+                                   ]
+                }
+            }
+
+    @api.onchange('partner_id')
+    def get_partner_account(self):
+        if self.partner_id and self.partner_id.customer_rank > 0:
+            self.account_id = self.partner_id.property_account_receivable_id.id
+        elif self.partner_id and self.partner_id.supplier_rank > 0:
+            self.account_id = self.partner_id.property_account_payable_id.id
+
+
 # class Account(models.Model):
 #     _inherit = 'account.journal'
 #
