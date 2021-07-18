@@ -31,10 +31,10 @@ class AccountMove(models.Model):
                                  check_company=True, domain="[('id', 'in', suitable_journal_ids)]",
                                  default=False)
 
-    currency_id = fields.Many2one('res.currency', store=True, readonly=True, tracking=True, required=True,
-                                  states={'draft': [('readonly', False)]},
-                                  string='Currency',
-                                  default=False)
+    # currency_id = fields.Many2one('res.currency', store=True, readonly=True, tracking=True, required=True,
+    #                               states={'draft': [('readonly', False)]},
+    #                               string='Currency',
+    #                               default=False)
 
 
 
@@ -89,10 +89,15 @@ class AccountMoveLine(models.Model):
 
     @api.onchange('partner_id')
     def get_partner_account(self):
-        if self.partner_id and self.partner_id.supplier_rank > 0:
-            self.account_id = self.partner_id.property_account_payable_id.id
-        else:
-            self.account_id = self.partner_id.property_account_receivable_id.id
+        if self.partner_id and self.move_id.move_type == 'entry':
+            if self.partner_id.supplier_rank > 0 and self.partner_id.property_account_payable_id:
+                self.account_id = self.partner_id.property_account_payable_id.id
+
+            elif self.partner_id.property_account_receivable_id:
+                self.account_id = self.partner_id.property_account_receivable_id.id
+
+            else:
+                self.account_id = False
 
 
 # class Account(models.Model):
