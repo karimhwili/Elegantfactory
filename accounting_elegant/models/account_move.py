@@ -21,21 +21,60 @@ class AccountAccount(models.Model):
 class AccountMove(models.Model):
     _inherit = 'account.move'
 
+    @api.model
+    def _get_default_journal(self):
+        ''' Get the default journal.
+        It could either be passed through the context using the 'default_journal_id' key containing its id,
+        either be determined by the default type.
+        '''
+        move_type = self._context.get('default_move_type', 'entry')
+        journal_types = []
+        if move_type in self.get_sale_types(include_receipts=True):
+            journal_types = ['sale']
+        elif move_type in self.get_purchase_types(include_receipts=True):
+            journal_types = ['purchase']
+        # else:
+        #     journal_types = self._context.get('default_move_journal_types', ['general'])
+
+        if self._context.get('default_journal_id'):
+            journal = self.env['account.journal'].browse(self._context['default_journal_id'])
+
+            if move_type != 'entry' and journal.type not in journal_types:
+                raise UserError(_(
+                    "Cannot create an invoice of type %(move_type)s with a journal having %(journal_type)s as type.",
+                    move_type=move_type,
+                    journal_type=journal.type,
+                ))
+        else:
+            if journal_types:
+                journal = self._search_default_journal(journal_types)
+            else:
+                journal = False
+        return journal
+
+
+
+    @api.model
+    def _get_default_currency_updated(self):
+        ''' Get the default currency from either the journal, either the default journal's company. '''
+        journal = self._get_default_journal()
+        if journal:
+            return journal.currency_id or journal.company_id.currency_id
+
     reason = fields.Char("Reason for Cancel")
     is_reason = fields.Boolean()
     entry_type = fields.Selection([('entry','Journal Entry'),
                              ('statement','Statement Entry')],default='entry',string="Entry Type")
 
     journal_id = fields.Many2one('account.journal', string='Journal', required=True, readonly=True,
-                                 states={'draft': [('readonly', False)]},
-                                 check_company=True, domain="[('id', 'in', suitable_journal_ids)]",
-                                 default=False)
+        states={'draft': [('readonly', False)]},
+        check_company=True, domain="[('id', 'in', suitable_journal_ids)]",
+        default=_get_default_journal)
 
-    # currency_id = fields.Many2one('res.currency', store=True, readonly=True, tracking=True, required=True,
-    #                               states={'draft': [('readonly', False)]},
-    #                               string='Currency',
-    #                               default=False)
-
+    currency_id = fields.Many2one('res.currency', store=True, readonly=True, tracking=True, required=True,
+                                  states={'draft': [('readonly', False)]},
+                                  string='Currency',
+                                  default=_get_default_currency_updated)
 
 
 
