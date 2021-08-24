@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+
+        <record id="analytic_restrict_group" model="res.groups">
+            <field name="name">Analytic Account Restrictions</field>
+        </record>
+
+        <record id="analytic_rule_user_config" model="ir.rule">
+            <field name="name">Show only allowed Analytic configs for User</field>
+            <field name="model_id" search="[('model','=','account.analytic.account')]" model="ir.model"/>
+            <field name="groups" eval="[(4, ref('analytic_restrict_group'))]"/>
+            <field name="domain_force">[('id','in', [ p.id for p in user.analytic_config_ids ])]</field>
+            <field name="perm_read" eval="True"/>
+            <field name="perm_write" eval="False"/>
+            <field name="perm_create" eval="False"/>
+            <field name="perm_unlink" eval="False"/>
+        </record>
+
+    </data>
+</odoo>

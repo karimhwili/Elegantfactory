@@ -28,16 +28,38 @@
             </field>
         </record>
 
-       <!--<record model="ir.ui.view" id="invoice_extend_round_off_tree_view">
-            <field name="name">invoice.move.extend_round_off</field>
-            <field name="model">account.move</field>
-            <field name="inherit_id" ref="account.view_invoice_tree"/>
+        <record id="round_off_config_purchase" model="ir.ui.view">
+            <field name="name">round_off_config_purchase</field>
+            <field name="model">res.config.settings</field>
+            <field name="inherit_id" ref="purchase.res_config_settings_view_form_purchase"/>
             <field name="arch" type="xml">
-                <xpath expr="//field[@name='type']" position="before">
-                    <field name="round_active" invisible="1"/>
+                <xpath expr="//div[@data-key='purchase']" position="inside">
+                    <h2>Roundoff</h2>
+                    <div class="row mt16 o_settings_container" name="matrix_setting_container">
+                        <div class="col-12 col-lg-6 o_setting_box" id="round_off">
+                            <div class="o_setting_left_pane">
+                                <field name="purchase_roundoff"/>
+                            </div>
+                            <div class="o_setting_right_pane">
+                                <label for="purchase_roundoff" string="Roundoff"/>
+                            </div>
+                        </div>
+
+                    </div>
                 </xpath>
             </field>
-        </record>-->
+        </record>
+
+        <!--<record model="ir.ui.view" id="invoice_extend_round_off_tree_view">
+             <field name="name">invoice.move.extend_round_off</field>
+             <field name="model">account.move</field>
+             <field name="inherit_id" ref="account.view_invoice_tree"/>
+             <field name="arch" type="xml">
+                 <xpath expr="//field[@name='type']" position="before">
+                     <field name="round_active" invisible="1"/>
+                 </xpath>
+             </field>
+         </record>-->
 
         <record model="ir.ui.view" id="invoice__extend_round_off_view">
             <field name="name">invoice.move.extend_round_off</field>
@@ -46,7 +68,7 @@
             <field name="arch" type="xml">
                 <xpath expr="//field[@name='amount_total']" position="before">
                     <field name="round_active" invisible="1"/>
-<!--                    <field name="rounded_total"/>-->
+                    <!--                    <field name="rounded_total"/>-->
                     <field name="round_off_value"/>
                     <field name="round_off_amount" invisible="1"/>
                 </xpath>

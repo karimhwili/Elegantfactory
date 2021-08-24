@@ -9,6 +9,7 @@ class ResConfigSettings(models.TransientModel):
     _inherit = 'res.config.settings'
 
     invoice_roundoff = fields.Boolean(string='Allow rounding of invoice amount', help="Allow rounding of invoice amount")
+    purchase_roundoff = fields.Boolean(string='Allow rounding of purchase amount', help="Allow rounding of purchase amount")
     roundoff_account_id = fields.Many2one('account.account', string='Roundoff Account', implied_group='account.roundoff_account_id')
 
     @api.model
@@ -18,6 +19,7 @@ class ResConfigSettings(models.TransientModel):
         res.update(
             roundoff_account_id=int(params.get_param('account.roundoff_account_id', default=False)) or False,
             invoice_roundoff=params.get_param('account.invoice_roundoff') or False,
+            purchase_roundoff=params.get_param('purchase.purchase_roundoff') or False,
         )
         return res
 
@@ -26,6 +28,7 @@ class ResConfigSettings(models.TransientModel):
         super(ResConfigSettings, self).set_values()
         self.env['ir.config_parameter'].sudo().set_param("account.roundoff_account_id", self.roundoff_account_id.id or False)
         self.env['ir.config_parameter'].sudo().set_param("account.invoice_roundoff", self.invoice_roundoff)
+        self.env['ir.config_parameter'].sudo().set_param("purchase.purchase_roundoff", self.purchase_roundoff)
 
 
 class AccountMoveLine(models.Model):

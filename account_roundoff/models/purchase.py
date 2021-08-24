@@ -8,7 +8,7 @@ class PurchaseOrder(models.Model):
 
     apply_round_off = fields.Boolean('Apply round off', default=True)
     amount_round_off = fields.Monetary(string='Roundoff Amount', store=True, readonly=True, compute='_amount_all')
-    is_enabled_roundoff = fields.Boolean('Apply Roundoff', default=lambda self: self.env["ir.config_parameter"].sudo().get_param("account.invoice_roundoff"))
+    is_enabled_roundoff = fields.Boolean('Apply Roundoff', default=lambda self: self.env["ir.config_parameter"].sudo().get_param("purchase.purchase_roundoff"))
 
     @api.model
     def create(self, vals):

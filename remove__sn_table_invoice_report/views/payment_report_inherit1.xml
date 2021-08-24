@@ -2,7 +2,14 @@
 <odoo>
     <template id="report_payment_receipt_document_inherit1" inherit_id="account.report_payment_receipt_document">
         <xpath expr="//div[hasclass('page')]/table" position="after">
+            <div class="row" style="position:relative;top:500px;font-size:12px;margin-top:0;direction:rtl;">
+                <h5 style="margin-left:10px;margin-right:30px;">
+                     إسم المستخدم :
+                </h5>
+                 <h5 t-field="o.user_id.name" />
+            </div><br/>
             <div class="last-page" style="position:relative;top:500px;font-size:12px;margin-top:0;direction:rtl;">
+
                 <div class="row">
                     <h5 style="margin-left:515px;margin-right:30px;">
                          الإسم:
