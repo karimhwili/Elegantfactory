@@ -25,9 +25,13 @@ class StockMove(models.Model):
 
             elif not self.scrapped and self.product_id.categ_id.income_add_stock_account_id and self.location_dest_id.usage == 'internal' and self.reference == 'Product Quantity Updated':
                 credit_account_id = self.product_id.categ_id.income_add_stock_account_id.id
-
             elif not self.scrapped and self.product_id.categ_id.income_add_stock_account_id and self.reference == 'Product Quantity Updated':
                 if self.product_uom_qty < self.product_id.qty_available:
+                    debit_account_id = self.product_id.categ_id.income_add_stock_account_id.id
+            elif not self.scrapped and self.product_id.categ_id.income_add_stock_account_id and self.reference == 'INV:' + self.inventory_id.name or '':
+                if self.product_uom_qty > self.product_id.qty_available:
+                    credit_account_id = self.product_id.categ_id.income_add_stock_account_id.id
+                elif self.product_uom_qty < self.product_id.qty_available:
                     debit_account_id = self.product_id.categ_id.income_add_stock_account_id.id
 
         valuation_partner_id = self._get_partner_id_for_valuation_lines()
