@@ -7,4 +7,5 @@ from . import product_category
 from . import account_move
 from . import account_payment
 from . import account_statement
+from . import res_bank
 

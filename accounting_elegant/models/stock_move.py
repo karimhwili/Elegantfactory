@@ -28,11 +28,12 @@ class StockMove(models.Model):
             elif not self.scrapped and self.product_id.categ_id.income_add_stock_account_id and self.reference == 'Product Quantity Updated':
                 if self.product_uom_qty < self.product_id.qty_available:
                     debit_account_id = self.product_id.categ_id.income_add_stock_account_id.id
-            elif not self.scrapped and self.product_id.categ_id.income_add_stock_account_id and self.reference == 'INV:' + self.inventory_id.name or '':
-                if self.product_uom_qty > self.product_id.qty_available:
-                    credit_account_id = self.product_id.categ_id.income_add_stock_account_id.id
-                elif self.product_uom_qty < self.product_id.qty_available:
-                    debit_account_id = self.product_id.categ_id.income_add_stock_account_id.id
+            elif self.inventory_id:
+                if not self.scrapped and self.product_id.categ_id.income_add_stock_account_id and self.reference == 'INV:' + self.inventory_id.name or '':
+                    if self.product_uom_qty > self.product_id.qty_available:
+                        credit_account_id = self.product_id.categ_id.income_add_stock_account_id.id
+                    elif self.product_uom_qty < self.product_id.qty_available:
+                        debit_account_id = self.product_id.categ_id.income_add_stock_account_id.id
 
         valuation_partner_id = self._get_partner_id_for_valuation_lines()
         res = [(0, 0, line_vals) for line_vals in self._generate_valuation_lines_data(valuation_partner_id,
