@@ -2,8 +2,8 @@ from odoo import fields, models, api,_
 from odoo.exceptions import UserError
 
 
-class ResBank(models.Model):
-    _inherit = 'res.bank'
+class ResPartnerBank(models.Model):
+    _inherit = 'res.partner.bank'
 
     def build_qr_code_url(self, amount, free_communication, structured_communication, currency, debtor_partner,
                           qr_method=None, silent_errors=True):
