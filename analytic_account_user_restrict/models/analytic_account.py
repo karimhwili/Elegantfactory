@@ -8,3 +8,5 @@ class AccountMoveLine(models.Model):
                                           index=True, compute="_compute_analytic_account", store=True, readonly=False,
                                           check_company=True, copy=True,required=True)
 
+
+
