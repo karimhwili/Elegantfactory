@@ -13,6 +13,7 @@
     'data': [
         'security/analytic_account_user_restrict_security.xml',
         'views/res_users_views.xml',
+        'views/account_move.xml',
     ],
 
 }
