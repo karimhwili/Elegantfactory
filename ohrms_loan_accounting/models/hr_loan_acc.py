@@ -7,9 +7,16 @@ from odoo.exceptions import UserError
 class HrLoanAcc(models.Model):
     _inherit = 'hr.loan'
 
-    employee_account_id = fields.Many2one('account.account', string="Loan Account",domain=[('transfer_type', '=', 'loans')])
-    treasury_account_id = fields.Many2one('account.account', string="Treasury Account",domain=[('transfer_type', '=', 'treasury')])
-    journal_id = fields.Many2one('account.journal', string="Journal")
+    employee_account_id = fields.Many2one('account.account', string="Loan Account",
+                                          default=lambda self: int(self.env["ir.config_parameter"].sudo().get_param(
+                                              "account.loan_account")))
+    treasury_account_id = fields.Many2one('account.account', string="Treasury Account",
+                                          default=lambda self: int(self.env["ir.config_parameter"].sudo().get_param(
+                                              "account.treasury_account")))
+    journal_id = fields.Many2one('account.journal', string="Journal",
+                                 default=lambda self: int(self.env["ir.config_parameter"].sudo().get_param(
+                                     "account.loan_journal"))
+                                 )
     loan_entry_id = fields.Many2one('account.move')
     is_dept_manager = fields.Boolean(compute='_check_is_dept_manager')
 
