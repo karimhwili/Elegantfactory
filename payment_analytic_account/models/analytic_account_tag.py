@@ -2,6 +2,7 @@
 
 from odoo import models, fields, api, _
 
+
 class AccountPayment(models.Model):
     _inherit = 'account.payment'
 
@@ -14,7 +15,9 @@ class AccountPayment(models.Model):
         tags = [tag.id for tag in self.analytic_tag_ids]
         if self.add_analytic_acc_tag:
             for move_line in res:
-                move_line.update({'analytic_account_id':self.analytic_account_id.id,'analytic_tag_ids':[(6,0,tags)]})
+                if move_line['account_id'] == self.destination_account_id.id:
+                    move_line.update(
+                        {'analytic_account_id': self.analytic_account_id.id, 'analytic_tag_ids': [(6, 0, tags)]})
         return res
 
     def action_post(self):
@@ -23,5 +26,7 @@ class AccountPayment(models.Model):
         tags = [tag.id for tag in self.analytic_tag_ids]
         if self.add_analytic_acc_tag:
             for invoice_line in account_move.invoice_line_ids:
-                invoice_line.update({'analytic_account_id':self.analytic_account_id.id, 'analytic_tag_ids':[(6,0,tags)]})
-        return res    
+                if invoice_line['account_id'] == self.destination_account_id.id:
+                    invoice_line.update(
+                        {'analytic_account_id': self.analytic_account_id.id, 'analytic_tag_ids': [(6, 0, tags)]})
+        return res
