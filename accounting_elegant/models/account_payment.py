@@ -4,7 +4,6 @@ from odoo.exceptions import UserError
 
 class AccountPayment(models.Model):
     _inherit = 'account.payment'
-
     partner_type = fields.Selection([
         ('customer', 'Customer'),
         ('supplier', 'Vendor'),('salaries', 'Salaries'),
