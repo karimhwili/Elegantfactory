@@ -10,7 +10,6 @@ class AccountPayment(models.Model):
         ('other_expenses', 'Other Expenses'),('withdrawals', 'Withdrawals'),
         ('other_payments', 'Other Payments'),('other_receipts', 'Other Receipts'),('loans', 'Loans'),('liability_receipts', 'Liability Receipts'),
     ], default=False, tracking=True, required=True)
-
     transfer_type = fields.Selection([('cash_to_bank','Cash to Bank'),
                                       ('cash_to_cash','Cash to Cash'),
                                       ('bank_to_bank','Bank to Bank'),
