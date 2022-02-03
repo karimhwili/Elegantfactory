@@ -224,7 +224,7 @@ class biometric_machine(models.Model):
         return action
 
     def download_from_log(self):
-        logs = self.env['biometric.log'].search([])
+        logs = self.env['biometric.log'].search([('employee_id', '!=', None)])
         atts = []
         for log in logs.sorted(key=lambda l: l.name):
             atttime = log.name
@@ -246,7 +246,7 @@ class biometric_machine(models.Model):
                     record_vals['state'] = 'failed'
                     record_vals[
                         'note'] = 'Successful Connection But there is error while writing attendances from logs as -->log time:%s  log employee:%s the error is **%s**' % (
-                    e, log.name, log.employee_id.name)
+                        e, log.name, log.employee_id.name)
                     new_record = self.env['biometric.record'].sudo().create(
                         record_vals)
                     break
