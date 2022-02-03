@@ -1,15 +1,18 @@
 # -*- coding: utf-8 -*-
-from datetime import timedelta
 
 from odoo import models, fields, api
-from odoo.exceptions import ValidationError, _logger
+from odoo.exceptions import ValidationError
+from datetime import timedelta
+
+class EmployeeBase(models.AbstractModel):
+    _inherit = 'hr.employee.base'
+
+    att_user_id = fields.Char("Attendance User ID")
 
 
 class Employee(models.Model):
     _name = "hr.employee"
     _inherit = "hr.employee"
-
-    att_user_id = fields.Char("Attendance User ID")
 
     @api.constrains('att_user_id')
     def _check_att_user_id(self):
@@ -25,8 +28,8 @@ class Employee(models.Model):
         attendance_obj = self.env['hr.attendance']
         log_obj = self.env['biometric.log']
         log_domain = [('employee_id', '=', self.id)]
-        _logger.info(
-            'BIO-ATTENDANCE==> Convert Biometric Log to attendnace for employee : %s' % self.name)
+        # _logger.info(
+        #     'BIO-ATTENDANCE==> Convert Biometric Log to attendnace for employee : %s' % self.name)
         prev_attendance_id = attendance_obj.search(
             [('employee_id', '=', self.id)],
             order='check_in desc', limit=1)

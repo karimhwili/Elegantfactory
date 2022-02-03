@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from datetime import datetime, timedelta
+from odoo import _
 from itertools import zip_longest
 
 DATETIME_FORMAT = "%Y-%m-%d %H:%M:%S"
@@ -17,7 +18,7 @@ _logger = logging.getLogger(__name__)
 
 from odoo.addons.rm_bio_attendance.zk import ZK, const
 
-from odoo import api, fields, models, _
+from odoo import api, fields, models
 import pytz
 import sys
 
@@ -86,15 +87,12 @@ class biometric_machine(models.Model):
 
     @api.model
     def _cron_att_download(self):
-        # print("iam in crone method")
         for mc in self.search([('state', '=', 'active')]):
             mc.download_attendancenew()
-        # print('i have been finished crone')
         self.download_from_log()
 
     @api.model
     def _cron_check_connection(self):
-        # print("iam in crone method")
         for mc in self.search([('state', '=', 'active')]):
             mc.check_notification()
 
@@ -103,13 +101,12 @@ class biometric_machine(models.Model):
             now = datetime.strftime(datetime.now(), DATETIME_FORMAT)
             yesterday = datetime.strftime(datetime.now() + timedelta(days=-1),
                                           DATETIME_FORMAT)
-            # print('iam in today and yetrerday', now, yesterday)
 
             records = self.env['biometric.record'].search(
                 [('machine', '=', mc.id), ('name', '>=', yesterday),
                  ('name', '<=', now)])
-            # print('records is', records, [r.state != 'failed' for r in records],
-            #       any([r.state != 'failed' for r in records]))
+            print('records is', records, [r.state != 'failed' for r in records],
+                  any([r.state != 'failed' for r in records]))
 
             if any([r.state != 'failed' for r in records]):
                 continue
@@ -227,12 +224,10 @@ class biometric_machine(models.Model):
         return action
 
     def download_from_log(self):
-        # print('iam in download from log')
         logs = self.env['biometric.log'].search([])
         atts = []
         for log in logs.sorted(key=lambda l: l.name):
             atttime = log.name
-            # print('log time is', atttime)
             type = 0
             if log.type == 'in':
                 type = 0
@@ -351,8 +346,6 @@ class biometric_machine(models.Model):
                 if prev_att and prev_att.check_out:
                     checkout_time = prev_att.check_out
                     if checkout_time >= time_utc:
-                        # print(
-                        #     "i will cintinue because the alste attendance checkout in bigger than current")
                         continue
                 elif prev_att and not prev_att.check_out:
                     checkin_time = prev_att.check_in
@@ -392,7 +385,7 @@ class biometric_machine(models.Model):
                 if not prev_att:
                     # print('there is no prev atts and i will create new')
                     if type == 0:
-                        # print('type is check in')
+                        print('type is check in')
                         new_attendance = att_obj.create({
                             'employee_id': emp_id,
                             'check_in': str_att_time_utc,
@@ -493,7 +486,6 @@ class biometric_machine(models.Model):
 
             tz_info = res.timezone
             for i, att in enumerate(atts):
-                # print('the attendance is in new', att)
                 user_no = att.user_id
                 att_time = att.timestamp
                 employee = employee_obj.search([('att_user_id', '=', user_no)],
