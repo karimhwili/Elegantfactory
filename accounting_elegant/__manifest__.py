@@ -23,9 +23,6 @@
         'views/res_users.xml',
         'data/account_type.xml'
 
-
-
-
     ],
 
 }
