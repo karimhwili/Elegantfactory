@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+
+
+        <template id="report_ModelName_view" inherit_id="account.report_invoice_document">
+            <xpath expr="//th[@name='th_quantity']" position="after">
+                <th name="th_uom" class="text-right">
+                    <span>UOM</span>
+                </th>
+            </xpath>
+            <xpath expr="//div[@name='origin']" position="after">
+                <div class="col-auto col-3 mw-100 mb-2" t-if="o.receipt_number" name="receipt_number">
+                    <strong>Receipt Number:</strong>
+                    <p class="m-0" t-field="o.receipt_number"/>
+                </div>
+            </xpath>
+            <xpath expr="//th[@name='th_price_unit']" position="after">
+                <th name="th_disc_after" class="text-center">
+                    <span>Price After Disc.</span>
+                </th>
+            </xpath>
+            <xpath expr="//td[@t-if='display_discount']" position="after">
+                <td name="th_discount_price" class="text-center">
+                    <span t-esc="line.price_unit - ((line.discount/100) * line.price_unit)"/>
+                </td>
+            </xpath>
+            <xpath expr="//tbody[@class='invoice_tbody']/t/tr/t/td[2]" position="replace">
+                <td class="text-right">
+                    <span t-field="line.quantity"/>
+                    <!--                    <span t-field="line.product_uom_id" groups="uom.group_uom"/>-->
+                </td>
+            </xpath>
+            <xpath expr="//tbody[@class='invoice_tbody']/t/tr/t/td[2]" position="after">
+                <td class="text-right">
+                    <!--                    <span t-field="line.quantity"/>-->
+                    <span t-field="line.product_uom_id" groups="uom.group_uom"/>
+                </td>
+            </xpath>
+
+        </template>
+
+    </data>
+</odoo>
