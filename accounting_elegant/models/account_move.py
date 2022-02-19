@@ -1,6 +1,6 @@
 from odoo import fields, models, api, _
 from odoo.addons.account.models.account_move import AccountMove as AccountMove1
-from odoo.exceptions import UserError
+from odoo.exceptions import UserError, ValidationError
 
 
 class AccountAccount(models.Model):
@@ -70,6 +70,13 @@ class AccountMove(models.Model):
     entry_type = fields.Selection([('entry', 'Journal Entry'),
                                    ('statement', 'Statement Entry')], default='entry', string="Entry Type")
 
+
+    @api.onchange('partner_id','invoice_line_ids')
+    def restriction_on_invoice_fields(self):
+        if self.partner_id or self.invoice_line_ids:
+            if not self.env.user.has_group('accounting_elegant.restriction_on_editing_invoice'):
+                raise ValidationError(_("You Have Not Permission to Change This"))
+
     @api.onchange('entry_type')
     def account_type(self):
         for rec in self.line_ids:
@@ -115,6 +122,7 @@ class AccountMoveLine(models.Model):
 
     entry_type = fields.Selection([('entry', 'Journal Entry'),
                                    ('statement', 'Statement Entry')], string="Entry Type")
+    analytic_mandatory = fields.Boolean()
 
     # account_id = fields.Many2one('account.account', string='Account',
     #                              index=True, ondelete="cascade",
@@ -124,7 +132,6 @@ class AccountMoveLine(models.Model):
 
     @api.onchange('entry_type')
     def account_type(self):
-        print("test")
         if self.entry_type == 'statement':
             return {
                 'domain': {
@@ -149,6 +156,25 @@ class AccountMoveLine(models.Model):
 
             else:
                 self.account_id = False
+
+    @api.onchange('account_id')
+    def get_analytic_account_id(self):
+        for rec in self:
+            if rec.account_id.mandatory_analytic_account:
+                rec.analytic_mandatory = True
+                if rec.account_id.analytic_accounts_ids:
+                    rec.analytic_account_id = False
+                    return {
+                        'domain': {
+                            'analytic_account_id': [('id', 'in',rec.account_id.analytic_accounts_ids.ids)]
+                        }
+                    }
+                else:
+                    rec.analytic_account_id = False
+
+            else:
+                rec.analytic_mandatory = False
+
 
 # class Account(models.Model):
 #     _inherit = 'account.journal'
