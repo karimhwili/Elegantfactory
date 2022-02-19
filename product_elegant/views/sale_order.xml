@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="view_order_form_inherit_sale_stock_inherit" model="ir.ui.view">
+            <field name="name">view_order_form_inherit_sale_stock</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale_stock.view_order_form_inherit_sale_stock"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//field[@name='warehouse_id']" position="replace">
+                    <!-- Add your fields or attributes here -->
+                </xpath>
+                <xpath expr="//field[@name='partner_id']" position="after">
+                    <field name="warehouse_id" options="{'no_create': True}" groups="stock.group_stock_multi_warehouses"
+                           force_save="1"/>
+                </xpath>
+
+            </field>
+        </record>
+    </data>
+</odoo>

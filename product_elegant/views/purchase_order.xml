@@ -25,5 +25,21 @@
 
             </field>
         </record>
+        <record id="purchase_order_view_form_inherit1" model="ir.ui.view">
+            <field name="name">purchase_order_view_form_inherit</field>
+            <field name="model">purchase.order</field>
+            <field name="inherit_id" ref="purchase_stock.purchase_order_view_form_inherit"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//field[@name='picking_type_id']" position="replace">
+                </xpath>
+                <xpath expr="//field[@name='partner_id']" position="after">
+                    <field name="picking_type_id"
+                           domain="[('code','=','incoming'), '|', ('warehouse_id', '=', False), ('warehouse_id.company_id', '=', company_id)]"
+                           options="{'no_create': True}" groups="stock.group_stock_multi_locations"/>
+                </xpath>
+
+            </field>
+        </record>
     </data>
 </odoo>
