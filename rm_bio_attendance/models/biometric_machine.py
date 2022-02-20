@@ -21,6 +21,7 @@ from odoo.addons.rm_bio_attendance.zk import ZK, const
 from odoo import api, fields, models
 import pytz
 import sys
+from datetime import date
 
 PY3 = sys.version_info >= (3, 0)
 
@@ -105,8 +106,6 @@ class biometric_machine(models.Model):
             records = self.env['biometric.record'].search(
                 [('machine', '=', mc.id), ('name', '>=', yesterday),
                  ('name', '<=', now)])
-            print('records is', records, [r.state != 'failed' for r in records],
-                  any([r.state != 'failed' for r in records]))
 
             if any([r.state != 'failed' for r in records]):
                 continue
@@ -224,7 +223,9 @@ class biometric_machine(models.Model):
         return action
 
     def download_from_log(self):
-        logs = self.env['biometric.log'].search([('employee_id', '!=', None)])
+        current_date = date.today()
+        previous_date = date.today() - timedelta(days=2)
+        logs = self.env['biometric.log'].search([('employee_id', '!=', None), ('name', '<=', current_date),('name','>=',previous_date)])
         atts = []
         for log in logs.sorted(key=lambda l: l.name):
             atttime = log.name
