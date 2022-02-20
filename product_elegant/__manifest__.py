@@ -4,7 +4,7 @@
 
     'author': "M.Shorbagy (Sahara)",
 
-    'depends': ['base','stock','sale','purchase_stock','quality','quality_control','stock_landed_costs'],
+    'depends': ['base','stock','sale','purchase_stock','sale_stock','quality','quality_control','stock_landed_costs'],
 
     # always loaded
     'data': [
@@ -15,7 +15,8 @@
         'views/product_category.xml',
         'views/res_partner.xml',
         'views/group_limits.xml',
-        'views/stock_landed_cost.xml'
+        'views/stock_landed_cost.xml',
+        'views/sale_order.xml',
     ],
 
 }

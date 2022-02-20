@@ -4,6 +4,7 @@ from odoo.exceptions import UserError
 
 class AccountPayment(models.Model):
     _inherit = 'account.payment'
+    available_partner_bank_ids = fields.Char()
     partner_type = fields.Selection([
         ('customer', 'Customer'),
         ('supplier', 'Vendor'),('salaries', 'Salaries'),
@@ -29,6 +30,17 @@ class AccountPayment(models.Model):
         check_company=True)
 
     currency_rate = fields.Float("Currency Rate",digits=(6, 3),compute='_get_currency_rate',store=True,readonly=False)
+    amount_currency = fields.Monetary("Amount Currency",compute='get_amount_currency')
+    default_currency = fields.Many2one('res.currency',default=lambda self: self.env.user.company_id.currency_id)
+
+    @api.depends('move_id')
+    def get_amount_currency(self):
+        for rec in self:
+            if rec.move_id:
+                amount_currency = 0.0
+                for line in rec.move_id.line_ids:
+                    amount_currency += line.debit
+                rec.amount_currency = amount_currency
 
     @api.depends('currency_id.rate')
     def _get_currency_rate(self):

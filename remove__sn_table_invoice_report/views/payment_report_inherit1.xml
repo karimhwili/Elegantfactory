@@ -1,6 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <odoo>
     <template id="report_payment_receipt_document_inherit1" inherit_id="account.report_payment_receipt_document">
+        <xpath expr="//div[hasclass('page')]/div[1]" position="after">
+            <br/>
+        </xpath>
+        <xpath expr="//div[hasclass('page')]/div[1]" position="before">
+            <br/>
+        </xpath>
+        <xpath expr="//div[hasclass('page')]/div[2]" position="after">
+            <br/>
+        </xpath>
+        <xpath expr="//div[hasclass('page')]/div[3]" position="after">
+            <br/>
+        </xpath>
         <xpath expr="//div[hasclass('page')]/table" position="after">
             <div class="row" style="position:relative;top:500px;font-size:12px;margin-top:0;direction:rtl;">
                 <h5 style="margin-left:10px;margin-right:30px;">

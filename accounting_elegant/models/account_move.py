@@ -1,6 +1,6 @@
 from odoo import fields, models, api, _
 from odoo.addons.account.models.account_move import AccountMove as AccountMove1
-from odoo.exceptions import UserError
+from odoo.exceptions import UserError, ValidationError
 
 
 class AccountAccount(models.Model):
@@ -16,7 +16,11 @@ class AccountAccount(models.Model):
                                       ('loans', 'Loans'),
                                       ('treasury', 'Treasury'),
                                       ('statement', 'Statement'),
-                                      ('not_required', 'Not Required'),],default='not_required' ,string="Transfer Type")
+                                      ('not_required', 'Not Required'), ], default='not_required',
+                                     string="Transfer Type")
+
+
+
 
 class AccountMove(models.Model):
     _inherit = 'account.move'
@@ -63,8 +67,20 @@ class AccountMove(models.Model):
 
     reason = fields.Char("Reason for Cancel")
     is_reason = fields.Boolean()
-    entry_type = fields.Selection([('entry','Journal Entry'),
-                             ('statement','Statement Entry')],default='entry',string="Entry Type")
+    entry_type = fields.Selection([('entry', 'Journal Entry'),
+                                   ('statement', 'Statement Entry')], default='entry', string="Entry Type")
+
+
+    @api.onchange('partner_id','invoice_line_ids')
+    def restriction_on_invoice_fields(self):
+        if self.partner_id or self.invoice_line_ids:
+            if not self.env.user.has_group('accounting_elegant.restriction_on_editing_invoice'):
+                raise ValidationError(_("You Have Not Permission to Change This"))
+
+    @api.onchange('entry_type')
+    def account_type(self):
+        for rec in self.line_ids:
+            rec.entry_type = self.entry_type
 
     # journal_id = fields.Many2one('account.journal', string='Journal', required=True, readonly=True,
     #     states={'draft': [('readonly', False)]},
@@ -76,10 +92,6 @@ class AccountMove(models.Model):
     #                               string='Currency',
     #                               default=_get_default_currency_updated)
 
-
-
-
-
     def unlink(self):
         for move in self:
             if move.posted_before and not self._context.get('force_delete'):
@@ -89,6 +101,7 @@ class AccountMove(models.Model):
         # return super(AccountMove, self).unlink()
 
     AccountMove1.unlink = unlink
+
     def button_cancel(self):
         return {
             'type': 'ir.actions.act_window',
@@ -101,28 +114,34 @@ class AccountMove(models.Model):
         }
 
     def cancel_invoice(self):
-        self.write({'auto_post': False, 'state': 'cancel','is_reason':True})
+        self.write({'auto_post': False, 'state': 'cancel', 'is_reason': True})
+
 
 class AccountMoveLine(models.Model):
     _inherit = 'account.move.line'
 
     entry_type = fields.Selection([('entry', 'Journal Entry'),
-                             ('statement', 'Statement Entry')], string="Entry Type")
+                                   ('statement', 'Statement Entry')], string="Entry Type")
+    analytic_mandatory = fields.Boolean()
+
+    # account_id = fields.Many2one('account.account', string='Account',
+    #                              index=True, ondelete="cascade",
+    #                              domain="[('deprecated', '!=', False)]",
+    #                              check_company=True,
+    #                              tracking=True)
 
     @api.onchange('entry_type')
     def account_type(self):
         if self.entry_type == 'statement':
             return {
                 'domain': {
-                    'account_id': [('transfer_type', '=', 'statement'),
-                                               ]
+                    'account_id': [('transfer_type', '=', 'statement'),('deprecated', '=', False),('force_auto', '=', False)]
                 }
             }
         else:
             return {
                 'domain': {
-                    'account_id': [('transfer_type', '!=', 'statement'),
-                                   ]
+                    'account_id': [('transfer_type', '!=', 'statement'), ('deprecated', '=', False), ('force_auto', '=', False)]
                 }
             }
 
@@ -137,6 +156,24 @@ class AccountMoveLine(models.Model):
 
             else:
                 self.account_id = False
+
+    @api.onchange('account_id')
+    def get_analytic_account_id(self):
+        for rec in self:
+            if rec.account_id.mandatory_analytic_account:
+                rec.analytic_mandatory = True
+                if rec.account_id.analytic_accounts_ids:
+                    rec.analytic_account_id = False
+                    return {
+                        'domain': {
+                            'analytic_account_id': [('id', 'in',rec.account_id.analytic_accounts_ids.ids)]
+                        }
+                    }
+                else:
+                    rec.analytic_account_id = False
+
+            else:
+                rec.analytic_mandatory = False
 
 
 # class Account(models.Model):

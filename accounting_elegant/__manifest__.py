@@ -6,7 +6,7 @@
 
     'version': '0.1.2',
 
-    'depends': ['base', 'account_asset', 'hr', 'stock'],
+    'depends': ['base', 'account_asset', 'hr', 'stock','stock_picking_invoice_link'],
 
     # always loaded
     'data': [
@@ -21,10 +21,8 @@
         'views/account_account.xml',
         'wizards/invoice_reason_wizard.py.xml',
         'views/res_users.xml',
+        'views/report_invoice.xml',
         'data/account_type.xml'
-
-
-
 
     ],
 
