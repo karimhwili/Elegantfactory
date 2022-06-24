@@ -1,0 +1,30 @@
+<odoo>
+  <data>
+    <!-- Inherit Form View to Modify it -->
+    <record id="work_center_form" model="ir.ui.view">
+        <field name="name">work_center_form</field>
+        <field name="model">mrp.workcenter</field>
+        <field name="inherit_id" ref="mrp.mrp_workcenter_view"/>
+        <field name="arch" type="xml">
+
+            <xpath expr="//page[@name='general_info']" position="after">
+                <page string="BOM">
+                  <field name="bom_ids" nolabel="1">
+                    <tree editable="bottom">
+                      <field name="bom_id"/>
+                    </tree>
+                  </field>
+                </page>
+                <page string="Operations">
+                  <field name="operations_ids" nolabel="1">
+                    <tree editable="bottom">
+                      <field name="operation_id"/>
+                    </tree>
+                  </field>
+                </page>
+            </xpath>
+
+        </field>
+    </record>
+  </data>
+</odoo>
