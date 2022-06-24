@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_elegant_manufacturing_mrp_operations,elegant_manufacturing.mrp_operations,model_mrp_operations,,1,1,1,1
+access_elegant_manufacturing_mrp_billofmaterials,elegant_manufacturing.mrp_billofmaterials,model_mrp_billofmaterials,,1,1,1,1
