@@ -8,7 +8,8 @@ class WorkCenter(models.Model):
 
     operations_ids = fields.One2many('mrp.operations', 'workcenter_id', "Operations")
     bom_ids = fields.One2many('mrp.billofmaterials', 'workcenter_id', "Bill Of Materials")
-
+    location_src_id = fields.Many2one('stock.location', "Components Location")
+    location_dest_id = fields.Many2one('stock.location', "Finished Products Location")
 
 class MrpOperations(models.Model):
     _name = 'mrp.operations'
@@ -22,3 +23,5 @@ class BillOfMaterials(models.Model):
 
     workcenter_id = fields.Many2one('mrp.workcenter')
     bom_id = fields.Many2one('mrp.bom', "BOM")
+
+
