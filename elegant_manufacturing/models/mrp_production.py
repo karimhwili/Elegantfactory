@@ -37,6 +37,10 @@ class MrpProduction(models.Model):
             #             'bom_id': [('id', 'in', bom_ids)]
             #         }
             #     }
+            if rec.workcenter_id.location_src_id:
+                rec.location_src_id = rec.workcenter_id.location_src_id
+            if rec.workcenter_id.location_dest_id:
+                rec.location_dest_id = rec.workcenter_id.location_dest_id
 
     @api.onchange('bom_id', 'product_id')
     def _onchange_workorder_ids(self):

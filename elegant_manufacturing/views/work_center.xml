@@ -22,6 +22,14 @@
                     </tree>
                   </field>
                 </page>
+                <page string="Security Center">
+                  <group>
+                      <group>
+                          <field name="location_src_id"/>
+                          <field name="location_dest_id"/>
+                      </group>
+                  </group>
+                </page>
             </xpath>
 
         </field>
