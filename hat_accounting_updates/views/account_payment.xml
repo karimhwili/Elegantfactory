@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="account_payment_inh" model="ir.ui.view">
+            <field name="name">account_payment_inh</field>
+            <field name="model">account.payment</field>
+            <field name="inherit_id" ref="account.view_account_payment_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='currency_rate']" position="before">
+                    <field name="currency_ber_unit" attrs="{'readonly': [ ('state', '!=', 'draft')]}"/>
+                </xpath>
+                <xpath expr="//button[@name='action_draft']" position="attributes">
+                    <attribute name="groups">hat_accounting_updates.payment_reset_draft_button_group</attribute>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

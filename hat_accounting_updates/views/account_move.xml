@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="view_move_form_inh" model="ir.ui.view">
+            <field name="name">account.move.form.inh</field>
+            <field name="model">account.move</field>
+            <field name="inherit_id" ref="account.view_move_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='partner_id']" position="after">
+                    <field name='picking_name' invisible='1'/>
+                    <field name='po_picking_name' invisible='1'/>
+                    <field name='loan_id' invisible=''/>
+                </xpath>
+                <xpath expr="//field[@name='invoice_line_ids']//tree//field[@name='account_id']" position="after">
+                    <field name="available_analytic_tag" invisible='1'/>
+                    <field name="available_analytic_account" invisible='1'/>
+                </xpath>
+                <xpath expr="//field[@name='line_ids']//tree//field[@name='account_id']" position="after">
+                    <field name="available_analytic_tag" invisible='1'/>
+                    <field name="available_analytic_account" invisible='1'/>
+                </xpath>
+                <xpath expr="//field[@name='invoice_line_ids']//tree//field[@name='analytic_account_id']"
+                       position="attributes">
+                    <attribute name="attrs">{'readonly': [('available_analytic_account', '=', False)]}
+                    </attribute>
+                </xpath>
+                <xpath expr="//field[@name='invoice_line_ids']//tree//field[@name='analytic_tag_ids']"
+                       position="attributes">
+                    <attribute name="attrs">{'readonly': [('available_analytic_tag', '=', False)]}
+                    </attribute>
+                </xpath>
+                <xpath expr="//field[@name='line_ids']//tree//field[@name='analytic_account_id']"
+                       position="attributes">
+                    <attribute name="attrs">{'readonly': [('available_analytic_account', '=', False)]}
+                    </attribute>
+                </xpath>
+                <xpath expr="//field[@name='line_ids']//tree//field[@name='analytic_tag_ids']"
+                       position="attributes">
+                    <attribute name="attrs">{'readonly': [('available_analytic_tag', '=', False)]}
+                    </attribute>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</odoo>
