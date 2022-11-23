@@ -11,7 +11,7 @@
     'version': '0.1',
     'license': 'OPL-1',
     'depends': ['base', 'account', 'purchase', 'sale', 'stock', 'sale_stock', 'sale_purchase_inter_company_rules',
-                'accounting_alayady', 'hr_payroll', 'hr', 'ohrms_loan'],
+                'accounting_elegant', 'hr_payroll', 'hr', 'ohrms_loan'],
 
     'data': [
         'security/groups.xml',
