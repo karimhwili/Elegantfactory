@@ -223,10 +223,8 @@ class biometric_machine(models.Model):
         return action
 
     def download_from_log(self):
-        # current_date = date.today()
-        current_date = "2022-11-22 23:59:59"
-        # previous_date = date.today() - timedelta(days=35)
-        previous_date = "2022-10-25 00:00:00"
+        current_date = date.today()
+        previous_date = date.today() - timedelta(days=2)
         logs = self.env['biometric.log'].search([('employee_id', '!=', None), ('name', '<=', current_date),('name','>=',previous_date)])
         atts = []
         for log in logs.sorted(key=lambda l: l.name):
