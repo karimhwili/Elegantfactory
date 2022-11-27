@@ -230,7 +230,6 @@ class biometric_machine(models.Model):
         logs = self.env['biometric.log'].search([('employee_id', '!=', None), ('name', '<=', current_date),('name','>=',previous_date)])
         atts = []
         for log in logs.sorted(key=lambda l: l.name):
-            print("//",log)
             atttime = log.name
             type = 0
             if log.type == 'in':
