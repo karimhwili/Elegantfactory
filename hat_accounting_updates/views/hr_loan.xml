@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="hr_loan_inh" model="ir.ui.view">
+            <field name="name">HR LOAN</field>
+            <field name="model">hr.loan</field>
+            <field name="priority">1000</field>
+            <field name="inherit_id" ref="ohrms_loan.hr_loan_form_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//header" position="inside">
+                    <button name="action_inverse_journal_entry" type="object" string="advance payment"
+                            class="oe_highlight"
+                            attrs="{'invisible':[('balance_amount','=',0)]}"/>
+                </xpath>
+                <xpath expr="//div[hasclass('oe_button_box')]" position="inside">
+                    <button name="journal_task_view_button"
+                            type="object"
+                            class="oe_stat_button"
+                            icon="fa-archive" attrs="{'invisible':[('journal_count','=',0)]}">
+                        <field name="journal_count" widget="statinfo" string="Journals"/>
+                    </button>
+                </xpath>
+                <xpath expr="//field[@name='currency_id']" position="after">
+                    <field name="advance_payment" invisible="1"/>
+                    <field name="balance_check"/>
+                </xpath>
+            </field>
+        </record>
+
+
+    </data>
+</odoo>
