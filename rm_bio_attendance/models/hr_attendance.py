@@ -64,3 +64,9 @@ class HrAttendance(models.Model):
              'then the system proposed one or more regiters to fix the problem '
              'but you must review the created register due '
              'because of hour could be not correct')
+
+    def fix_check_out(self):
+        for rec in self:
+            if rec.check_out == False and rec.check_in:
+                rec.check_out = rec.check_in
+
