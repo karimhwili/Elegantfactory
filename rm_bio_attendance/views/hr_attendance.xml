@@ -41,5 +41,16 @@
                 </xpath>
             </field>
         </record>
+        <record id="action_fic_checkout_data" model="ir.actions.server">
+            <field name="name">Fix Checkout</field>
+            <field name="model_id" ref="hr_attendance.model_hr_attendance"/>
+            <field name="binding_model_id" ref="hr_attendance.model_hr_attendance"/>
+            <field name="binding_view_types">list</field>
+            <field name="state">code</field>
+            <field name="code">
+                if records:
+                    records.fix_check_out()
+            </field>
+        </record>
     </data>
 </odoo>

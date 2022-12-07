@@ -13,15 +13,14 @@ import logging
 import binascii
 from struct import unpack
 from odoo.exceptions import UserError, ValidationError
+from datetime import date
 
-_logger = logging.getLogger(__name__)
 
 from odoo.addons.rm_bio_attendance.zk import ZK, const
 
 from odoo import api, fields, models
 import pytz
 import sys
-from datetime import date
 
 PY3 = sys.version_info >= (3, 0)
 
@@ -90,6 +89,9 @@ class biometric_machine(models.Model):
     def _cron_att_download(self):
         for mc in self.search([('state', '=', 'active')]):
             mc.download_attendancenew()
+
+    @api.model
+    def _cron_create_att(self):
         self.download_from_log()
 
     @api.model
@@ -224,8 +226,11 @@ class biometric_machine(models.Model):
 
     def download_from_log(self):
         current_date = date.today()
-        previous_date = date.today() - timedelta(days=2)
-        logs = self.env['biometric.log'].search([('employee_id', '!=', None), ('name', '<=', current_date),('name','>=',previous_date)])
+        previous_date = date.today() - timedelta(days=6)
+        logs = self.env['biometric.log'].search(
+            [('employee_id', '!=', None), ('name', '<=', current_date), ('name', '>=', previous_date)])
+        atts = []
+
         atts = []
         for log in logs.sorted(key=lambda l: l.name):
             atttime = log.name
