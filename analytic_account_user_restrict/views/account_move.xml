@@ -13,7 +13,7 @@
                     <field name="analytic_mandatory" invisible="1"/>
                     <field name="analytic_account_id"
                            groups="analytic.group_analytic_accounting"
-                           optional="show" attrs="{'required': [('analytic_mandatory', '=', True)]}"/>
+                           optional="show" />
                 </xpath>
 
             </field>

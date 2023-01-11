@@ -28,7 +28,7 @@ class AccountPayment(models.Model):
         domain=False,
         check_company=True)
 
-    currency_rate = fields.Float("Currency Rate",digits=(6, 3),compute='_get_currency_rate',store=True,readonly=False)
+    currency_rate = fields.Float("Currency Rate",digits=(6, 20),compute='_get_currency_rate',store=True,readonly=False)
     amount_currency = fields.Monetary("Amount Currency",compute='get_amount_currency')
     default_currency = fields.Many2one('res.currency',default=lambda self: self.env.user.company_id.currency_id)
 
@@ -404,64 +404,64 @@ class AccountPayment(models.Model):
             move.write(move._cleanup_write_orm_values(move, move_vals_to_write))
             pay.write(move._cleanup_write_orm_values(pay, payment_vals_to_write))
 
-    def _synchronize_to_moves(self, changed_fields):
-        ''' Update the account.move regarding the modified account.payment.
-        :param changed_fields: A list containing all modified fields on account.payment.
-        '''
-        if self._context.get('skip_account_move_synchronization'):
-            return
-
-        if not any(field_name in changed_fields for field_name in (
-            'date', 'amount', 'payment_type','currency_rate', 'partner_type', 'payment_reference', 'is_internal_transfer',
-            'currency_id', 'partner_id', 'destination_account_id', 'partner_bank_id',
-        )):
-            return
-
-        for pay in self.with_context(skip_account_move_synchronization=True):
-            liquidity_lines, counterpart_lines, writeoff_lines = pay._seek_for_lines()
-
-            # Make sure to preserve the write-off amount.
-            # This allows to create a new payment with custom 'line_ids'.
-
-            if writeoff_lines:
-                writeoff_amount = sum(writeoff_lines.mapped('amount_currency'))
-                counterpart_amount = counterpart_lines['amount_currency']
-                if writeoff_amount > 0.0 and counterpart_amount > 0.0:
-                    sign = 1
-                else:
-                    sign = -1
-                write_off_line_vals = {
-                    'name': writeoff_lines[0].name,
-                    'amount': writeoff_amount * sign,
-                    # 'currency_rate':writeoff_lines[0].currency_rate,
-                    'account_id': writeoff_lines[0].account_id.id,
-                }
-
-            else:
-                write_off_line_vals = {}
-            line_vals_list = pay._prepare_move_line_default_vals(write_off_line_vals=write_off_line_vals)
-
-            line_ids_commands = [
-                (1, liquidity_lines.id, line_vals_list[0]),
-                (1, counterpart_lines.id, line_vals_list[1]),
-            ]
-
-            for line in writeoff_lines:
-                line_ids_commands.append((2, line.id))
-
-            if writeoff_lines:
-                line_ids_commands.append((0, 0, line_vals_list[2]))
-
-            # Update the existing journal items.
-            # If dealing with multiple write-off lines, they are dropped and a new one is generated.
-
-            pay.move_id.write({
-                'partner_id': pay.partner_id.id,
-                'currency_id': pay.currency_id.id,
-                'partner_bank_id': pay.partner_bank_id.id,
-                'line_ids': line_ids_commands,
-
-            })
+    # def _synchronize_to_moves(self, changed_fields):
+    #     ''' Update the account.move regarding the modified account.payment.
+    #     :param changed_fields: A list containing all modified fields on account.payment.
+    #     '''
+    #     if self._context.get('skip_account_move_synchronization'):
+    #         return
+    #
+    #     if not any(field_name in changed_fields for field_name in (
+    #         'date', 'amount', 'payment_type','currency_rate', 'partner_type', 'payment_reference', 'is_internal_transfer',
+    #         'currency_id', 'partner_id', 'destination_account_id', 'partner_bank_id',
+    #     )):
+    #         return
+    #
+    #     for pay in self.with_context(skip_account_move_synchronization=True):
+    #         liquidity_lines, counterpart_lines, writeoff_lines = pay._seek_for_lines()
+    #
+    #         # Make sure to preserve the write-off amount.
+    #         # This allows to create a new payment with custom 'line_ids'.
+    #
+    #         if writeoff_lines:
+    #             writeoff_amount = sum(writeoff_lines.mapped('amount_currency'))
+    #             counterpart_amount = counterpart_lines['amount_currency']
+    #             if writeoff_amount > 0.0 and counterpart_amount > 0.0:
+    #                 sign = 1
+    #             else:
+    #                 sign = -1
+    #             write_off_line_vals = {
+    #                 'name': writeoff_lines[0].name,
+    #                 'amount': writeoff_amount * sign,
+    #                 # 'currency_rate':writeoff_lines[0].currency_rate,
+    #                 'account_id': writeoff_lines[0].account_id.id,
+    #             }
+    #
+    #         else:
+    #             write_off_line_vals = {}
+    #         line_vals_list = pay._prepare_move_line_default_vals(write_off_line_vals=write_off_line_vals)
+    #
+    #         line_ids_commands = [
+    #             (1, liquidity_lines.id, line_vals_list[0]),
+    #             (1, counterpart_lines.id, line_vals_list[1]),
+    #         ]
+    #
+    #         for line in writeoff_lines:
+    #             line_ids_commands.append((2, line.id))
+    #
+    #         if writeoff_lines:
+    #             line_ids_commands.append((0, 0, line_vals_list[2]))
+    #
+    #         # Update the existing journal items.
+    #         # If dealing with multiple write-off lines, they are dropped and a new one is generated.
+    #
+    #         pay.move_id.write({
+    #             'partner_id': pay.partner_id.id,
+    #             'currency_id': pay.currency_id.id,
+    #             'partner_bank_id': pay.partner_bank_id.id,
+    #             'line_ids': line_ids_commands,
+    #
+    #         })
 
 
     @api.depends('partner_bank_id', 'amount', 'ref', 'currency_id', 'journal_id', 'move_id.state',
