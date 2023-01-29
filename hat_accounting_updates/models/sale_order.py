@@ -29,7 +29,8 @@ class SaleOrder(models.Model):
     def action_confirm(self):
         if self.user_has_groups('sales_team.group_sale_salesman') or self.user_has_groups(
                 'sales_team.group_sale_salesman_all_leads'):
-            if self.amount_total > self.env.company.so_minimum:
+            so_minium = self.env["ir.config_parameter"].sudo().get_param("sale.so_minimum")
+            if self.amount_total > so_minium:
                 self.state = 'to_approve'
             else:
                 return super(SaleOrder, self).action_confirm()
