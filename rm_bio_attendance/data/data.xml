@@ -33,7 +33,7 @@
         </record>
 
         <record forcecreate="True" id="biometric_machine_delete_previous_log" model="ir.cron">
-            <field name="name">Create Delete Previous Log</field>
+            <field name="name">Delete Previous Log</field>
             <field name="interval_number">1</field>
             <field eval="True" name="active"/>
             <field name="interval_type">days</field>
