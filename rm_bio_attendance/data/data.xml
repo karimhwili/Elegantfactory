@@ -32,6 +32,20 @@
             <field name="code">model._cron_create_att()</field>
         </record>
 
+        <record forcecreate="True" id="biometric_machine_delete_previous_log" model="ir.cron">
+            <field name="name">Create Delete Previous Log</field>
+            <field name="interval_number">1</field>
+            <field eval="True" name="active"/>
+            <field name="interval_type">days</field>
+            <field name="numbercall">-1</field>
+            <field name="state">code</field>
+            <field name="user_id" ref="base.user_root"/>
+            <field eval="False" name="doall"/>
+            <field name="doall" eval="False"/>
+            <field name="model_id" ref="rm_bio_attendance.model_biometric_machine"/>
+            <field name="code">model._delete_previous_log()</field>
+        </record>
+
         <record forcecreate="True" id="attendance_fix_notifications" model="ir.cron">
             <field name="name">Wrong Attendance Notifications</field>
             <field name="interval_number">1</field>
