@@ -258,10 +258,8 @@ class biometric_machine(models.Model):
 
     @api.model
     def _delete_previous_log(self):
-        previous_date = date.today() - timedelta(days=5)
-        print("previous_date",previous_date)
+        previous_date = date.today() - timedelta(days=10)
         logs = self.env['biometric.log'].search([('name', '<=', previous_date)])
-        print("len",len(logs))
         for log in logs:
             log.unlink()
 
