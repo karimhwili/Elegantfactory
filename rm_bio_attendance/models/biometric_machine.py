@@ -15,7 +15,6 @@ from struct import unpack
 from odoo.exceptions import UserError, ValidationError
 from datetime import date
 
-
 from odoo.addons.rm_bio_attendance.zk import ZK, const
 
 from odoo import api, fields, models
@@ -256,6 +255,15 @@ class biometric_machine(models.Model):
                     new_record = self.env['biometric.record'].sudo().create(
                         record_vals)
                     break
+
+    @api.model
+    def _delete_previous_log(self):
+        previous_date = date.today() - timedelta(days=5)
+        print("previous_date",previous_date)
+        logs = self.env['biometric.log'].search([('name', '<=', previous_date)])
+        print("len",len(logs))
+        for log in logs:
+            log.unlink()
 
     def action_download_from_log(self):
         employee_ids = self.env['hr.employee'].search(
