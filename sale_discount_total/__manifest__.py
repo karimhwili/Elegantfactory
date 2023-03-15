@@ -21,10 +21,12 @@ Module to manage discount on total amount in Sale.
                 'account',
                 ],
     'data': [
+        'security/security.xml',
         'views/sale_view.xml',
         'views/account_invoice_view.xml',
         'views/invoice_report.xml',
         'views/sale_order_report.xml',
+        'views/sales_team.xml',
         # 'views/res_config_view.xml',
 
     ],
