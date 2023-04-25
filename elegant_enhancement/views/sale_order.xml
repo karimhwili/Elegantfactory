@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <!-- Inherit Form View to Modify it -->
+        <record id="view_order_form_inherit" model="ir.ui.view">
+            <field name="name">view_order_form</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//field[@name='order_line']//tree//field[@name='price_unit']" position="before">
+                    <field name="can_edit_price_unit" invisible="1"/>
+                </xpath>
+                 <xpath expr="//field[@name='order_line']//tree//field[@name='price_unit']" position="attributes">
+                     <attribute name="attrs">{'readonly': [('can_edit_price_unit', '=', False)]}</attribute>
+                 </xpath>
+
+            </field>
+        </record>
+    </data>
+</odoo>
