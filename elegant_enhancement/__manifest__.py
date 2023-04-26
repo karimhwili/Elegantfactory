@@ -12,6 +12,8 @@
         'views/account_journal.xml',
         'views/account_payment.xml',
         'views/product_template.xml',
+        'reports/report_receipt_action.xml',
+        'reports/report_receipt_template.xml',
     ],
 
 }
