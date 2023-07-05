@@ -8,7 +8,7 @@ class SaleOrder(models.Model):
         'res.partner', string='Customer', readonly=True,
         states={'draft': [('readonly', False)], 'sent': [('readonly', False)]},
         required=True, change_default=True, index=True, tracking=1,
-        domain="[('partner_type', 'in', ['customer','employee'])]", )
+        domain="[('partner_type', 'in', ['customer','both'])]", )
 
 
 class SaleOrderLine(models.Model):

@@ -38,6 +38,12 @@
             <field name="users" eval="[(4, ref('base.user_root'))]"/>
         </record>
 
+        <record id="can_approve_payment_receipt" model="res.groups">
+            <field name="name">Can Approve Payment Receipt</field>
+            <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+            <field name="users" eval="[(4, ref('base.user_root'))]"/>
+        </record>
+
         <record id="can_confirm_payment_receipt" model="res.groups">
             <field name="name">Can Confirm Payment Receipt</field>
             <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
@@ -45,8 +51,14 @@
         </record>
 
 
-        <record id="show_cost_sale_price" model="res.groups">
-            <field name="name">Show Cost and Sale Price</field>
+        <record id="show_product_cost" model="res.groups">
+            <field name="name">Show Cost</field>
+            <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+            <field name="users" eval="[(4, ref('base.user_root'))]"/>
+        </record>
+
+        <record id="show_product_sale_price" model="res.groups">
+            <field name="name">Show Sale Price</field>
             <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
             <field name="users" eval="[(4, ref('base.user_root'))]"/>
         </record>
