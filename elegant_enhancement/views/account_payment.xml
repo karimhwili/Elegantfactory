@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <!-- Inherit Form View to Modify it -->
+        <record id="view_account_payment_form_inherit" model="ir.ui.view">
+            <field name="name">view_account_payment_form</field>
+            <field name="model">account.payment</field>
+            <field name="inherit_id" ref="account.view_account_payment_form"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//field[@name='state']" position="replace">
+                    <field name="state" widget="statusbar" statusbar_visible="draft,approved,posted"/>
+                </xpath>
+                <xpath expr="//button[@name='action_post']" position="replace">
+                    <button name="action_post" string="Confirm" type="object" class="oe_highlight"
+                            groups="elegant_enhancement.can_confirm_payment_receipt"
+                            attrs="{'invisible': [('state', '!=', 'approved')]}"/>
+                </xpath>
+                <xpath expr="//button[@name='action_post']" position="before">
+                    <button name="action_approve" string="Approve" type="object" class="oe_highlight"
+                            groups="elegant_enhancement.can_approve_payment_receipt"
+                            attrs="{'invisible': [('state', '!=', 'draft')]}"/>
+                </xpath>
+
+            </field>
+        </record>
+    </data>
+</odoo>

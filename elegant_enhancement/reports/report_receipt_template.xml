@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id="payment_receipt_template">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="doc">
+                    <t t-call="web.basic_layout">
+<!--                        <t t-set="doc" t-value="doc.with_context(lang='ar_001')"/>-->
+                        <div class="page" >
+                            <div class="row" >
+                                <div class="col-4" style="text-align:right !important">
+                                    <span style="font-family:'Roboto';font-size:25px"
+                                          t-esc="doc.company_id.name"/>
+                                </div>
+                                <div class="col-8"></div>
+                            </div>
+                            <br/>
+                            <div class="text-center mb-30" style="font-size:25px;">
+                                <t t-if="doc.payment_type=='inbound'">
+                                    <span>
+                                        إيصال قبض رقم :
+                                    </span>
+                                </t>
+                                <t t-else="">
+                                    <span>
+                                        إيصال صرف رقم :
+                                    </span>
+                                </t>
+                                <span t-esc="doc.name"/>
+                            </div>
+                            <div class="row">
+                                <div class="col-3"></div>
+                                <div style="border:1px solid black" class="col-6">
+                                </div>
+                                <div class="col-3"></div>
+                            </div>
+                            <br/>
+                            <div style="font-size:25px;" >
+                                <t t-if="doc.payment_type=='inbound'">
+                                    <span>
+                                        أنا الموقع ادناه اقر على إستلام مبلغ من :
+                                    </span>
+                                </t>
+                                <t t-else="">
+                                    <span>
+                                        يصرف هذا المبلغ إلى :
+                                    </span>
+                                </t>
+                                <span t-esc="doc.partner_id.name"/>
+                            </div>
+                            <div class="row" style="margin-top:12px;font-size:25px;">
+                                <div class="col-4">
+                                    <span>مبلغ وقدرة :</span>
+                                    <span t-esc="doc.amount"/>
+                                </div>
+                                <div class="col-4">
+                                    <span>الخصم :</span>
+                                    <span>00</span>
+                                </div>
+                                <div class="col-4">
+                                    <sapn>التاريخ :</sapn>
+                                    <span t-esc="doc.date"/>
+                                </div>
+                            </div>
+                            <div style="margin-top:12px;font-size:25px;">
+                                <span>المبلغ بالحروف :</span>
+                                <span t-esc="doc.amount_total_words"/>
+                            </div>
+                            <div class="row" style="margin-top:12px;font-size:25px;">
+                                <div class="col-5">
+                                    <span>لصالح :</span>
+                                    <span t-esc="doc.journal_id.name"/>
+                                </div>
+                                <div class="col-7">
+                                    <sapn>يوجد لديكم رصيد :</sapn>
+                                    <span>
+                                        <span t-esc="doc.partner_id.total_due"/>
+                                    </span>
+                                    <span>دينار</span>
+                                </div>
+                            </div>
+                            <div style="margin-top:12px;font-size:25px;">
+                                <span>وذلك عن :</span>
+                                <span t-esc="doc.ref"/>
+                            </div>
+                            <br/>
+                            <div class="row" style="margin-top:12px;font-size:25px;">
+                                <div class="col-6">
+                                    <span>اسم المستلم :</span>
+                                    <span>................................................</span>
+                                </div>
+                                <div class="col-6">
+                                    <span>توقيع المستلم :</span>
+                                    <span>................................................</span>
+                                </div>
+                            </div>
+                            <br/>
+                            <br/>
+                            <div style="border:1px solid black;margin-bottom:7px">
+                            </div>
+                            <div class="text-center" style="font-size:20px;">
+                                <div>
+                                    <span>Elegant Company - Heavy Transport Road 6 Km, 1km Away From Alnaseem-Misurata</span>
+                                    <span>-</span>
+                                    <span>Libya</span>
+                                    <span>-</span>
+                                    <span>00218922108999</span>
+                                    <span>-</span>
+                                    <span>info@elegant.com.ly</span>
+                                </div>
+                            </div>
+                            <div class="text-center" style="font-size:20px;">
+                                <div>
+                                    <span>اسم المستخدم :</span>
+                                    <span t-esc="doc.create_uid.name"/>
+                                    <span>---------------</span>
+                                    <span>[<span t-esc="doc.create_date.strftime('%H:%M:%S %Y-%m-%d')"/>]
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </t>
+            </t>
+        </template>
+    </data>
+</odoo>

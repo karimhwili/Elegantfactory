@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="product_template_form_inherit" model="ir.ui.view">
+            <field name="name">product_template_form_inherit</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="product.product_template_form_view"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//label[@for='list_price']" position="attributes">
+                    <attribute name="groups">elegant_enhancement.show_product_sale_price</attribute>
+                </xpath>
+                <xpath expr="//div[@name='pricing']" position="attributes">
+                    <attribute name="groups">elegant_enhancement.show_product_sale_price</attribute>
+                </xpath>
+                <xpath expr="//label[@for='standard_price']" position="attributes">
+                    <attribute name="groups">elegant_enhancement.show_product_cost</attribute>
+                </xpath>
+                <xpath expr="//div[@name='standard_price_uom']" position="attributes">
+                    <attribute name="groups">elegant_enhancement.show_product_cost</attribute>
+                </xpath>
+
+            </field>
+        </record>
+
+        <!-- Inherit Form View to Modify it -->
+        <record id="product_template_form_inherit_2" model="ir.ui.view">
+            <field name="name">product_template_form_inherit</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="product.product_template_form_view"/>
+            <field name="groups_id" eval="[(6, 0, [ref('elegant_enhancement.hide_edit_button_product_partner')])]"/>
+            <field name="arch" type="xml">
+                <xpath expr="//form" position="attributes">
+                    <attribute name="edit">false</attribute>
+                </xpath>
+            </field>
+        </record>
+
+        <!-- Inherit Form View to Modify it -->
+        <record id="product_template_form_view_procurement_button_inherit" model="ir.ui.view">
+            <field name="name">product_template_form_view_procurement_button</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="stock.product_template_form_view_procurement_button"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//button[@name='action_open_quants']" position="attributes">
+                    <attribute name="groups">elegant_enhancement.show_available_qty</attribute>
+                </xpath>
+                <xpath expr="//button[@name='action_product_tmpl_forecast_report']" position="attributes">
+                    <attribute name="groups">elegant_enhancement.show_available_qty</attribute>
+                </xpath>
+
+            </field>
+        </record>
+
+        <record id="product_template_tree_inherit" model="ir.ui.view">
+            <field name="name">product_template_tree_inherit</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="product.product_template_tree_view"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//field[@name='list_price']" position="attributes">
+                    <attribute name="groups">elegant_enhancement.show_product_sale_price</attribute>
+                </xpath>
+                <xpath expr="//field[@name='standard_price']" position="attributes">
+                    <attribute name="groups">elegant_enhancement.show_product_cost</attribute>
+                </xpath>
+
+            </field>
+        </record>
+        <!-- Inherit Form View to Modify it -->
+        <record id="product_normal_form_view_inherit" model="ir.ui.view">
+            <field name="name">product_normal_form_view</field>
+            <field name="model">product.product</field>
+            <field name="inherit_id" ref="product.product_normal_form_view"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//label[@for='lst_price']" position="attributes">
+                    <attribute name="groups">elegant_enhancement.show_product_sale_price</attribute>
+                </xpath>
+                <xpath expr="//field[@name='lst_price']" position="attributes">
+                    <attribute name="groups">elegant_enhancement.show_product_sale_price</attribute>
+                </xpath>
+
+            </field>
+        </record>
+
+        <record id="product_normal_form_view_inherit_2" model="ir.ui.view">
+            <field name="name">product_normal_form_view</field>
+            <field name="model">product.product</field>
+            <field name="inherit_id" ref="product.product_normal_form_view"/>
+            <field name="groups_id" eval="[(6, 0, [ref('elegant_enhancement.hide_edit_button_product_partner')])]"/>
+            <field name="arch" type="xml">
+                <xpath expr="//form" position="attributes">
+                    <attribute name="edit">false</attribute>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="product_product_tree_inherit" model="ir.ui.view">
+            <field name="name">product_product_tree_inherit</field>
+            <field name="model">product.product</field>
+            <field name="inherit_id" ref="product.product_product_tree_view"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//field[@name='lst_price']" position="attributes">
+                    <attribute name="groups">elegant_enhancement.show_product_sale_price</attribute>
+                </xpath>
+                <xpath expr="//field[@name='standard_price']" position="attributes">
+                    <attribute name="groups">elegant_enhancement.show_product_cost</attribute>
+                </xpath>
+
+            </field>
+        </record>
+
+        <!-- Inherit Form View to Modify it -->
+        <record id="product_template_kanban_view" model="ir.ui.view">
+            <field name="name">product_template_kanban_view</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="product.product_template_kanban_view"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//div[@name='product_lst_price']" position="attributes">
+                   <attribute name="groups">elegant_enhancement.show_product_sale_price</attribute>
+                </xpath>
+
+            </field>
+        </record>
+
+        <record id="product_template_kanban_stock_view" model="ir.ui.view">
+            <field name="name">product_template_kanban_stock_view</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="stock.product_template_kanban_stock_view"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//div[3]" position="attributes">
+                   <attribute name="groups">elegant_enhancement.show_available_qty</attribute>
+                </xpath>
+
+            </field>
+        </record>
+    </data>
+</odoo>

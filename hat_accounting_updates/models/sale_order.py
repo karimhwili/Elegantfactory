@@ -13,9 +13,9 @@ class SaleOrder(models.Model):
     def get_picking_seq(self):
         for order in self:
             if order.picking_ids:
-                first_picking = order.picking_ids.filtered(lambda x: x.state != 'cancel')[0]
+                first_picking = order.picking_ids.filtered(lambda x: x.state != 'cancel')
                 if first_picking:
-                    order.picking_name = first_picking.name
+                    order.picking_name = first_picking[0].name
                 else:
                     order.picking_name = False
             else:

@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_elegant_enhacment_product_template,elegant_enhacment.product_template,stock.model_product_template,elegant_enhancement.hide_edit_button_product_partner,1,0,0,0
+access_elegant_enhacment_product,elegant_enhacment.product,stock.model_product_product,elegant_enhancement.hide_edit_button_product_partner,1,0,0,0
