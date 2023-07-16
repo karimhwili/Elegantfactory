@@ -16,7 +16,11 @@ class AccountPayment(models.Model):
     ], string='Status', readonly=True, copy=False, tracking=True, default='draft', index=True, required=True)
 
     def action_approve(self):
-        self.state = 'approved'
+        if self.payment_type == 'inbound':
+            self.state = 'posted'
+            self.move_id._post(soft=False)
+        else:
+            self.state = 'approved'
 
     def action_post(self):
         ''' draft -> posted '''
