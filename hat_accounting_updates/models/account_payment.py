@@ -20,6 +20,11 @@ class AccountPayment(models.Model):
             else:
                 rec.currency_rate = rec.currency_id.rate
 
+    def fix_draft_payment(self):
+        for rec in self:
+            if rec.state == 'draft' and rec.move_id.state == 'posted':
+                rec.state = 'posted'
+
 
 class ResCurrency(models.Model):
     _inherit = 'res.currency'
