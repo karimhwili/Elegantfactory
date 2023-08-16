@@ -9,6 +9,7 @@ class SaleOrder(models.Model):
         states={'draft': [('readonly', False)], 'sent': [('readonly', False)]},
         required=True, change_default=True, index=True, tracking=1,
         domain="[('partner_type', 'in', ['customer','both'])]", )
+    agent = fields.Many2one('hr.employee', related='partner_id.agent',store=True)
 
 
 class SaleOrderLine(models.Model):
