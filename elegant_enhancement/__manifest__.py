@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 {
     'name': "Elegant Enhancement",
-    'depends': ['base','sale_management', 'account','stock','sales_team'],
+    'depends': ['base', 'sale_management', 'account', 'stock', 'sales_team','hr'],
 
     # always loaded
     'data': [
