@@ -7,6 +7,7 @@ class AccountMove(models.Model):
     _inherit = 'account.move'
 
     validate_debit_credit = fields.Boolean(copy=False, compute='check_validate_debit_credit')
+    agent = fields.Many2one('res.partner', related='partner_id.agent', store=True)
 
     def check_validate_debit_credit(self):
         for rec in self:
@@ -20,7 +21,8 @@ class AccountMove(models.Model):
 
     def check_validate_invoices_bills(self):
         for rec in self:
-            if not self.env.user.has_group('elegant_enhancement.can_validate_invoices_bills') and rec.move_type in ['in_invoice', 'out_invoice']:
+            if not self.env.user.has_group('elegant_enhancement.can_validate_invoices_bills') and rec.move_type in [
+                'in_invoice', 'out_invoice']:
                 rec.validate_inv_bill = False
             else:
                 rec.validate_inv_bill = True

@@ -22,6 +22,9 @@
                             groups="elegant_enhancement.can_approve_payment_receipt"
                             attrs="{'invisible': [('state', '!=', 'draft')]}"/>
                 </xpath>
+                <xpath expr="//field[@name='partner_id']" position="attributes">
+                    <attribute name="attrs">{'readonly': [('state', '!=', 'draft')]}</attribute>
+                </xpath>
 
             </field>
         </record>
