@@ -28,7 +28,7 @@ class SaleOrderLine(models.Model):
 class SaleReport(models.Model):
     _inherit = 'sale.report'
 
-    agent = fields.Many2one('res.partner', related='partner_id.agent',store=True)
+    agent = fields.Many2one('hr.employee', related='partner_id.agent',store=True)
 
     def _select_sale(self, fields=None):
         if not fields:
