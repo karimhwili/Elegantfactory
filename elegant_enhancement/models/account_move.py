@@ -7,7 +7,7 @@ class AccountMove(models.Model):
     _inherit = 'account.move'
 
     validate_debit_credit = fields.Boolean(copy=False, compute='check_validate_debit_credit')
-    agent = fields.Many2one('res.partner', related='partner_id.agent', store=True)
+    agent = fields.Many2one('hr.employee', related='partner_id.agent', store=True)
 
     def check_validate_debit_credit(self):
         for rec in self:
