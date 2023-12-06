@@ -36,5 +36,20 @@
                 </xpath>
             </field>
         </record>
+
+        <!-- Inherit Form View to Modify it -->
+        <record id="view_account_invoice_filter_inherit" model="ir.ui.view" >
+            <field name="name">view_account_invoice_filter</field>
+            <field name="model">account.move</field>
+            <field name="inherit_id" ref="account.view_account_invoice_filter"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//filter[@name='salesperson']" position="after">
+                    <filter string="Agent" name="agent" context="{'group_by':'agent'}"/>
+
+                </xpath>
+
+            </field>
+        </record>
     </data>
 </odoo>
