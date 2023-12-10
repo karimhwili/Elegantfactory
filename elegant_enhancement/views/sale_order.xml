@@ -35,18 +35,18 @@
         </record>
 
         <!-- Inherit Form View to Modify it -->
-        <record id="view_order_product_search_inherit" model="ir.ui.view">
-            <field name="name">view_order_product_search</field>
-            <field name="model">sale.report</field>
-            <field name="inherit_id" ref="sale.view_order_product_search"/>
-            <field name="arch" type="xml">
+<!--        <record id="view_order_product_search_inherit" model="ir.ui.view">-->
+<!--            <field name="name">view_order_product_search</field>-->
+<!--            <field name="model">sale.report</field>-->
+<!--            <field name="inherit_id" ref="sale.view_order_product_search"/>-->
+<!--            <field name="arch" type="xml">-->
 
-                <xpath expr="//filter[@name='sales_channel']" position="before">
-                   <filter string="Agent" name="agent" context="{'group_by':'agent'}"/>
-                </xpath>
+<!--                <xpath expr="//filter[@name='sales_channel']" position="before">-->
+<!--                   <filter string="Agent" name="agent" context="{'group_by':'agent'}"/>-->
+<!--                </xpath>-->
 
-            </field>
-        </record>
+<!--            </field>-->
+<!--        </record>-->
 
         <menuitem id="sale.menu_sale_report"
                   name="Reporting"
