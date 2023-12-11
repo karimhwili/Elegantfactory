@@ -25,10 +25,16 @@ class SaleOrderLine(models.Model):
             self.can_edit_price_unit = True
 
 
-# class SaleReport(models.Model):
-#     _inherit = 'sale.report'
-#
-#     agent = fields.Many2one('hr.employee', related='partner_id.agent',store=True)
+class SaleReport(models.Model):
+    _inherit = 'sale.report'
+
+    agent = fields.Many2one('hr.employee')
+
+    def _query(self, with_clause='', fields={}, groupby='', from_clause=''):
+        fields['agent'] = ', s.agent as agent'
+        groupby += ', s.agent'
+        return super()._query(with_clause, fields, groupby, from_clause)
+
 #
 #     def _select_sale(self, fields=None):
 #         if not fields:
