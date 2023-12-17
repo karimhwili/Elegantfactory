@@ -15,6 +15,7 @@ class AccountPayment(models.Model):
         ('cancelled', 'Cancelled'),
     ], string='Status', readonly=True, copy=False, tracking=True, default='draft', index=True, required=True)
 
+
     def action_approve(self):
         if self.payment_type == 'inbound':
             self.state = 'posted'
