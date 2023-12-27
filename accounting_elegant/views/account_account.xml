@@ -10,10 +10,10 @@
             <field name="arch" type="xml">
 
                 <xpath expr="//field[@name='allowed_journal_ids']" position="after">
-                   <field name="force_auto"/>
+                    <field name="force_auto"/>
                     <field name="transfer_type" widget="radio"/>
                 </xpath>
-           </field>
+            </field>
         </record>
     </data>
 
@@ -28,21 +28,24 @@
             </field>
             <xpath expr="//field[@name='line_ids']" position="attributes">
                 <attribute name="context">{'default_move_type': context.get('default_move_type'),
-                                           'line_ids': line_ids, 'journal_id': journal_id,
-                                           'default_partner_id': commercial_partner_id,
-                                           'default_currency_id': currency_id or company_currency_id,
-                                           'default_entry_type': entry_type
-                                           }
-            </attribute>
+                    'line_ids': line_ids, 'journal_id': journal_id,
+                    'default_partner_id': commercial_partner_id,
+                    'default_currency_id': currency_id or company_currency_id,
+                    'default_entry_type': entry_type
+                    }
+                </attribute>
             </xpath>
             <xpath expr="//field[@name='line_ids']//field[@name='account_id']" position="replace">
-                    <field name="account_id" domain="[('company_id', '=', parent.company_id), ('deprecated', '=', False), ('force_auto', '=', False)]"/>
-                    <field name="entry_type" invisible="1"/>
+                <field name="account_id"
+                       domain="[('company_id', '=', parent.company_id), ('deprecated', '=', False), ('force_auto', '=', False)]"/>
+                <field name="entry_type" invisible="1"/>
             </xpath>
             <xpath expr="//div[@name='journal_div']" position="after">
                 <field name="is_reason" invisible="1"/>
-                    <field name="reason" readonly="1" force_save="1" attrs="{'invisible': ['|', ('is_reason', '!=', True),('state','!=','cancel')]}"/>
+                <field name="reason" readonly="1" force_save="1"
+                       attrs="{'invisible': ['|', ('is_reason', '!=', True),('state','!=','cancel')]}"/>
             </xpath>
+
 
 
         </field>
@@ -61,12 +64,13 @@
                 <field name="currency_rate" force_save="1" attrs="{'readonly': [ ('state','=','posted')]}"/>
             </xpath>
             <xpath expr="//field[@name='is_internal_transfer']" position="after">
-                <field name="transfer_type" widget="radio" attrs="{'invisible': [ ('is_internal_transfer','=',False)]}"/>
+                <field name="transfer_type" widget="radio"
+                       attrs="{'invisible': [ ('is_internal_transfer','=',False)],'readonly': [ ('state','=','posted')]}"/>
             </xpath>
             <xpath expr="//field[@name='destination_account_id']" position="replace">
                 <field name="destination_account_id"
-                                       options="{'no_create': True}" required="1"
-                                       attrs="{'readonly': [ ('state', '!=', 'draft')]}"/>
+                       options="{'no_create': True}" required="1"
+                       attrs="{'readonly': [ ('state', '!=', 'draft')]}"/>
             </xpath>
 
             <xpath expr="//field[@name='partner_id']" position="attributes">
